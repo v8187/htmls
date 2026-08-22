@@ -1,0 +1,3399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Developer CLI Commands Reference</title>
+
+    <style>
+      :root {
+        /* =========================================
+         COLORS
+      ========================================= */
+
+        --color-primary: #6366f1;
+        --color-primary-hover: #4f46e5;
+        --color-primary-light: #eef2ff;
+
+        --color-bg: #f8fafc;
+        --color-surface: #ffffff;
+        --color-surface-alt: #f1f5f9;
+
+        --color-text: #1e293b;
+        --color-text-muted: #64748b;
+        --color-border: #e2e8f0;
+
+        --color-success: #16a34a;
+        --color-success-light: #dcfce7;
+
+        --color-warning: #d97706;
+        --color-warning-light: #fef3c7;
+
+        --color-danger: #dc2626;
+        --color-danger-light: #fee2e2;
+
+        --color-info: #0284c7;
+
+        --color-code-bg: #0f172a;
+        --color-code-text: #e2e8f0;
+
+        /* =========================================
+         TYPOGRAPHY
+      ========================================= */
+
+        --font-sans:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+
+        --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+        --font-size-xs: 0.75rem;
+        --font-size-sm: 0.875rem;
+        --font-size-base: 1rem;
+        --font-size-lg: 1.125rem;
+        --font-size-xl: 1.25rem;
+        --font-size-2xl: 1.5rem;
+        --font-size-3xl: 1.875rem;
+
+        /* =========================================
+         SPACING
+      ========================================= */
+
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+
+        /* =========================================
+         LAYOUT
+      ========================================= */
+
+        --sidebar-width: 270px;
+        --content-max-width: 1200px;
+        --floating-panel-width: 260px;
+
+        /* =========================================
+         UI
+      ========================================= */
+
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 16px;
+
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+        --transition: 0.2s ease;
+      }
+
+      /* =========================================
+       RESET
+    ========================================= */
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        font-size: var(--font-size-base);
+        line-height: 1.6;
+        color: var(--color-text);
+        background: var(--color-bg);
+      }
+
+      /* =========================================
+       LAYOUT
+    ========================================= */
+
+      .app {
+        min-height: 100vh;
+      }
+
+      .left-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        width: var(--sidebar-width);
+        height: 100vh;
+
+        padding: var(--space-6);
+
+        overflow-y: auto;
+
+        background: var(--color-surface);
+        border-right: 1px solid var(--color-border);
+      }
+
+      .main {
+        margin-left: var(--sidebar-width);
+        padding: var(--space-8);
+      }
+
+      .content {
+        width: 100%;
+        max-width: var(--content-max-width);
+
+        margin: 0 auto;
+
+        padding-right: calc(var(--floating-panel-width) + var(--space-8));
+      }
+
+      .floating-panel {
+        position: fixed;
+
+        top: var(--space-8);
+        right: var(--space-8);
+
+        width: var(--floating-panel-width);
+
+        padding: var(--space-5);
+
+        background: var(--color-surface);
+
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+
+        box-shadow: var(--shadow-md);
+      }
+
+      /* =========================================
+       HEADINGS
+    ========================================= */
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 0;
+        margin-bottom: var(--space-4);
+
+        line-height: 1.25;
+        color: var(--color-text);
+      }
+
+      h1 {
+        font-size: var(--font-size-3xl);
+      }
+
+      h2 {
+        font-size: var(--font-size-2xl);
+        padding-top: var(--space-4);
+      }
+
+      h3 {
+        font-size: var(--font-size-xl);
+      }
+
+      h4 {
+        font-size: var(--font-size-lg);
+      }
+
+      p {
+        margin: 0 0 var(--space-4);
+      }
+
+      /* =========================================
+       DIVIDERS
+    ========================================= */
+
+      .divider {
+        width: 100%;
+        height: 1px;
+
+        margin: var(--space-8) 0;
+
+        border: 0;
+
+        background: var(--color-border);
+      }
+
+      .divider--primary {
+        background: var(--color-primary);
+      }
+
+      /* =========================================
+       LEFT NAVIGATION
+    ========================================= */
+
+      .nav-group {
+        margin-bottom: var(--space-5);
+      }
+
+      .nav-group__label {
+        display: block;
+
+        margin-bottom: var(--space-2);
+
+        font-size: var(--font-size-sm);
+        font-weight: 800;
+
+        color: var(--color-primary);
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+
+        padding-left: var(--space-4);
+      }
+
+      .nav-link {
+        display: block;
+
+        padding: var(--space-2) var(--space-3);
+
+        border-radius: var(--radius-sm);
+
+        color: var(--color-text-muted);
+        text-decoration: none;
+
+        transition: var(--transition);
+      }
+
+      .nav-link:hover {
+        color: var(--color-primary);
+
+        background: var(--color-primary-light);
+      }
+
+      /* =========================================
+       LINKS
+    ========================================= */
+
+      .link {
+        color: var(--color-primary);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .links-list {
+        margin: 0;
+        padding-left: var(--space-6);
+      }
+
+      .links-list li {
+        margin-bottom: var(--space-2);
+      }
+
+      /* =========================================
+       LISTS
+    ========================================= */
+
+      ul,
+      ol {
+        margin: 0 0 var(--space-4);
+        padding-left: var(--space-6);
+      }
+
+      li {
+        margin-bottom: var(--space-2);
+      }
+
+      /* =========================================
+       CARDS
+    ========================================= */
+
+      .card {
+        padding: var(--space-5);
+
+        margin-bottom: var(--space-4);
+
+        background: var(--color-surface);
+
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+
+        box-shadow: var(--shadow-sm);
+      }
+
+      .card--primary {
+        border-color: var(--color-primary);
+        background: var(--color-primary-light);
+      }
+
+      .card--success {
+        border-left: 4px solid var(--color-success);
+      }
+
+      .card--warning {
+        border-left: 4px solid var(--color-warning);
+      }
+
+      .card--danger {
+        border-left: 4px solid var(--color-danger);
+      }
+
+      .card__title {
+        margin-bottom: var(--space-2);
+      }
+
+      .cards-list {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+        gap: var(--space-4);
+
+        margin-bottom: var(--space-6);
+      }
+
+      /* =========================================
+       TAGS
+    ========================================= */
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 0.2rem 0.6rem;
+
+        font-size: var(--font-size-xs);
+        font-weight: 600;
+
+        border-radius: 999px;
+
+        color: var(--color-text-muted);
+        background: var(--color-surface-alt);
+      }
+
+      .tag--primary {
+        color: var(--color-primary);
+        background: var(--color-primary-light);
+      }
+
+      .tag--success {
+        color: var(--color-success);
+        background: var(--color-success-light);
+      }
+
+      .tag--warning {
+        color: var(--color-warning);
+        background: var(--color-warning-light);
+      }
+
+      .tag--danger {
+        color: var(--color-danger);
+        background: var(--color-danger-light);
+      }
+
+      .tags-list,
+      .badges-list {
+        display: flex;
+        flex-wrap: wrap;
+
+        gap: var(--space-2);
+
+        margin-bottom: var(--space-4);
+      }
+
+      /* =========================================
+       BADGES
+    ========================================= */
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+
+        padding: var(--space-1) var(--space-2);
+
+        font-size: var(--font-size-xs);
+        font-weight: 700;
+
+        border-radius: var(--radius-sm);
+
+        color: var(--color-text);
+        background: var(--color-surface-alt);
+      }
+
+      .badge--primary {
+        color: #ffffff;
+        background: var(--color-primary);
+      }
+
+      .badge--success {
+        color: #ffffff;
+        background: var(--color-success);
+      }
+
+      .badge--warning {
+        color: #ffffff;
+        background: var(--color-warning);
+      }
+
+      .badge--danger {
+        color: #ffffff;
+        background: var(--color-danger);
+      }
+
+      /* =========================================
+       BUTTONS
+    ========================================= */
+
+      .button {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: var(--space-2) var(--space-4);
+
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+
+        cursor: pointer;
+
+        font: inherit;
+        font-weight: 600;
+
+        transition: var(--transition);
+      }
+
+      .button--primary {
+        color: #ffffff;
+        background: var(--color-primary);
+      }
+
+      .button--primary:hover {
+        background: var(--color-primary-hover);
+      }
+
+      .button--secondary {
+        color: var(--color-text);
+
+        background: var(--color-surface);
+
+        border-color: var(--color-border);
+      }
+
+      .button--danger {
+        color: #ffffff;
+        background: var(--color-danger);
+      }
+
+      /* =========================================
+       HIGHLIGHTS
+    ========================================= */
+
+      .highlight {
+        padding: 0.1rem 0.3rem;
+
+        border-radius: var(--radius-sm);
+
+        background: var(--color-warning-light);
+      }
+
+      .highlight--primary {
+        color: var(--color-primary);
+        background: var(--color-primary-light);
+      }
+
+      /* =========================================
+       SECTIONS
+    ========================================= */
+
+      .section {
+        margin-bottom: var(--space-10);
+
+        scroll-margin-top: var(--space-6);
+      }
+
+      .section--card {
+        padding: var(--space-6);
+
+        background: var(--color-surface);
+
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+      }
+
+      /* =========================================
+       QUOTES
+    ========================================= */
+
+      .quote {
+        margin: var(--space-5) 0;
+
+        padding: var(--space-4) var(--space-5);
+
+        border-left: 4px solid var(--color-primary);
+
+        color: var(--color-text);
+        background: var(--color-primary-light);
+      }
+
+      .quote__author {
+        display: block;
+
+        margin-top: var(--space-2);
+
+        font-size: var(--font-size-sm);
+
+        color: var(--color-text-muted);
+      }
+
+      /* =========================================
+       INLINE CODE
+    ========================================= */
+
+      code {
+        padding: 0.15rem 0.35rem;
+
+        border-radius: var(--radius-sm);
+
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+
+        color: var(--color-danger);
+
+        background: var(--color-surface-alt);
+      }
+
+      /* =========================================
+       MULTILINE CODE
+    ========================================= */
+
+      .code-block {
+        margin: var(--space-4) 0 var(--space-6);
+
+        border-radius: var(--radius-md);
+
+        overflow: hidden;
+
+        background: var(--color-code-bg);
+      }
+
+      .code-block__header {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        padding: var(--space-2) var(--space-4);
+
+        font-size: var(--font-size-xs);
+
+        color: var(--color-text-muted);
+
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .code-block pre {
+        margin: 0;
+
+        padding: var(--space-5);
+
+        overflow-x: auto;
+      }
+
+      .code-block code {
+        padding: 0;
+
+        color: var(--color-code-text);
+        background: transparent;
+      }
+
+      /* =========================================
+       TABLES
+    ========================================= */
+
+      .table-wrapper {
+        width: 100%;
+
+        margin-bottom: var(--space-6);
+
+        overflow-x: auto;
+
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+      }
+
+      table {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        background: var(--color-surface);
+      }
+
+      th,
+      td {
+        padding: var(--space-3) var(--space-4);
+
+        text-align: left;
+
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      th {
+        font-size: var(--font-size-sm);
+        font-weight: 700;
+
+        background: var(--color-surface-alt);
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      /* =========================================
+       FLOATING PANEL
+    ========================================= */
+
+      .floating-panel__title {
+        margin-bottom: var(--space-3);
+
+        font-size: var(--font-size-lg);
+      }
+
+      .floating-panel__text {
+        margin-bottom: var(--space-4);
+
+        font-size: var(--font-size-sm);
+
+        color: var(--color-text-muted);
+      }
+
+      /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+      @media (max-width: 1200px) {
+        .floating-panel {
+          display: none;
+        }
+
+        .content {
+          padding-right: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .left-panel {
+          position: relative;
+
+          width: 100%;
+          height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+
+          padding: var(--space-5);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      /* =========================================================
+       UTILITIES
+    ========================================================= */
+
+      const escapeHtml = (value = "") =>
+        String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+
+      /**
+       * Sort an array by a nested property path.
+       *
+       * @param {Array} data - Array to sort.
+       * @param {string} path - Nested property path, e.g. 'item.commands'
+       * @param {'asc'|'desc'} order - Sort direction.
+       * @returns {Array} Sorted copy of the original array.
+       */
+      function deepSort(data, path, order = "asc") {
+        const getValue = (obj, path) =>
+          path.split(".").reduce((value, key) => value?.[key], obj);
+
+        const direction = order.toLowerCase() === "desc" ? -1 : 1;
+
+        return [...data].sort((a, b) => {
+          const valueA = getValue(a, path);
+          const valueB = getValue(b, path);
+
+          // Handle null / undefined values
+          if (valueA == null && valueB == null) return 0;
+          if (valueA == null) return 1;
+          if (valueB == null) return -1;
+
+          // Numbers
+          if (typeof valueA === "number" && typeof valueB === "number") {
+            return (valueA - valueB) * direction;
+          }
+
+          // Strings and other comparable values
+          return (
+            String(valueA).localeCompare(String(valueB), undefined, {
+              numeric: true,
+              sensitivity: "base",
+            }) * direction
+          );
+        });
+      }
+      /* =========================================================
+       GENERIC RENDER FUNCTIONS
+    ========================================================= */
+
+      const renderHeading = ({
+        level = 2,
+        text = "",
+        id = "",
+        className = "",
+      }) => {
+        const safeLevel = Math.min(Math.max(level, 1), 6);
+
+        return `
+        <h${safeLevel}
+          ${id ? `id="${escapeHtml(id)}"` : ""}
+          class="${escapeHtml(className)}"
+        >
+          ${escapeHtml(text)}
+        </h${safeLevel}>
+      `;
+      };
+
+      const renderDivider = ({ variant = "default" } = {}) => `
+      <hr
+        class="
+          divider
+          divider--${escapeHtml(variant)}
+        "
+      />
+    `;
+
+      const renderLink = ({ label = "", href = "#", target = "" }) => `
+      <a
+        class="link"
+        href="${escapeHtml(href)}"
+        ${target ? `target="${escapeHtml(target)}"` : ""}
+      >
+        ${escapeHtml(label)}
+      </a>
+    `;
+
+      const renderLinksList = (links = []) => `
+      <ul class="links-list">
+        ${links
+          .map(
+            (link) => `
+            <li>
+              ${renderLink(link)}
+            </li>
+          `,
+          )
+          .join("")}
+      </ul>
+    `;
+
+      const renderCard = ({
+        title = "",
+        content = "",
+        variant = "default",
+      }) => `
+      <article
+        class="
+          card
+          card--${escapeHtml(variant)}
+        "
+      >
+        ${
+          title
+            ? `
+              <h3 class="card__title">
+                ${escapeHtml(title)}
+              </h3>
+            `
+            : ""
+        }
+
+        ${content ? `<p>${content}</p>` : ""}
+      </article>
+    `;
+
+      const renderCardsList = (cards = []) => `
+      <div class="cards-list">
+        ${cards.map(renderCard).join("")}
+      </div>
+    `;
+
+      const renderTable = ({ headers = [], rows = [] }) => `
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              ${headers
+                .map(
+                  (header) => `
+                  <th>
+                    ${escapeHtml(header)}
+                  </th>
+                `,
+                )
+                .join("")}
+            </tr>
+          </thead>
+
+          <tbody>
+            ${rows
+              .map(
+                (row) => `
+                <tr>
+                  ${row
+                    .map(
+                      (cell) => `
+                      <td>${cell}</td>
+                    `,
+                    )
+                    .join("")}
+                </tr>
+              `,
+              )
+              .join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+      const renderSection = ({
+        id = "",
+        title = "",
+        content = "",
+        variant = "",
+      }) => `
+      <section
+        id="${escapeHtml(id)}"
+        class="
+          section
+          ${variant ? `section--${escapeHtml(variant)}` : ""}
+        "
+      >
+        ${
+          title
+            ? renderHeading({
+                level: 2,
+                text: title,
+              })
+            : ""
+        }
+
+        ${content}
+      </section>
+    `;
+
+      const renderInlineCode = (code = "") => `
+      <code>
+        ${escapeHtml(code)}
+      </code>
+    `;
+
+      const renderCode = ({ code = "", language = "text" }) => `
+      <div class="code-block">
+        <div class="code-block__header">
+          <span>
+            ${escapeHtml(language)}
+          </span>
+        </div>
+
+        <pre><code>${escapeHtml(code)}</code></pre>
+      </div>
+    `;
+
+      /* Keeping requested function name */
+      const renderQoute = ({ text = "", author = "" }) => `
+      <blockquote class="quote">
+        ${escapeHtml(text)}
+
+        ${
+          author
+            ? `
+              <span class="quote__author">
+                — ${escapeHtml(author)}
+              </span>
+            `
+            : ""
+        }
+      </blockquote>
+    `;
+
+      const renderTag = ({ label = "", variant = "default" }) => `
+      <span
+        class="
+          tag
+          tag--${escapeHtml(variant)}
+        "
+      >
+        ${escapeHtml(label)}
+      </span>
+    `;
+
+      const renderTagsList = (tags = []) => `
+      <div class="tags-list">
+        ${tags.map(renderTag).join("")}
+      </div>
+    `;
+
+      const renderBadge = ({ label = "", variant = "default" }) => `
+      <span
+        class="
+          badge
+          badge--${escapeHtml(variant)}
+        "
+      >
+        ${escapeHtml(label)}
+      </span>
+    `;
+
+      const renderBadgesList = (badges = []) => `
+      <div class="badges-list">
+        ${badges.map(renderBadge).join("")}
+      </div>
+    `;
+
+      /* =========================================================
+       LEFT PANEL DATA
+    ========================================================= */
+
+      const LEFT_PANEL_DATA = [
+        {
+          label: "Source Control",
+
+          links: [
+            {
+              label: "Git",
+              href: "#commands-git",
+            },
+            {
+              label: "GitHub CLI",
+              href: "#commands-github",
+            },
+          ],
+        },
+
+        {
+          label: "Cloud",
+
+          links: [
+            {
+              label: "Azure",
+              href: "#commands-azure",
+            },
+            {
+              label: "AWS",
+              href: "#commands-aws",
+            },
+          ],
+        },
+
+        {
+          label: "Infrastructure",
+
+          links: [
+            {
+              label: "Terraform",
+              href: "#commands-terraform",
+            },
+            {
+              label: "Helm",
+              href: "#commands-helm",
+            },
+          ],
+        },
+
+        {
+          label: "Containers",
+
+          links: [
+            {
+              label: "Docker",
+              href: "#commands-docker",
+            },
+            {
+              label: "Kubernetes",
+              href: "#commands-kubectl",
+            },
+            {
+              label: "AKS",
+              href: "#commands-aks",
+            },
+            {
+              label: "EKS",
+              href: "#commands-eks",
+            },
+          ],
+        },
+
+        {
+          label: "JavaScript",
+
+          links: [
+            {
+              label: "NPM",
+              href: "#commands-npm",
+            },
+            {
+              label: "NPX",
+              href: "#commands-npx",
+            },
+            {
+              label: "Node.js",
+              href: "#commands-node",
+            },
+          ],
+        },
+
+        {
+          label: "Linux & Utilities",
+
+          links: [
+            {
+              label: "Linux",
+              href: "#commands-linux",
+            },
+            {
+              label: "curl",
+              href: "#commands-curl",
+            },
+            {
+              label: "jq",
+              href: "#commands-jq",
+            },
+          ],
+        },
+      ];
+
+      /* =========================================================
+       COMMAND DATA
+    ========================================================= */
+
+      const COMMANDS_DATA = [
+        /* =====================================================
+         GIT
+      ===================================================== */
+
+        {
+          id: "commands-git",
+
+          title: "Git",
+
+          description:
+            "Common Git commands for repositories, branches, commits, remotes, history, merges and recovery.",
+
+          tags: [
+            {
+              label: "Source Control",
+              variant: "primary",
+            },
+            {
+              label: "Git",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "git status",
+              description: "Show the current working tree status.",
+            },
+            {
+              command: "git init",
+              description: "Initialize a new Git repository.",
+            },
+            {
+              command: "git clone <repository-url>",
+              description: "Clone an existing repository.",
+            },
+            {
+              command: "git branch",
+              description: "List local branches.",
+            },
+          
+            {
+              command: "git checkout <branch>",
+              description: "Switch to an existing branch.",
+            },
+            {
+              command: "git checkout -b <branch>",
+              description: "Create and switch to a new branch.",
+            },
+            {
+              command: "git switch <branch>",
+              description: "Switch branches using the newer Git command.",
+            },
+            {
+              command: "git switch -c <branch>",
+              description: "Create and switch to a new branch.",
+            },
+            {
+              command: "git add <file>",
+              description: "Stage a specific file.",
+            },
+            {
+              command: "git add .",
+              description: "Stage all current changes.",
+            },
+            {
+              command: "git restore --staged <file>",
+              description: "Remove a file from the staging area.",
+            },
+            {
+              command: 'git commit -m "message"',
+              description: "Create a commit.",
+            },
+            {
+              command: "git commit --amend",
+              description: "Modify the latest commit.",
+            },
+            {
+              command: "git log",
+              description: "Show commit history.",
+            },
+            {
+              command: "git log --oneline --graph --all",
+              description: "Show a compact graphical commit history.",
+            },
+            {
+              command: "git diff",
+              description: "Show unstaged changes.",
+            },
+            {
+              command: "git diff --staged",
+              description: "Show staged changes.",
+            },
+            {
+              command: "git fetch",
+              description: "Fetch changes without merging.",
+            },
+            {
+              command: "git merge <branch>",
+              description: "Merge another branch into the current branch.",
+            },
+            {
+              command: "git rebase <branch>",
+              description: "Reapply commits on top of another branch.",
+            },
+            {
+              command: "git stash",
+              description: "Temporarily save uncommitted changes.",
+            },
+            {
+              command: "git stash pop",
+              description: "Apply and remove the latest stash.",
+            },
+            {
+              command: "git tag <tag-name>",
+              description: "Create a new lightweight tag.",
+            },
+            {
+              command: "git reset --soft HEAD~1",
+              description:
+                "Undo the latest commit while keeping changes staged.",
+            },
+            {
+              command: "git reset --hard HEAD",
+              description: "Discard local tracked changes.",
+            },
+            {
+              command: "git reflog",
+              description: "Show reference history useful for recovery.",
+            },
+            {
+              command: "git tag",
+              description: "List local tags.",
+            },
+            {
+              command: 'git tag -l "v*"',
+              description: "List tags matching a pattern.",
+            },
+            {
+              command: "git tag v1.0.0",
+              description: "Create a lightweight tag.",
+            },
+            {
+              command: 'git tag -a v1.0.0 -m "Release v1.0.0"',
+              description: "Create an annotated tag.",
+            },
+            {
+              command: 'git tag -a v1.0.0 <commit-sha> -m "Release v1.0.0"',
+              description: "Create an annotated tag for a specific commit.",
+            },
+            {
+              command: "git show v1.0.0",
+              description: "Show details and commit information for a tag.",
+            },
+            {
+              command: "git push origin v1.0.0",
+              description: "Push a specific tag to the remote.",
+            },
+            {
+              command: "git push origin --tags",
+              description: "Push all local tags to the remote.",
+            },
+            {
+              command: "git push origin --follow-tags",
+              description: "Push commits and associated annotated tags.",
+            },
+            {
+              command: "git tag -d v1.0.0",
+              description: "Delete a local tag.",
+            },
+            {
+              command: "git push origin --delete v1.0.0",
+              description: "Delete a remote tag.",
+            },
+            {
+              command: "git fetch --tags",
+              description: "Fetch tags from the remote repository.",
+            },
+            {
+              command: "git tag --contains <commit-sha>",
+              description: "List tags containing a specific commit.",
+            },
+            {
+              command: "git tag --points-at <commit-sha>",
+              description: "List tags pointing directly to a commit.",
+            },
+            {
+              command: "git pull",
+              description:
+                "Fetch and merge changes from the configured upstream branch.",
+            },
+            {
+              command: "git pull origin main",
+              description: "Fetch and merge the main branch from origin.",
+            },
+            {
+              command: "git pull --rebase",
+              description:
+                "Fetch remote changes and rebase local commits on top.",
+            },
+            {
+              command: "git pull --ff-only",
+              description:
+                "Pull only when the update can be completed as a fast-forward.",
+            },
+            {
+              command: "git pull --no-rebase",
+              description: "Explicitly pull using a merge instead of rebase.",
+            },
+            {
+              command: "git fetch origin",
+              description:
+                "Fetch changes from origin without modifying the current branch.",
+            },
+            {
+              command: "git fetch --all",
+              description: "Fetch updates from all configured remotes.",
+            },
+            {
+              command: "git fetch --prune",
+              description:
+                "Fetch updates and remove stale remote-tracking references.",
+            },
+            {
+              command: "git remote update --prune",
+              description:
+                "Update all remotes and prune deleted remote branches.",
+            },
+            {
+              command: "git push",
+              description:
+                "Push the current branch to its configured upstream.",
+            },
+            {
+              command: "git push origin main",
+              description: "Push the local main branch to origin.",
+            },
+            {
+              command: "git push -u origin <branch>",
+              description:
+                "Push a branch and configure its upstream tracking branch.",
+            },
+            {
+              command: "git push --set-upstream origin <branch>",
+              description: "Push a branch and explicitly set its upstream.",
+            },
+            {
+              command: "git push origin --delete <branch>",
+              description: "Delete a remote branch.",
+            },
+            {
+              command: "git push origin :<branch>",
+              description: "Delete a remote branch using refspec syntax.",
+            },
+            {
+              command: "git push --force-with-lease",
+              description:
+                "Force push while protecting against unexpected remote changes.",
+            },
+            {
+              command: "git push --force",
+              description: "Force push local history to the remote branch.",
+            },
+            {
+              command: "git push --all",
+              description: "Push all local branches.",
+            },
+            {
+              command: "git push --mirror",
+              description: "Mirror all refs to the destination remote.",
+            },
+            {
+              command: "git merge <branch>",
+              description:
+                "Merge the specified branch into the current branch.",
+            },
+            {
+              command: "git merge --no-ff <branch>",
+              description:
+                "Create a merge commit even when a fast-forward is possible.",
+            },
+            {
+              command: "git merge --ff-only <branch>",
+              description: "Merge only if a fast-forward merge is possible.",
+            },
+            {
+              command: "git merge --squash <branch>",
+              description:
+                "Combine branch changes into the working tree without creating a merge commit.",
+            },
+            {
+              command: "git merge --abort",
+              description:
+                "Abort an in-progress merge and restore the previous state.",
+            },
+            {
+              command: "git merge-base main feature",
+              description: "Find the best common ancestor of two branches.",
+            },
+            {
+              command: "git diff main...feature",
+              description:
+                "Show changes introduced by feature since its common ancestor with main.",
+            },
+            {
+              command: "git log main..feature",
+              description:
+                "Show commits reachable from feature but not from main.",
+            },
+            {
+              command: "git log feature..main",
+              description:
+                "Show commits reachable from main but not from feature.",
+            },
+            {
+              command: "git rebase main",
+              description: "Replay current branch commits on top of main.",
+            },
+            {
+              command: "git rebase origin/main",
+              description:
+                "Replay current branch commits on top of the latest remote main branch.",
+            },
+            {
+              command: "git rebase -i HEAD~5",
+              description:
+                "Interactively edit, squash, reorder or modify the last five commits.",
+            },
+            {
+              command: "git rebase --continue",
+              description: "Continue a rebase after resolving conflicts.",
+            },
+            {
+              command: "git rebase --abort",
+              description: "Abort an in-progress rebase.",
+            },
+            {
+              command: "git rebase --skip",
+              description: "Skip the current commit during a rebase.",
+            },
+            {
+              command: "git branch --show-current",
+              description: "Show the currently checked-out branch.",
+            },
+            {
+              command: "git branch -vv",
+              description:
+                "Show branches with their upstream and latest commit information.",
+            },
+            {
+              command: "git branch --set-upstream-to=origin/main main",
+              description: "Set the upstream branch for the local main branch.",
+            },
+            {
+              command: "git remote show origin",
+              description:
+                "Show remote configuration, tracked branches and default branch information.",
+            },
+            {
+              command: "git clone --mirror <source-url>",
+              description:
+                "Create a bare mirrored clone containing all refs from the source repository.",
+            },
+            {
+              command: "git clone --bare <source-url>",
+              description:
+                "Create a bare repository clone without a working directory.",
+            },
+            {
+              command: "git remote -v",
+              description: "List configured remotes and their URLs.",
+            },
+            {
+              command: "git remote add target <target-url>",
+              description: "Add a target remote repository.",
+            },
+            {
+              command: "git remote set-url origin <new-url>",
+              description: "Change the URL of an existing remote.",
+            },
+            {
+              command: "git fetch origin --prune",
+              description:
+                "Fetch source changes and remove stale remote references.",
+            },
+            {
+              command: "git push --mirror <target-url>",
+              description: "Mirror all refs directly to a target repository.",
+            },
+            {
+              command: "git push target --all",
+              description: "Push all branches to the target remote.",
+            },
+            {
+              command: "git push target --tags",
+              description: "Push all tags to the target remote.",
+            },
+            {
+              command: "git fsck",
+              description:
+                "Verify repository object connectivity and integrity.",
+            },
+            {
+              command: "git count-objects -vH",
+              description: "Show repository object and storage statistics.",
+            },
+            {
+              command: "git branch -a",
+              description: "List all local and remote branches.",
+            },
+            {
+              command: "git ls-remote --heads origin",
+              description: "List remote branch references.",
+            },
+            {
+              command: "git ls-remote --tags origin",
+              description: "List remote tag references.",
+            },
+            {
+              command: "git ls-remote origin",
+              description: "List all remote references.",
+            },
+            {
+              command: "git rev-parse HEAD",
+              description: "Print the full SHA of the current commit.",
+            },
+            {
+              command: "git log -1 --format=%H",
+              description: "Print the SHA of the latest commit.",
+            },
+            {
+              command: "git diff --no-index <dir1> <dir2>",
+              description:
+                "Compare two directories outside normal Git tracking.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         GITHUB CLI
+      ===================================================== */
+
+        {
+          id: "commands-github",
+
+          title: "GitHub CLI",
+
+          description:
+            "Commands for repositories, pull requests, issues, releases and GitHub workflows.",
+
+          tags: [
+            {
+              label: "Source Control",
+              variant: "primary",
+            },
+            {
+              label: "GitHub CLI",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "gh --version",
+              description: "Display the GitHub CLI version.",
+            },
+            {
+              command: "gh auth status",
+              description: "Show current authentication status.",
+            },
+            {
+              command: "gh auth logout",
+              description: "Sign out from GitHub CLI.",
+            },
+            {
+              command: "gh repo view",
+              description: "Show information about the current repository.",
+            },
+            {
+              command: "gh repo list <owner>",
+              description: "List repositories for an owner or organization.",
+            },
+            {
+              command: "gh repo fork",
+              description: "Fork the current repository.",
+            },
+            {
+              command: "gh repo sync",
+              description: "Sync a fork with its upstream repository.",
+            },
+            {
+              command: "gh repo rename <name>",
+              description: "Rename the current repository.",
+            },
+            {
+              command: "gh pr status",
+              description:
+                "Show pull request status relevant to the current user.",
+            },
+            {
+              command: "gh pr diff <number>",
+              description: "Show changes for a pull request.",
+            },
+            {
+              command: "gh pr checks <number>",
+              description: "Show CI checks for a pull request.",
+            },
+            {
+              command: "gh pr review <number>",
+              description: "Review a pull request interactively.",
+            },
+            {
+              command: "gh pr close <number>",
+              description: "Close a pull request.",
+            },
+            {
+              command: "gh pr reopen <number>",
+              description: "Reopen a pull request.",
+            },
+            {
+              command: "gh pr ready <number>",
+              description: "Mark a draft pull request as ready for review.",
+            },
+            {
+              command: "gh issue view <number>",
+              description: "View issue details.",
+            },
+            {
+              command: "gh issue close <number>",
+              description: "Close an issue.",
+            },
+            {
+              command: "gh release list",
+              description: "List repository releases.",
+            },
+            {
+              command: "gh release create <tag>",
+              description: "Create a new release.",
+            },
+            {
+              command: "gh release view <tag>",
+              description: "View release details.",
+            },
+            {
+              command: "gh workflow list",
+              description: "List GitHub Actions workflows.",
+            },
+            {
+              command: "gh workflow run <workflow>",
+              description: "Manually trigger a GitHub Actions workflow.",
+            },
+            {
+              command: "gh run watch <run-id>",
+              description: "Watch a workflow run until completion.",
+            },
+            {
+              command: "gh api repos/{owner}/{repo}",
+              description: "Call the GitHub REST API for repository data.",
+            },
+            {
+              command: "gh auth login",
+              description: "Authenticate GitHub CLI.",
+            },
+            {
+              command: "gh repo list",
+              description: "List repositories.",
+            },
+            {
+              command: "gh repo clone <owner/repo>",
+              description: "Clone a GitHub repository.",
+            },
+            {
+              command: "gh repo create",
+              description: "Create a repository interactively.",
+            },
+            {
+              command: "gh pr list",
+              description: "List pull requests.",
+            },
+            {
+              command: "gh pr create",
+              description: "Create a pull request.",
+            },
+            {
+              command: "gh pr checkout <number>",
+              description: "Check out a pull request locally.",
+            },
+            {
+              command: "gh pr view <number>",
+              description: "View pull request details.",
+            },
+            {
+              command: "gh pr merge <number>",
+              description: "Merge a pull request.",
+            },
+            {
+              command: "gh issue list",
+              description: "List repository issues.",
+            },
+            {
+              command: "gh issue create",
+              description: "Create an issue.",
+            },
+            {
+              command: "gh run list",
+              description: "List GitHub Actions workflow runs.",
+            },
+            {
+              command: "gh run view <run-id>",
+              description: "View workflow run details.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         AZURE
+      ===================================================== */
+
+        {
+          id: "commands-azure",
+
+          title: "Azure CLI",
+
+          description:
+            "Useful Azure CLI commands for authentication, subscriptions, resource groups and common resources.",
+
+          tags: [
+            {
+              label: "Cloud",
+              variant: "primary",
+            },
+            {
+              label: "Azure",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "az login",
+              description: "Authenticate with Azure.",
+            },
+            {
+              command: "az logout",
+              description: "Sign out of Azure.",
+            },
+            {
+              command: "az account show",
+              description: "Show the current subscription.",
+            },
+            {
+              command: "az account list --output table",
+              description: "List available subscriptions.",
+            },
+            {
+              command: "az account set --subscription <subscription>",
+              description: "Set the active subscription.",
+            },
+            {
+              command: "az group list --output table",
+              description: "List resource groups.",
+            },
+            {
+              command: "az group create --name <name> --location <location>",
+              description: "Create a resource group.",
+            },
+            {
+              command: "az resource list --output table",
+              description: "List resources in the current subscription.",
+            },
+            {
+              command: "az vm list --output table",
+              description: "List virtual machines.",
+            },
+            {
+              command: "az vm list-ip-addresses --name <vm>",
+              description: "Show VM IP addresses.",
+            },
+            {
+              command: "az storage account list --output table",
+              description: "List storage accounts.",
+            },
+            {
+              command: "az aks list --output table",
+              description: "List AKS clusters.",
+            },
+            {
+              command: "az acr list --output table",
+              description: "List Azure Container Registries.",
+            },
+            {
+              command: "az version",
+              description: "Display Azure CLI version information.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         AWS
+      ===================================================== */
+
+        {
+          id: "commands-aws",
+
+          title: "AWS CLI",
+
+          description:
+            "Common AWS CLI commands for identity, configuration, S3, EC2, EKS and CloudFormation.",
+
+          tags: [
+            {
+              label: "Cloud",
+              variant: "primary",
+            },
+            {
+              label: "AWS",
+              variant: "warning",
+            },
+          ],
+
+          commands: [
+            {
+              command: "aws configure",
+              description: "Configure AWS credentials and defaults.",
+            },
+            {
+              command: "aws configure list",
+              description: "Show current AWS CLI configuration.",
+            },
+            {
+              command: "aws sts get-caller-identity",
+              description: "Show the currently authenticated identity.",
+            },
+            {
+              command: "aws s3 ls",
+              description: "List S3 buckets.",
+            },
+            {
+              command: "aws s3 ls s3://<bucket>",
+              description: "List objects in an S3 bucket.",
+            },
+            {
+              command: "aws s3 cp <source> <destination>",
+              description: "Copy files to or from S3.",
+            },
+            {
+              command: "aws s3 sync <source> <destination>",
+              description: "Synchronize directories and S3 locations.",
+            },
+            {
+              command: "aws ec2 describe-instances",
+              description: "Describe EC2 instances.",
+            },
+            {
+              command: "aws ec2 describe-regions",
+              description: "List available AWS regions.",
+            },
+            {
+              command: "aws eks list-clusters",
+              description: "List EKS clusters.",
+            },
+            {
+              command: "aws iam list-users",
+              description: "List IAM users.",
+            },
+            {
+              command: "aws cloudformation list-stacks",
+              description: "List CloudFormation stacks.",
+            },
+            {
+              command: "aws configure list-profiles",
+              description: "List configured AWS profiles.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         TERRAFORM
+      ===================================================== */
+
+        {
+          id: "commands-terraform",
+
+          title: "Terraform",
+
+          description:
+            "Common Terraform commands for infrastructure as code, state management, workspaces and providers.",
+
+          tags: [
+            {
+              label: "Infrastructure as Code",
+              variant: "primary",
+            },
+            {
+              label: "Terraform",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "terraform version",
+              description: "Display the installed Terraform version.",
+            },
+            {
+              command: "terraform init",
+              description:
+                "Initialize the working directory and required providers.",
+            },
+            {
+              command: "terraform init -upgrade",
+              description:
+                "Initialize and upgrade provider and module dependencies.",
+            },
+            {
+              command: "terraform validate",
+              description: "Validate Terraform configuration.",
+            },
+            {
+              command: "terraform fmt",
+              description: "Format Terraform configuration files.",
+            },
+            {
+              command: "terraform fmt -recursive",
+              description: "Format Terraform files recursively.",
+            },
+            {
+              command: "terraform plan",
+              description: "Create an execution plan.",
+            },
+            {
+              command: "terraform plan -out=tfplan",
+              description: "Save the execution plan to a file.",
+            },
+            {
+              command: "terraform apply",
+              description: "Apply infrastructure changes.",
+            },
+            {
+              command: "terraform apply tfplan",
+              description: "Apply a previously saved execution plan.",
+            },
+            {
+              command: "terraform destroy",
+              description:
+                "Destroy infrastructure managed by the configuration.",
+            },
+            {
+              command: "terraform show",
+              description: "Display current state or a saved plan.",
+            },
+            {
+              command: "terraform output",
+              description: "Display Terraform output values.",
+            },
+            {
+              command: "terraform output -json",
+              description: "Display outputs in JSON format.",
+            },
+            {
+              command: "terraform state list",
+              description: "List resources tracked in state.",
+            },
+            {
+              command: "terraform state show <resource>",
+              description: "Show details of a resource in state.",
+            },
+            {
+              command: "terraform state mv <source> <destination>",
+              description: "Move a resource within Terraform state.",
+            },
+            {
+              command: "terraform state rm <resource>",
+              description:
+                "Remove a resource from state without destroying it.",
+            },
+            {
+              command: "terraform refresh",
+              description: "Refresh state from real infrastructure.",
+            },
+            {
+              command: "terraform workspace list",
+              description: "List Terraform workspaces.",
+            },
+            {
+              command: "terraform workspace new <name>",
+              description: "Create a new workspace.",
+            },
+            {
+              command: "terraform workspace select <name>",
+              description: "Switch to a workspace.",
+            },
+            {
+              command: "terraform workspace show",
+              description: "Show the current workspace.",
+            },
+            {
+              command: "terraform providers",
+              description: "Show required providers.",
+            },
+            {
+              command: "terraform graph",
+              description: "Generate a dependency graph.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         HELM
+      ===================================================== */
+
+        {
+          id: "commands-helm",
+
+          title: "Helm",
+
+          description:
+            "Commands for managing Kubernetes packages, charts and releases.",
+
+          tags: [
+            {
+              label: "Kubernetes",
+              variant: "primary",
+            },
+            {
+              label: "Package Manager",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "helm version",
+              description: "Show Helm version information.",
+            },
+            {
+              command: "helm repo list",
+              description: "List configured chart repositories.",
+            },
+            {
+              command: "helm repo add <name> <url>",
+              description: "Add a chart repository.",
+            },
+            {
+              command: "helm repo update",
+              description: "Update local chart repository information.",
+            },
+            {
+              command: "helm search repo <keyword>",
+              description: "Search configured repositories.",
+            },
+            {
+              command: "helm install <release> <chart>",
+              description: "Install a chart.",
+            },
+            {
+              command: "helm list",
+              description: "List releases.",
+            },
+            {
+              command: "helm upgrade <release> <chart>",
+              description: "Upgrade an existing release.",
+            },
+            {
+              command: "helm upgrade --install <release> <chart>",
+              description:
+                "Install the release if it does not exist, otherwise upgrade it.",
+            },
+            {
+              command: "helm uninstall <release>",
+              description: "Remove a release.",
+            },
+            {
+              command: "helm status <release>",
+              description: "Show release status.",
+            },
+            {
+              command: "helm history <release>",
+              description: "Show release history.",
+            },
+            {
+              command: "helm rollback <release> <revision>",
+              description: "Rollback a release to a previous revision.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         DOCKER
+      ===================================================== */
+
+        {
+          id: "commands-docker",
+
+          title: "Docker",
+
+          description:
+            "Commands for images, containers, volumes, networks and Docker Compose.",
+
+          tags: [
+            {
+              label: "Containers",
+              variant: "primary",
+            },
+            {
+              label: "Docker",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "docker version",
+              description: "Show Docker client and server versions.",
+            },
+            {
+              command: "docker info",
+              description: "Display Docker system information.",
+            },
+            {
+              command: "docker ps",
+              description: "List running containers.",
+            },
+            {
+              command: "docker ps -a",
+              description: "List all containers.",
+            },
+            {
+              command: "docker images",
+              description: "List local Docker images.",
+            },
+            {
+              command: "docker pull <image>",
+              description: "Download an image.",
+            },
+            {
+              command: "docker build -t <image> .",
+              description: "Build an image from the current directory.",
+            },
+            {
+              command: "docker run <image>",
+              description: "Run a container.",
+            },
+            {
+              command: "docker run -d -p 8080:80 <image>",
+              description: "Run a detached container with port mapping.",
+            },
+            {
+              command: "docker exec -it <container> /bin/sh",
+              description: "Open an interactive shell inside a container.",
+            },
+            {
+              command: "docker logs <container>",
+              description: "Show container logs.",
+            },
+            {
+              command: "docker logs -f <container>",
+              description: "Follow container logs.",
+            },
+            {
+              command: "docker stop <container>",
+              description: "Stop a running container.",
+            },
+            {
+              command: "docker start <container>",
+              description: "Start a stopped container.",
+            },
+            {
+              command: "docker rm <container>",
+              description: "Remove a container.",
+            },
+            {
+              command: "docker rmi <image>",
+              description: "Remove an image.",
+            },
+            {
+              command: "docker volume ls",
+              description: "List Docker volumes.",
+            },
+            {
+              command: "docker network ls",
+              description: "List Docker networks.",
+            },
+            {
+              command: "docker system prune",
+              description: "Remove unused Docker resources.",
+            },
+            {
+              command: "docker compose up -d",
+              description: "Start Compose services in detached mode.",
+            },
+            {
+              command: "docker compose down",
+              description: "Stop and remove Compose resources.",
+            },
+            {
+              command: "docker compose logs -f",
+              description: "Follow logs for Compose services.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         KUBERNETES
+      ===================================================== */
+
+        {
+          id: "commands-kubectl",
+
+          title: "Kubernetes",
+
+          description:
+            "Frequently used kubectl commands for clusters, namespaces, workloads, services and troubleshooting.",
+
+          tags: [
+            {
+              label: "Containers",
+              variant: "primary",
+            },
+            {
+              label: "Kubernetes",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "kubectl get pods -o wide",
+              description:
+                "List pods with extended details including node and IP.",
+            },
+            {
+              command: "kubectl get pods --watch",
+              description: "Continuously watch pod changes.",
+            },
+            {
+              command: "kubectl get all",
+              description: "List common resources in the current namespace.",
+            },
+            {
+              command: "kubectl get all -A",
+              description: "List common resources across all namespaces.",
+            },
+            {
+              command: "kubectl describe deployment <deployment>",
+              description: "Show detailed deployment information.",
+            },
+            {
+              command: "kubectl get deployment <deployment> -o yaml",
+              description: "Output a deployment definition as YAML.",
+            },
+            {
+              command: "kubectl scale deployment <deployment> --replicas=3",
+              description: "Scale a deployment to three replicas.",
+            },
+            {
+              command: "kubectl edit deployment <deployment>",
+              description: "Edit a deployment interactively.",
+            },
+            {
+              command: "kubectl delete pod <pod>",
+              description: "Delete a pod.",
+            },
+            {
+              command: "kubectl delete pod <pod> --grace-period=0 --force",
+              description: "Force-delete a pod.",
+            },
+            {
+              command: "kubectl logs <pod> -c <container>",
+              description: "Show logs for a specific container in a pod.",
+            },
+            {
+              command: "kubectl logs <pod> --previous",
+              description: "Show logs from the previous container instance.",
+            },
+            {
+              command: "kubectl logs -l app=<label> --all-containers=true",
+              description: "Show logs for pods selected by a label.",
+            },
+            {
+              command: "kubectl exec -it <pod> -- /bin/bash",
+              description: "Open an interactive Bash shell in a pod.",
+            },
+            {
+              command: "kubectl exec <pod> -- env",
+              description: "Display environment variables inside a pod.",
+            },
+            {
+              command: "kubectl top nodes",
+              description: "Show CPU and memory usage for nodes.",
+            },
+            {
+              command: "kubectl top pods",
+              description: "Show CPU and memory usage for pods.",
+            },
+            {
+              command: "kubectl get events --sort-by=.lastTimestamp",
+              description: "Show events ordered by timestamp.",
+            },
+            {
+              command: "kubectl describe node <node>",
+              description: "Show detailed node information.",
+            },
+            {
+              command: "kubectl apply -f <directory>",
+              description: "Apply all manifests from a directory.",
+            },
+            {
+              command: "kubectl apply -k <directory>",
+              description: "Apply resources using a Kustomize configuration.",
+            },
+            {
+              command: "kubectl diff -f <file.yaml>",
+              description: "Show differences before applying a manifest.",
+            },
+            {
+              command: "kubectl delete -f <directory>",
+              description:
+                "Delete resources defined in manifests in a directory.",
+            },
+            {
+              command: "kubectl create -f <file.yaml>",
+              description: "Create resources from a manifest.",
+            },
+            {
+              command: "kubectl replace -f <file.yaml>",
+              description: "Replace an existing resource from a manifest.",
+            },
+            {
+              command: "kubectl get services",
+              description: "List services.",
+            },
+            {
+              command: "kubectl describe service <service>",
+              description: "Show detailed service information.",
+            },
+            {
+              command: "kubectl get ingress",
+              description: "List ingress resources.",
+            },
+            {
+              command: "kubectl port-forward pod/<pod> 8080:80",
+              description: "Forward a local port to a pod port.",
+            },
+            {
+              command: "kubectl port-forward service/<service> 8080:80",
+              description: "Forward a local port to a service port.",
+            },
+            {
+              command:
+                "kubectl expose deployment <deployment> --port=80 --type=ClusterIP",
+              description: "Create a service for a deployment.",
+            },
+            {
+              command: "kubectl get pods -l app=<value>",
+              description: "List pods matching a label selector.",
+            },
+            {
+              command: "kubectl label pod <pod> environment=dev",
+              description: "Add or update a label on a pod.",
+            },
+            {
+              command: "kubectl get pods -o yaml",
+              description: "Output pods as YAML.",
+            },
+            {
+              command: "kubectl get pods -o json",
+              description: "Output pods as JSON.",
+            },
+            {
+              command:
+                "kubectl get pods -o custom-columns=NAME:.metadata.name,STATUS:.status.phase",
+              description: "Display selected fields as custom columns.",
+            },
+            {
+              command: "kubectl get pods --sort-by=.metadata.creationTimestamp",
+              description: "Sort pods by creation timestamp.",
+            },
+            {
+              command: "kubectl rollout status deployment/<deployment>",
+              description: "Wait for and display deployment rollout status.",
+            },
+            {
+              command: "kubectl rollout history deployment/<deployment>",
+              description: "Show deployment rollout history.",
+            },
+            {
+              command: "kubectl rollout restart deployment/<deployment>",
+              description: "Restart a deployment.",
+            },
+            {
+              command: "kubectl rollout pause deployment/<deployment>",
+              description: "Pause a deployment rollout.",
+            },
+            {
+              command: "kubectl rollout resume deployment/<deployment>",
+              description: "Resume a paused deployment rollout.",
+            },
+            {
+              command: "kubectl rollout undo deployment/<deployment>",
+              description: "Rollback to the previous deployment revision.",
+            },
+            {
+              command:
+                "kubectl rollout undo deployment/<deployment> --to-revision=<number>",
+              description: "Rollback to a specific deployment revision.",
+            },
+            {
+              command: "kubectl config view",
+              description: "Display the complete kubeconfig configuration.",
+            },
+            {
+              command: "kubectl config get-contexts",
+              description: "List configured Kubernetes contexts.",
+            },
+            {
+              command: "kubectl config current-context",
+              description: "Show the active Kubernetes context.",
+            },
+            {
+              command: "kubectl config use-context <context>",
+              description: "Switch to another Kubernetes context.",
+            },
+            {
+              command:
+                "kubectl config set-context --current --namespace=<namespace>",
+              description: "Set the default namespace for the current context.",
+            },
+            {
+              command: "kubectl create namespace <namespace>",
+              description: "Create a namespace.",
+            },
+            {
+              command: "kubectl delete namespace <namespace>",
+              description: "Delete a namespace.",
+            },
+            {
+              command: "kubectl version",
+              description: "Show Kubernetes client and server versions.",
+            },
+            {
+              command: "kubectl cluster-info",
+              description: "Display cluster endpoint information.",
+            },
+            {
+              command: "kubectl get nodes",
+              description: "List cluster nodes.",
+            },
+            {
+              command: "kubectl get namespaces",
+              description: "List namespaces.",
+            },
+            {
+              command: "kubectl get pods",
+              description: "List pods in the current namespace.",
+            },
+            {
+              command: "kubectl get pods -A",
+              description: "List pods across all namespaces.",
+            },
+            {
+              command: "kubectl get deployments",
+              description: "List deployments.",
+            },
+            {
+              command: "kubectl describe pod <pod>",
+              description: "Show detailed pod information.",
+            },
+            {
+              command: "kubectl logs <pod>",
+              description: "Show pod logs.",
+            },
+            {
+              command: "kubectl logs -f <pod>",
+              description: "Follow pod logs.",
+            },
+            {
+              command: "kubectl exec -it <pod> -- /bin/sh",
+              description: "Open an interactive shell inside a pod.",
+            },
+            {
+              command: "kubectl apply -f <file.yaml>",
+              description: "Apply a resource configuration.",
+            },
+            {
+              command: "kubectl delete -f <file.yaml>",
+              description: "Delete resources defined in a manifest.",
+            },
+            {
+              command:
+                "kubectl get events --sort-by=.metadata.creationTimestamp",
+              description: "List events ordered by creation time.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         AKS
+      ===================================================== */
+
+        {
+          id: "commands-aks",
+
+          title: "Azure Kubernetes Service",
+
+          description:
+            "Azure CLI commands specifically useful for AKS clusters and credentials.",
+
+          tags: [
+            {
+              label: "Azure",
+              variant: "primary",
+            },
+            {
+              label: "AKS",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "az aks list --output table",
+              description: "List AKS clusters.",
+            },
+            {
+              command: "az aks show --resource-group <rg> --name <cluster>",
+              description: "Show AKS cluster details.",
+            },
+            {
+              command:
+                "az aks get-credentials --resource-group <rg> --name <cluster>",
+              description: "Download AKS credentials into kubeconfig.",
+            },
+            {
+              command:
+                "az aks get-credentials --overwrite-existing --resource-group <rg> --name <cluster>",
+              description: "Replace existing kubeconfig credentials.",
+            },
+            {
+              command:
+                "az aks nodepool list --resource-group <rg> --cluster-name <cluster>",
+              description: "List AKS node pools.",
+            },
+            {
+              command:
+                "az aks nodepool show --resource-group <rg> --cluster-name <cluster> --name <pool>",
+              description: "Show node pool details.",
+            },
+            {
+              command: "az aks start --resource-group <rg> --name <cluster>",
+              description: "Start an AKS cluster.",
+            },
+            {
+              command: "az aks stop --resource-group <rg> --name <cluster>",
+              description: "Stop an AKS cluster.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         EKS
+      ===================================================== */
+
+        {
+          id: "commands-eks",
+
+          title: "Amazon EKS",
+
+          description:
+            "AWS CLI commands for discovering and connecting to EKS clusters.",
+
+          tags: [
+            {
+              label: "AWS",
+              variant: "primary",
+            },
+            {
+              label: "EKS",
+              variant: "warning",
+            },
+          ],
+
+          commands: [
+            {
+              command: "aws eks list-clusters",
+              description: "List EKS clusters.",
+            },
+            {
+              command: "aws eks describe-cluster --name <cluster>",
+              description: "Show EKS cluster details.",
+            },
+            {
+              command: "aws eks update-kubeconfig --name <cluster>",
+              description: "Configure kubectl access to an EKS cluster.",
+            },
+            {
+              command:
+                "aws eks update-kubeconfig --name <cluster> --region <region>",
+              description:
+                "Configure kubectl for a cluster in a specific region.",
+            },
+            {
+              command: "aws eks list-nodegroups --cluster-name <cluster>",
+              description: "List EKS managed node groups.",
+            },
+            {
+              command:
+                "aws eks describe-nodegroup --cluster-name <cluster> --nodegroup-name <nodegroup>",
+              description: "Show node group details.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         NPM
+      ===================================================== */
+
+        {
+          id: "commands-npm",
+
+          title: "NPM",
+
+          description:
+            "Package installation, scripts, dependency management, audits and publishing commands.",
+
+          tags: [
+            {
+              label: "JavaScript",
+              variant: "primary",
+            },
+            {
+              label: "Package Manager",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "npm --version",
+              description: "Display the installed npm version.",
+            },
+            {
+              command: "npm config list",
+              description: "Display npm configuration values.",
+            },
+            {
+              command: "npm config get registry",
+              description: "Show the configured npm registry.",
+            },
+            {
+              command: "npm cache clean --force",
+              description: "Clear the npm cache.",
+            },
+            {
+              command: "npm cache verify",
+              description: "Verify npm cache integrity.",
+            },
+            {
+              command: "npm dedupe",
+              description: "Reduce duplicate packages in the dependency tree.",
+            },
+            {
+              command: "npm prune",
+              description: "Remove packages not listed in package.json.",
+            },
+            {
+              command: "npm explain <package>",
+              description: "Explain why a package is installed.",
+            },
+            {
+              command: "npm ls <package>",
+              description:
+                "Show where a package exists in the dependency tree.",
+            },
+            {
+              command: "npm view <package>",
+              description: "Display package information from the npm registry.",
+            },
+            {
+              command: "npm view <package> versions",
+              description: "List available versions of a package.",
+            },
+            {
+              command: "npm search <keyword>",
+              description: "Search the npm registry.",
+            },
+            {
+              command: "npm pack",
+              description: "Create a tarball from the current package.",
+            },
+            {
+              command: "npm publish",
+              description: "Publish the current package to the npm registry.",
+            },
+            {
+              command: "npm version patch",
+              description: "Increase the patch version and create a Git tag.",
+            },
+            {
+              command: "npm version minor",
+              description: "Increase the minor version and create a Git tag.",
+            },
+            {
+              command: "npm version major",
+              description: "Increase the major version and create a Git tag.",
+            },
+            {
+              command: "npm login",
+              description: "Authenticate with an npm registry.",
+            },
+            {
+              command: "npm whoami",
+              description: "Show the currently authenticated npm user.",
+            },
+            {
+              command: "npm link",
+              description:
+                "Create a global symbolic link for the current package.",
+            },
+            {
+              command: "npm link <package>",
+              description:
+                "Link a globally linked package into the current project.",
+            },
+            {
+              command: "npm exec <command>",
+              description:
+                "Run a command from a local or remotely resolved package.",
+            },
+            {
+              command: "npm init",
+              description: "Create package.json interactively.",
+            },
+            {
+              command: "npm init -y",
+              description: "Create package.json using defaults.",
+            },
+            {
+              command: "npm install",
+              description: "Install project dependencies.",
+            },
+            {
+              command: "npm ci",
+              description:
+                "Install dependencies from package-lock.json for clean environments.",
+            },
+            {
+              command: "npm install <package>",
+              description: "Install a package.",
+            },
+            {
+              command: "npm install -D <package>",
+              description: "Install a development dependency.",
+            },
+            {
+              command: "npm uninstall <package>",
+              description: "Remove a package.",
+            },
+            {
+              command: "npm list",
+              description: "List installed packages.",
+            },
+            {
+              command: "npm outdated",
+              description: "Check for outdated dependencies.",
+            },
+            {
+              command: "npm update",
+              description:
+                "Update dependencies within configured version ranges.",
+            },
+            {
+              command: "npm run",
+              description: "List available package scripts.",
+            },
+            {
+              command: "npm run <script>",
+              description: "Run a package.json script.",
+            },
+            {
+              command: "npm test",
+              description: "Run the test script.",
+            },
+            {
+              command: "npm audit",
+              description: "Check dependencies for known vulnerabilities.",
+            },
+            {
+              command: "npm audit fix",
+              description:
+                "Attempt to automatically fix dependency vulnerabilities.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         NPX
+      ===================================================== */
+
+        {
+          id: "commands-npx",
+
+          title: "NPX",
+
+          description:
+            "Commands for executing package binaries without permanently installing them globally.",
+
+          tags: [
+            {
+              label: "JavaScript",
+              variant: "primary",
+            },
+            {
+              label: "Package Runner",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "npx <package>",
+              description: "Execute a package binary.",
+            },
+            {
+              command: "npx --yes <package>",
+              description:
+                "Execute a package without an interactive installation prompt.",
+            },
+            {
+              command: "npx create-react-app <project>",
+              description:
+                "Create a React application using the package runner.",
+            },
+            {
+              command: "npx eslint .",
+              description: "Run ESLint without globally installing it.",
+            },
+            {
+              command: "npx prettier --write .",
+              description: "Format files using Prettier.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         NODE
+      ===================================================== */
+
+        {
+          id: "commands-node",
+
+          title: "Node.js",
+
+          description: "Useful Node.js runtime commands and debugging options.",
+
+          tags: [
+            {
+              label: "JavaScript",
+              variant: "primary",
+            },
+            {
+              label: "Runtime",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "node --version",
+              description: "Display the installed Node.js version.",
+            },
+            {
+              command: "node <file.js>",
+              description: "Execute a JavaScript file.",
+            },
+            {
+              command: "node",
+              description: "Start the Node.js REPL.",
+            },
+            {
+              command: "node --inspect <file.js>",
+              description: "Run Node.js with the debugger enabled.",
+            },
+            {
+              command: "node --inspect-brk <file.js>",
+              description:
+                "Start with the debugger and pause before execution.",
+            },
+            {
+              command: "node --watch <file.js>",
+              description: "Restart the application when watched files change.",
+            },
+            {
+              command: 'node -e "console.log(process.version)"',
+              description: "Execute inline JavaScript.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         LINUX
+      ===================================================== */
+
+        {
+          id: "commands-linux",
+
+          title: "Linux",
+
+          description:
+            "Common Linux commands for files, directories, processes, networking, disks, permissions, search and archives.",
+
+          tags: [
+            {
+              label: "Operating System",
+              variant: "primary",
+            },
+            {
+              label: "Shell",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "pwd",
+              description: "Print the current directory.",
+            },
+            {
+              command: "ls",
+              description: "List directory contents.",
+            },
+            {
+              command: "ls -la",
+              description: "List detailed files including hidden files.",
+            },
+            {
+              command: "cd <directory>",
+              description: "Change the current directory.",
+            },
+            {
+              command: "mkdir <directory>",
+              description: "Create a directory.",
+            },
+            {
+              command: "mkdir -p path/to/directory",
+              description: "Create nested directories.",
+            },
+            {
+              command: "touch <file>",
+              description: "Create an empty file or update its timestamp.",
+            },
+            {
+              command: "cp <source> <destination>",
+              description: "Copy a file.",
+            },
+            {
+              command: "cp -r <source> <destination>",
+              description: "Copy a directory recursively.",
+            },
+            {
+              command: "mv <source> <destination>",
+              description: "Move or rename a file or directory.",
+            },
+            {
+              command: "rm <file>",
+              description: "Remove a file.",
+            },
+            {
+              command: "rm -rf <directory>",
+              description: "Recursively remove a directory.",
+            },
+            {
+              command: "cat <file>",
+              description: "Display file contents.",
+            },
+            {
+              command: "less <file>",
+              description: "Open a file for paginated viewing.",
+            },
+            {
+              command: "head -n 20 <file>",
+              description: "Show the first 20 lines.",
+            },
+            {
+              command: "tail -n 20 <file>",
+              description: "Show the last 20 lines.",
+            },
+            {
+              command: "tail -f <file>",
+              description: "Follow a growing file.",
+            },
+            {
+              command: 'grep "text" <file>',
+              description: "Search for text in a file.",
+            },
+            {
+              command: 'grep -r "text" .',
+              description: "Search recursively in the current directory.",
+            },
+            {
+              command: 'find . -name "*.js"',
+              description: "Find files matching a name pattern.",
+            },
+            {
+              command: "ps aux",
+              description: "Show running processes.",
+            },
+            {
+              command: "top",
+              description: "Monitor processes interactively.",
+            },
+            {
+              command: "kill <pid>",
+              description: "Send a termination signal to a process.",
+            },
+            {
+              command: "kill -9 <pid>",
+              description: "Forcefully terminate a process.",
+            },
+            {
+              command: "df -h",
+              description: "Show filesystem disk usage.",
+            },
+            {
+              command: "du -sh <directory>",
+              description: "Show total size of a directory.",
+            },
+            {
+              command: "free -h",
+              description: "Show memory usage.",
+            },
+            {
+              command: "uname -a",
+              description: "Show system and kernel information.",
+            },
+            {
+              command: "whoami",
+              description: "Show the current user.",
+            },
+            {
+              command: "chmod +x <file>",
+              description: "Make a file executable.",
+            },
+            {
+              command: "tar -czf archive.tar.gz <directory>",
+              description: "Create a compressed tar archive.",
+            },
+            {
+              command: "tar -xzf archive.tar.gz",
+              description: "Extract a compressed tar archive.",
+            },
+            {
+              command: "ip addr",
+              description: "Show network interface addresses.",
+            },
+            {
+              command: "ss -tulpn",
+              description: "Show listening network sockets.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         CURL
+      ===================================================== */
+
+        {
+          id: "commands-curl",
+
+          title: "curl",
+
+          description:
+            "Useful HTTP and API commands for requests, headers, authentication and file transfers.",
+
+          tags: [
+            {
+              label: "HTTP",
+              variant: "primary",
+            },
+            {
+              label: "API",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "curl https://example.com",
+              description: "Perform a basic GET request.",
+            },
+            {
+              command: "curl -I https://example.com",
+              description: "Fetch response headers only.",
+            },
+            {
+              command: "curl -i https://example.com",
+              description: "Include response headers in the output.",
+            },
+            {
+              command: "curl -L https://example.com",
+              description: "Follow HTTP redirects.",
+            },
+            {
+              command: "curl -X POST https://api.example.com",
+              description: "Perform a POST request.",
+            },
+            {
+              command:
+                'curl -H "Authorization: Bearer <token>" https://api.example.com',
+              description: "Send an Authorization header.",
+            },
+            {
+              command:
+                'curl -H "Content-Type: application/json" -d \'{"key":"value"}\' https://api.example.com',
+              description: "Send JSON data in a request.",
+            },
+            {
+              command: "curl -o output.json https://example.com/data",
+              description: "Save response output to a file.",
+            },
+            {
+              command: "curl -O https://example.com/file.zip",
+              description: "Download using the remote filename.",
+            },
+            {
+              command: "curl -v https://example.com",
+              description: "Show verbose request and response information.",
+            },
+          ],
+        },
+
+        /* =====================================================
+         JQ
+      ===================================================== */
+
+        {
+          id: "commands-jq",
+
+          title: "jq",
+
+          description:
+            "Commands for querying, filtering and transforming JSON from files or command output.",
+
+          tags: [
+            {
+              label: "JSON",
+              variant: "primary",
+            },
+            {
+              label: "CLI Utility",
+              variant: "success",
+            },
+          ],
+
+          commands: [
+            {
+              command: "jq . file.json",
+              description: "Pretty-print JSON.",
+            },
+            {
+              command: "jq '.name' file.json",
+              description: "Extract a top-level property.",
+            },
+            {
+              command: "jq '.items[]' file.json",
+              description: "Iterate over array items.",
+            },
+            {
+              command: "jq '.items[] | .name' file.json",
+              description: "Extract a property from every array item.",
+            },
+            {
+              command:
+                "jq '.items[] | select(.status == \"active\")' file.json",
+              description: "Filter objects based on a condition.",
+            },
+            {
+              command: "jq -r '.token' file.json",
+              description: "Output raw string values without JSON quotes.",
+            },
+            {
+              command: "curl -s https://api.example.com | jq .",
+              description: "Pretty-print JSON returned from an API.",
+            },
+            {
+              command: "jq 'keys' file.json",
+              description: "List object keys.",
+            },
+          ],
+        },
+      ];
+
+      /* =========================================================
+       FLOATING PANEL DATA
+    ========================================================= */
+
+      const FLOATING_PANEL_DATA = {
+        title: "CLI Reference",
+
+        text: "All navigation and command sections are generated dynamically from JavaScript constants.",
+
+        badges: [
+          {
+            label: "Dynamic",
+            variant: "primary",
+          },
+          {
+            label: "CLI Tools",
+            variant: "success",
+          },
+          {
+            label: "Easy to Extend",
+            variant: "warning",
+          },
+        ],
+      };
+
+      /* =========================================================
+       APP RENDERERS
+    ========================================================= */
+
+      const renderLeftPanel = (groups = []) => `
+      <aside class="left-panel">
+        ${groups
+          .map(
+            (group) => `
+            <div class="nav-group">
+
+              <span class="nav-group__label">
+                ${escapeHtml(group.label)}
+              </span>
+
+              <nav class="nav-links">
+                ${group.links
+                  .map(
+                    (link) => `
+                    <a
+                      class="nav-link"
+                      href="${escapeHtml(link.href)}"
+                    >
+                      ${escapeHtml(link.label)}
+                    </a>
+                  `,
+                  )
+                  .join("")}
+              </nav>
+
+            </div>
+          `,
+          )
+          .join("")}
+      </aside>
+    `;
+
+      const renderCommandSection = (commandGroup) => {
+        const rows = deepSort(commandGroup.commands, "command").map((item) => [
+          renderInlineCode(item.command),
+          escapeHtml(item.description),
+        ]);
+
+        return renderSection({
+          id: commandGroup.id,
+
+          title: commandGroup.title,
+
+          content: `
+          <p>
+            ${escapeHtml(commandGroup.description)}
+          </p>
+
+          ${renderTagsList(commandGroup.tags)}
+
+          ${renderTable({
+            headers: ["Command", "Description"],
+
+            rows,
+          })}
+        `,
+        });
+      };
+
+      const renderContent = (commands = []) => `
+      <div class="content">
+
+        ${renderHeading({
+          level: 1,
+          text: "Developer CLI Commands Reference",
+        })}
+
+        <p>
+          A searchable-style reference structure for commonly used
+          source control, cloud, infrastructure, container,
+          JavaScript and Linux command-line tools.
+        </p>
+
+        ${renderQoute({
+          text: "New command groups can be added by updating the data constants without changing the rendering logic.",
+          author: "Data-Driven UI",
+        })}
+
+        ${renderDivider({
+          variant: "primary",
+        })}
+
+        ${commands.map(renderCommandSection).join("")}
+
+      </div>
+    `;
+
+      const renderFloatingPanel = (data) => `
+      <aside class="floating-panel">
+
+        <h3 class="floating-panel__title">
+          ${escapeHtml(data.title)}
+        </h3>
+
+        <p class="floating-panel__text">
+          ${escapeHtml(data.text)}
+        </p>
+
+        ${renderBadgesList(data.badges)}
+
+        <button
+          class="
+            button
+            button--primary
+          "
+          onclick="
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            })
+          "
+        >
+          Back to Top
+        </button>
+
+      </aside>
+    `;
+
+      const renderApp = () => {
+        const app = document.getElementById("app");
+
+        app.innerHTML = `
+        <div class="app">
+
+          ${renderLeftPanel(LEFT_PANEL_DATA)}
+
+          <main class="main">
+            ${renderContent(COMMANDS_DATA)}
+          </main>
+
+          ${renderFloatingPanel(FLOATING_PANEL_DATA)}
+
+        </div>
+      `;
+      };
+
+      /* =========================================================
+       INITIALIZATION
+    ========================================================= */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderApp();
+      });
+
+      /* =========================================================
+       EXTENSION EXAMPLE
+
+       Add another tool by adding:
+
+       1. A navigation entry to LEFT_PANEL_DATA
+       2. A command object to COMMANDS_DATA
+
+       Example:
+
+       COMMANDS_DATA.push({
+         id: 'commands-new-tool',
+
+         title: 'New Tool',
+
+         description:
+           'Description of the tool.',
+
+         tags: [
+           {
+             label: 'Category',
+             variant: 'primary'
+           }
+         ],
+
+         commands: [
+           {
+             command: 'tool command',
+             description:
+               'What the command does.'
+           }
+         ]
+       });
+    ========================================================= */
+    </script>
+  </body>
+</html>
