@@ -4,16 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Developer CLI Commands Reference</title>
+    <title>Daily Use</title>
 
     <style>
       :root {
-        /* =========================================
-         COLORS
-      ========================================= */
-
-        --color-primary: #6366f1;
-        --color-primary-hover: #4f46e5;
+        --color-primary: #257d95;
+        --color-primary-hover: #17657b;
         --color-primary-light: #eef2ff;
 
         --color-bg: #f8fafc;
@@ -38,10 +34,6 @@
         --color-code-bg: #0f172a;
         --color-code-text: #e2e8f0;
 
-        /* =========================================
-         TYPOGRAPHY
-      ========================================= */
-
         --font-sans:
           Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
@@ -56,10 +48,6 @@
         --font-size-2xl: 1.5rem;
         --font-size-3xl: 1.875rem;
 
-        /* =========================================
-         SPACING
-      ========================================= */
-
         --space-1: 0.25rem;
         --space-2: 0.5rem;
         --space-3: 0.75rem;
@@ -69,17 +57,9 @@
         --space-8: 2rem;
         --space-10: 2.5rem;
 
-        /* =========================================
-         LAYOUT
-      ========================================= */
-
         --sidebar-width: 270px;
         --content-max-width: 1200px;
         --floating-panel-width: 260px;
-
-        /* =========================================
-         UI
-      ========================================= */
 
         --radius-sm: 6px;
         --radius-md: 10px;
@@ -90,10 +70,6 @@
 
         --transition: 0.2s ease;
       }
-
-      /* =========================================
-       RESET
-    ========================================= */
 
       *,
       *::before,
@@ -113,10 +89,6 @@
         color: var(--color-text);
         background: var(--color-bg);
       }
-
-      /* =========================================
-       LAYOUT
-    ========================================= */
 
       .app {
         min-height: 100vh;
@@ -196,10 +168,6 @@
         box-shadow: var(--shadow-md);
       }
 
-      /* =========================================
-       HEADINGS
-    ========================================= */
-
       h1,
       h2,
       h3,
@@ -210,7 +178,7 @@
         margin-bottom: var(--space-4);
 
         line-height: 1.25;
-        color: var(--color-text);
+        color: var(--color-primary);
       }
 
       h1 {
@@ -234,10 +202,6 @@
         margin: 0 0 var(--space-4);
       }
 
-      /* =========================================
-       DIVIDERS
-    ========================================= */
-
       .divider {
         width: 100%;
         height: 1px;
@@ -252,10 +216,6 @@
       .divider--primary {
         background: var(--color-primary);
       }
-
-      /* =========================================
-       LEFT NAVIGATION
-    ========================================= */
 
       .nav-group {
         margin-bottom: var(--space-5);
@@ -299,10 +259,6 @@
         background: var(--color-primary-light);
       }
 
-      /* =========================================
-       LINKS
-    ========================================= */
-
       .link {
         color: var(--color-primary);
         text-decoration: none;
@@ -322,10 +278,6 @@
         margin-bottom: var(--space-2);
       }
 
-      /* =========================================
-       LISTS
-    ========================================= */
-
       ul,
       ol {
         margin: 0 0 var(--space-4);
@@ -335,10 +287,6 @@
       li {
         margin-bottom: var(--space-2);
       }
-
-      /* =========================================
-       CARDS
-    ========================================= */
 
       .card {
         padding: var(--space-5);
@@ -383,10 +331,6 @@
 
         margin-bottom: var(--space-6);
       }
-
-      /* =========================================
-       TAGS
-    ========================================= */
 
       .tag {
         display: inline-flex;
@@ -433,10 +377,6 @@
         margin-bottom: var(--space-4);
       }
 
-      /* =========================================
-       BADGES
-    ========================================= */
-
       .badge {
         display: inline-flex;
         align-items: center;
@@ -471,10 +411,6 @@
         color: #ffffff;
         background: var(--color-danger);
       }
-
-      /* =========================================
-       BUTTONS
-    ========================================= */
 
       .button {
         display: inline-flex;
@@ -517,10 +453,6 @@
         background: var(--color-danger);
       }
 
-      /* =========================================
-       HIGHLIGHTS
-    ========================================= */
-
       .highlight {
         padding: 0.1rem 0.3rem;
 
@@ -533,10 +465,6 @@
         color: var(--color-primary);
         background: var(--color-primary-light);
       }
-
-      /* =========================================
-       SECTIONS
-    ========================================= */
 
       .section {
         margin-bottom: var(--space-10);
@@ -552,10 +480,6 @@
         border: 1px solid var(--color-border);
         border-radius: var(--radius-lg);
       }
-
-      /* =========================================
-       QUOTES
-    ========================================= */
 
       .quote {
         margin: var(--space-5) 0;
@@ -578,10 +502,6 @@
         color: var(--color-text-muted);
       }
 
-      /* =========================================
-       INLINE CODE
-    ========================================= */
-
       code {
         padding: 0.15rem 0.35rem;
 
@@ -594,10 +514,6 @@
 
         background: var(--color-surface-alt);
       }
-
-      /* =========================================
-       MULTILINE CODE
-    ========================================= */
 
       .code-block {
         margin: var(--space-4) 0 var(--space-6);
@@ -639,10 +555,6 @@
         background: transparent;
       }
 
-      /* =========================================
-       TABLES
-    ========================================= */
-
       .table-wrapper {
         width: 100%;
 
@@ -682,10 +594,6 @@
         border-bottom: 0;
       }
 
-      /* =========================================
-       FLOATING PANEL
-    ========================================= */
-
       .floating-panel__title {
         margin-bottom: var(--space-3);
 
@@ -699,10 +607,6 @@
 
         color: var(--color-text-muted);
       }
-
-      /* =========================================
-       RESPONSIVE
-    ========================================= */
 
       @media (max-width: 1200px) {
         .floating-panel {
@@ -732,13 +636,9 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app"><div class="app"></div></div>
 
     <script>
-      /* =========================================================
-       UTILITIES
-    ========================================================= */
-
       const escapeHtml = (value = "") =>
         String(value)
           .replaceAll("&", "&amp;")
@@ -747,14 +647,6 @@
           .replaceAll('"', "&quot;")
           .replaceAll("'", "&#039;");
 
-      /**
-       * Sort an array by a nested property path.
-       *
-       * @param {Array} data - Array to sort.
-       * @param {string} path - Nested property path, e.g. 'item.commands'
-       * @param {'asc'|'desc'} order - Sort direction.
-       * @returns {Array} Sorted copy of the original array.
-       */
       function deepSort(data, path, order = "asc") {
         const getValue = (obj, path) =>
           path.split(".").reduce((value, key) => value?.[key], obj);
@@ -784,9 +676,6 @@
           );
         });
       }
-      /* =========================================================
-       GENERIC RENDER FUNCTIONS
-    ========================================================= */
 
       const renderHeading = ({
         level = 2,
@@ -797,116 +686,123 @@
         const safeLevel = Math.min(Math.max(level, 1), 6);
 
         return `
-        <h${safeLevel}
-          ${id ? `id="${escapeHtml(id)}"` : ""}
-          class="${escapeHtml(className)}"
-        >
-          ${escapeHtml(text)}
-        </h${safeLevel}>
-      `;
+            <h${safeLevel}
+              ${id ? `id="${escapeHtml(id)}"` : ""}
+              class="${escapeHtml(className)}"
+            >
+              ${escapeHtml(text)}
+            </h${safeLevel}>
+          `;
       };
 
       const renderDivider = ({ variant = "default" } = {}) => `
-      <hr
-        class="
-          divider
-          divider--${escapeHtml(variant)}
-        "
-      />
-    `;
+          <hr
+            class="
+              divider
+              divider--${escapeHtml(variant)}
+            "
+          />
+        `;
 
-      const renderLink = ({ label = "", href = "#", target = "" }) => `
-      <a
-        class="link"
-        href="${escapeHtml(href)}"
-        ${target ? `target="${escapeHtml(target)}"` : ""}
-      >
-        ${escapeHtml(label)}
-      </a>
-    `;
+      const renderLink = ({ label = "", href = "#", target = "_blank" }) => `
+          <a
+            class="link"
+            href="${escapeHtml(href)}"
+            ${target ? `target="${escapeHtml(target)}"` : ""}
+          >
+            ${escapeHtml(label)}
+          </a>
+        `;
 
       const renderLinksList = (links = []) => `
-      <ul class="links-list">
-        ${links
-          .map(
-            (link) => `
-            <li>
-              ${renderLink(link)}
-            </li>
-          `,
-          )
-          .join("")}
-      </ul>
-    `;
+          <ul class="links-list">
+            ${links
+              .map(
+                (link) => `
+                <li>
+                  ${renderLink(link)}
+                </li>
+              `,
+              )
+              .join("")}
+          </ul>
+        `;
 
       const renderCard = ({
         title = "",
         content = "",
         variant = "default",
       }) => `
-      <article
-        class="
-          card
-          card--${escapeHtml(variant)}
-        "
-      >
-        ${
-          title
-            ? `
-              <h3 class="card__title">
-                ${escapeHtml(title)}
-              </h3>
-            `
-            : ""
-        }
+          <article
+            class="
+              card
+              card--${escapeHtml(variant)}
+            "
+          >
+            ${
+              title
+                ? `
+                  <h3 class="card__title">
+                    ${escapeHtml(title)}
+                  </h3>
+                `
+                : ""
+            }
 
-        ${content ? `<p>${content}</p>` : ""}
-      </article>
-    `;
+            ${
+              content
+                ? content
+                    .split("\n")
+                    .map((line) => `<p>${line}</p>`)
+                    .join("")
+                : ""
+            }
+          </article>
+        `;
 
       const renderCardsList = (cards = []) => `
-      <div class="cards-list">
-        ${cards.map(renderCard).join("")}
-      </div>
-    `;
+          <div class="cards-list">
+            ${cards.map(renderCard).join("")}
+          </div>
+        `;
 
       const renderTable = ({ headers = [], rows = [] }) => `
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              ${headers
-                .map(
-                  (header) => `
-                  <th>
-                    ${escapeHtml(header)}
-                  </th>
-                `,
-                )
-                .join("")}
-            </tr>
-          </thead>
-
-          <tbody>
-            ${rows
-              .map(
-                (row) => `
+          <div class="table-wrapper">
+            <table>
+              <thead>
                 <tr>
-                  ${row
+                  ${headers
                     .map(
-                      (cell) => `
-                      <td>${cell}</td>
+                      (header) => `
+                      <th>
+                        ${escapeHtml(header)}
+                      </th>
                     `,
                     )
                     .join("")}
                 </tr>
-              `,
-              )
-              .join("")}
-          </tbody>
-        </table>
-      </div>
-    `;
+              </thead>
+
+              <tbody>
+                ${rows
+                  .map(
+                    (row) => `
+                    <tr>
+                      ${row
+                        .map(
+                          (cell) => `
+                          <td>${cell}</td>
+                        `,
+                        )
+                        .join("")}
+                    </tr>
+                  `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
 
       const renderSection = ({
         id = "",
@@ -914,98 +810,95 @@
         content = "",
         variant = "",
       }) => `
-      <section
-        id="${escapeHtml(id)}"
-        class="
-          section
-          ${variant ? `section--${escapeHtml(variant)}` : ""}
-        "
-      >
-        ${
-          title
-            ? renderHeading({
-                level: 2,
-                text: title,
-              })
-            : ""
-        }
+          <section
+            id="${escapeHtml(id)}"
+            class="
+              section
+              ${variant ? `section--${escapeHtml(variant)}` : ""}
+            "
+          >
+            ${
+              title
+                ? renderHeading({
+                    level: 4,
+                    text: title,
+                    className:'primary'
+                  })
+                : ""
+            }
 
-        ${content}
-      </section>
-    `;
+            ${content}
+          </section>
+        `;
 
       const renderInlineCode = (code = "") => `
-      <code>
-        ${escapeHtml(code)}
-      </code>
-    `;
+          <code>
+            ${escapeHtml(code)}
+          </code>
+        `;
 
       const renderCode = ({ code = "", language = "text" }) => `
-      <div class="code-block">
-        <div class="code-block__header">
-          <span>
-            ${escapeHtml(language)}
-          </span>
-        </div>
+          <div class="code-block">
+            <div class="code-block__header">
+              <span>
+                ${escapeHtml(language)}
+              </span>
+            </div>
 
-        <pre><code>${escapeHtml(code)}</code></pre>
-      </div>
-    `;
+            <pre><code>${escapeHtml(code)}</code></pre>
+          </div>
+        `;
 
       /* Keeping requested function name */
       const renderQoute = ({ text = "", author = "" }) => `
-      <blockquote class="quote">
-        ${escapeHtml(text)}
+          <blockquote class="quote">
+            ${escapeHtml(text)}
 
-        ${
-          author
-            ? `
-              <span class="quote__author">
-                — ${escapeHtml(author)}
-              </span>
-            `
-            : ""
-        }
-      </blockquote>
-    `;
+            ${
+              author
+                ? `
+                  <span class="quote__author">
+                    — ${escapeHtml(author)}
+                  </span>
+                `
+                : ""
+            }
+          </blockquote>
+        `;
 
       const renderTag = ({ label = "", variant = "default" }) => `
-      <span
-        class="
-          tag
-          tag--${escapeHtml(variant)}
-        "
-      >
-        ${escapeHtml(label)}
-      </span>
-    `;
+          <span
+            class="
+              tag
+              tag--${escapeHtml(variant)}
+            "
+          >
+            ${escapeHtml(label)}
+          </span>
+        `;
 
       const renderTagsList = (tags = []) => `
-      <div class="tags-list">
-        ${tags.map(renderTag).join("")}
-      </div>
-    `;
+          <div class="tags-list">
+            ${tags.map(renderTag).join("")}
+          </div>
+        `;
 
       const renderBadge = ({ label = "", variant = "default" }) => `
-      <span
-        class="
-          badge
-          badge--${escapeHtml(variant)}
-        "
-      >
-        ${escapeHtml(label)}
-      </span>
-    `;
+          <span
+            class="
+              badge
+              badge--${escapeHtml(variant)}
+            "
+          >
+            ${escapeHtml(label)}
+          </span>
+        `;
 
       const renderBadgesList = (badges = []) => `
-      <div class="badges-list">
-        ${badges.map(renderBadge).join("")}
-      </div>
-    `;
-
-      /* =========================================================
-       LEFT PANEL DATA
-    ========================================================= */
+          <div class="badges-list">
+            ${badges.map(renderBadge).join("")}
+          </div>
+        `;
 
       const LEFT_PANEL_DATA = [
         { label: "AI Prompts", href: "#ai-prompts" },
@@ -1071,15 +964,24 @@
         },
       ];
 
-      /* =========================================================
-       COMMAND DATA
-    ========================================================= */
+      const PROMPTS_DATA = [
+        {
+          title: "Generate standalone HTML",
+          content: `create standalone html file, which will contain following:
+
+- style vars: colors, fonts etc
+- element styles: headings, dividers, paras, lists tables, elements with variants (cards, tags, badges, buttons, highlights, sections, qoutes) , multiline code block, inline code, and other commonly used elements.
+- js funs: renderTable, renderLink, renderCard, renderCardsList, renderLinksList, renderSection, renderHeading, deepSort(), renderDivider, renderInlineCode, renderCode, renderQoute, renderTag, renderTagsList, renderBadge, renderbadgesList
+- fixed width left panel and floating right panel
+- content should render using data defined in js constants. 
+- Left panel data: [{label: 'Commands', links: [{label: 'Git', href:'#commands-git'},{label: 'Azure', href:'#commands-azure'},{label: 'AWS', href:'#commands-aws'},{label: 'NPM', href:'#commands-npm'},{label: 'Kubernetes', href:'#commands-kubectl'},{label: 'Docker', href:'#commands-docker'},{label: 'Linux', href:'#commands-linux'}]}]
+- headers in left panel should be bold and in primary color, non-clickable. links should be intended if under a header
+- create js data for all above listed commands, and render dynamically to make adding more content easy.
+- no hard coded html`,
+        },
+      ];
 
       const COMMANDS_DATA = [
-        /* =====================================================
-         GIT
-      ===================================================== */
-
         {
           id: "commands-git",
 
@@ -1513,11 +1415,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         GITHUB CLI
-      ===================================================== */
-
         {
           id: "commands-github",
 
@@ -1689,11 +1586,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         AZURE
-      ===================================================== */
-
         {
           id: "commands-azure",
 
@@ -1772,11 +1664,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         AWS
-      ===================================================== */
-
         {
           id: "commands-aws",
 
@@ -1851,11 +1738,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         TERRAFORM
-      ===================================================== */
-
         {
           id: "commands-terraform",
 
@@ -1982,11 +1864,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         HELM
-      ===================================================== */
-
         {
           id: "commands-helm",
 
@@ -2062,11 +1939,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         DOCKER
-      ===================================================== */
-
         {
           id: "commands-docker",
 
@@ -2177,11 +2049,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         KUBERNETES
-      ===================================================== */
-
         {
           id: "commands-kubectl",
 
@@ -2471,11 +2338,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         AKS
-      ===================================================== */
-
         {
           id: "commands-aks",
 
@@ -2534,11 +2396,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         EKS
-      ===================================================== */
-
         {
           id: "commands-eks",
 
@@ -2588,11 +2445,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         NPM
-      ===================================================== */
-
         {
           id: "commands-npm",
 
@@ -2770,11 +2622,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         NPX
-      ===================================================== */
-
         {
           id: "commands-npx",
 
@@ -2819,11 +2666,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         NODE
-      ===================================================== */
-
         {
           id: "commands-node",
 
@@ -2874,11 +2716,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         LINUX
-      ===================================================== */
-
         {
           id: "commands-linux",
 
@@ -2897,7 +2734,6 @@
               variant: "success",
             },
           ],
-
           commands: [
             {
               command: "pwd",
@@ -3037,11 +2873,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         CURL
-      ===================================================== */
-
         {
           id: "commands-curl",
 
@@ -3106,11 +2937,6 @@
             },
           ],
         },
-
-        /* =====================================================
-         JQ
-      ===================================================== */
-
         {
           id: "commands-jq",
 
@@ -3168,10 +2994,6 @@
         },
       ];
 
-      /* =========================================================
-       FLOATING PANEL DATA
-    ========================================================= */
-
       const FLOATING_PANEL_DATA = {
         title: "CLI Reference",
 
@@ -3193,58 +3015,54 @@
         ],
       };
 
-      /* =========================================================
-       APP RENDERERS
-    ========================================================= */
-
       function renderLeftPanel(data) {
         return `
-    <nav class="left-panel">
-      ${data
-        .map((item) => {
-          // Direct link
-          if (item.href) {
-            return `
-            <a
-              class="left-panel-link"
-              href="${item.href}"
-            >
-              ${item.label}
-            </a>
-          `;
-          }
+        <nav class="left-panel">
+          ${data
+            .map((item) => {
+              // Direct link
+              if (item.href) {
+                return `
+                <a
+                  class="left-panel-link"
+                  href="${item.href}"
+                >
+                  ${item.label}
+                </a>
+              `;
+              }
 
-          // Group/header
-          if (item.links) {
-            return `
-            <div class="left-panel-group">
-              <div class="left-panel-group-title">
-                ${item.label}
-              </div>
+              // Group/header
+              if (item.links) {
+                return `
+                <div class="left-panel-group">
+                  <div class="left-panel-group-title">
+                    ${item.label}
+                  </div>
 
-              <div class="left-panel-group-links">
-                ${item.links
-                  .map(
-                    (link) => `
-                  <a
-                    class="left-panel-link left-panel-sub-link"
-                    href="${link.href}"
-                  >
-                    ${link.label}
-                  </a>
-                `,
-                  )
-                  .join("")}
-              </div>
-            </div>
-          `;
-          }
+                  <div class="left-panel-group-links">
+                    ${deepSort(item.links, "label")
+                      .map(
+                        (link) => `
+                      <a
+                        class="left-panel-link left-panel-sub-link"
+                        href="${link.href}"
+                      >
+                        ${link.label}
+                      </a>
+                    `,
+                      )
+                      .join("")}
+                  </div>
+                </div>
+              `;
+              }
 
-          return "";
-        })
-        .join("")}
-    </nav>
-  `;
+              return "";
+            })
+            .join("")}
+        </nav>
+      `;
       }
 
       const renderCommandSection = (commandGroup) => {
@@ -3256,143 +3074,76 @@
         return renderSection({
           id: commandGroup.id,
 
-          title: commandGroup.title,
+          title: `${commandGroup.title}`,
 
           content: `
-          <p>
-            ${escapeHtml(commandGroup.description)}
-          </p>
+              <p>
+                ${escapeHtml(commandGroup.description)}
+              </p>
 
-          ${renderTagsList(commandGroup.tags)}
+              ${renderTagsList(commandGroup.tags)}
 
-          ${renderTable({
-            headers: ["Command", "Description"],
+              ${renderTable({
+                headers: ["Command", "Description"],
 
-            rows,
-          })}
-        `,
+                rows,
+              })}
+            `,
         });
       };
 
-      const renderContent = (commands = []) => `
-      <div class="content">
-
-        ${renderHeading({
-          level: 1,
-          text: "Developer CLI Commands Reference",
-        })}
-
-        <p>
-          A searchable-style reference structure for commonly used
-          source control, cloud, infrastructure, container,
-          JavaScript and Linux command-line tools.
-        </p>
-
-        ${renderQoute({
-          text: "New command groups can be added by updating the data constants without changing the rendering logic.",
-          author: "Data-Driven UI",
-        })}
-
-        ${renderDivider({
-          variant: "primary",
-        })}
-
-        ${commands.map(renderCommandSection).join("")}
-
-      </div>
-    `;
-
       const renderFloatingPanel = (data) => `
-      <aside class="floating-panel">
+          <aside class="floating-panel">
 
-        <h3 class="floating-panel__title">
-          ${escapeHtml(data.title)}
-        </h3>
+            <h3 class="floating-panel__title">
+              ${escapeHtml(data.title)}
+            </h3>
 
-        <p class="floating-panel__text">
-          ${escapeHtml(data.text)}
-        </p>
+            <p class="floating-panel__text">
+              ${escapeHtml(data.text)}
+            </p>
 
-        ${renderBadgesList(data.badges)}
+            ${renderBadgesList(data.badges)}
 
-        <button
-          class="
-            button
-            button--primary
-          "
-          onclick="
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            })
-          "
-        >
-          Back to Top
-        </button>
+            <button
+              class="
+                button
+                button--primary
+              "
+              onclick="
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                })
+              "
+            >
+              Back to Top
+            </button>
 
-      </aside>
-    `;
-
-      const renderApp = () => {
-        const app = document.getElementById("app");
-
-        app.innerHTML = `
-        <div class="app">
-
-          ${renderLeftPanel(LEFT_PANEL_DATA)}
-
-          <main class="main">
-            ${renderContent(COMMANDS_DATA)}
-          </main>
-
-          ${renderFloatingPanel(FLOATING_PANEL_DATA)}
-
-        </div>
-      `;
-      };
-
-      /* =========================================================
-       INITIALIZATION
-    ========================================================= */
+          </aside>
+        `;
 
       document.addEventListener("DOMContentLoaded", () => {
-        renderApp();
+        const app = document.querySelector("#app .app");
+        app.innerHTML = renderLeftPanel(LEFT_PANEL_DATA);
+        app.innerHTML +=
+          '<main class="main"><div class="content"></div></main>';
+        const content = document.querySelector("#app .app .main .content");
+        content.innerHTML += renderHeading({
+          level: 2,
+          id: "commands",
+          text: "Commands",
+          variant: 'primary'
+        });
+        content.innerHTML += `${deepSort(COMMANDS_DATA, "title").map(renderCommandSection).join("")}`;
+        content.innerHTML += renderHeading({
+          level: 2,
+          id: "ai-prompts",
+          text: "AI Prompts",
+        });
+        content.innerHTML += `${renderCardsList(deepSort(PROMPTS_DATA, "title"))}`;
+        app.innerHTML += `${renderFloatingPanel(FLOATING_PANEL_DATA)}`;
       });
-
-      /* =========================================================
-       EXTENSION EXAMPLE
-
-       Add another tool by adding:
-
-       1. A navigation entry to LEFT_PANEL_DATA
-       2. A command object to COMMANDS_DATA
-
-       Example:
-
-       COMMANDS_DATA.push({
-         id: 'commands-new-tool',
-
-         title: 'New Tool',
-
-         description:
-           'Description of the tool.',
-
-         tags: [
-           {
-             label: 'Category',
-             variant: 'primary'
-           }
-         ],
-
-         commands: [
-           {
-             command: 'tool command',
-             description:
-               'What the command does.'
-           }
-         ]
-       });
-    ========================================================= */
     </script>
   </body>
 </html>
