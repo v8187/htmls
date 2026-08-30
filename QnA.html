@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Personal Q & A</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css" rel="stylesheet">
+      html,
+      body,
+      nav,
+      section,
+      article,
+      div,
+      ul,
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #444;
+        display: flex;
+        flex: 1;
+        height: 100vh;
+      }
+
+      a,
+      a:visited,
+      a:link,
+      a:active,
+      a:hover {
+        display: inline-block;
+        color: #266fc9;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      nav,
+      .main-content {
+        overflow: auto;
+      }
+
+      nav {
+        background: #eee;
+        border-right: 1px solid #ddd;
+        flex: 0 0 200px;
+        padding: 20px 10px;
+      }
+
+      nav ul {
+        list-style: none;
+      }
+
+      nav ul a {
+        display: block;
+        padding: 4px 0;
+        text-decoration: none;
+        color: inherit;
+        outline: 0 none;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      select,
+      input[type="text"] {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        font-size: 14px;
+        padding: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 7px;
+        outline: 0 none;
+      }
+
+      input[type="text"] {
+        padding: 5px 8px;
+      }
+
+      select:focus,
+      input[type="text"]:focus {
+        border: 1px solid rgb(87, 123, 241);
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 20px;
+      }
+
+      table caption {
+        background: #efefef;
+        border: 1px solid #ddd;
+        border-bottom: 0 none;
+        padding: 10px 20px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      table,
+      tr,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      td,
+      th {
+        padding: 10px 15px;
+      }
+
+      code {
+        color: #666;
+        font-size: 15px;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .main-content > section {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .main-content > section:last-child {
+        margin-bottom: 0;
+        border-bottom: 0 none;
+      }
+      .main-content {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .main-content table {
+        margin: 15px 0;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+      }
+
+      .main-content table th,
+      .main-content table td {
+        padding: 5px 8px;
+        border: 1px solid #ddd;
+      }
+
+      .main-content table th:first-child {
+        text-align: right;
+      }
+
+      .main-content section {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        margin: 10px 0 0;
+      }
+
+      .main-content section h3 {
+        font-size: 13px;
+      }
+
+      .main-content section code {
+        display: block;
+        padding: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 13px;
+        color: #555;
+        background-color: #f6f6f6;
+        border-radius: 6px;
+        margin: 10px 0 2px;
+      }
+
+      .main-content section code.inline {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 4px 6px;
+        font-family: inherit;
+        font-size: inherit;
+        color: rgb(79, 98, 114);
+        background-color: #f1f0f0;
+        border-radius: 4px;
+        margin: 0;
+      }
+
+      .no-data {
+        padding: 20px;
+        font-size: 1.5rem;
+        color: #999;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .q-and-a-list {
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: justify;
+        color: #333;
+      }
+
+      .q-and-a-list li::marker,
+      .question {
+        font-weight: bold;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+      }
+
+      .question {
+        margin-bottom: 8px;
+        margin-top: 15px;
+      }
+
+      .answer {
+        margin-bottom: 8px;
+      }
+
+      .q-and-a-item {
+      }
+    </style>
+    <script type="text/javascript">
+      const el = (tagName, attrs = {}) => {
+        const _el = document.createElement(tagName);
+
+        for (const attr in attrs) {
+          _el.setAttribute(attr, attrs[attr]);
+        }
+
+        return _el;
+      };
+      const tEl = (txt, attrs = {}) => {
+        const _elText = document.createTextNode(txt);
+
+        for (const attr in attrs) {
+          _elText.setAttribute(attr, attrs[attr]);
+        }
+
+        return _elText;
+      };
+      const byId = (id) => document.getElementById(id);
+      const isEl = (el) => el instanceof Element;
+
+      const createTable = (id, data, headings, className, caption) => {
+        const table = el("table");
+        table.setAttribute("id", `${id}Table`);
+        table.setAttribute("class", className);
+
+        if (caption) {
+          const tCaption = table.appendChild(el("caption"));
+          tCaption.appendChild(tEl(caption));
+        }
+
+        if (headings.length) {
+          const head = table.appendChild(el("thead"));
+          const trHead = head.appendChild(el("tr"));
+
+          headings.map((h) => {
+            const th = trHead.appendChild(el("th"));
+            th.appendChild(tEl(h));
+          });
+        }
+
+        const body = table.appendChild(el("tbody"));
+
+        data.map((t) => {
+          const tr = body.appendChild(el("tr"));
+          for (const k in t) {
+            const td = tr.appendChild(el("td"));
+            let content = t[k];
+
+            if (k.indexOf("rowSpan") !== -1) {
+              td.setAttribute("rowspan", t[k].rows);
+              content = t[k].content;
+            } else if (k.indexOf("colspan") !== -1) {
+              td.setAttribute("colspan", t[k].cols);
+              content = t[k].content;
+            }
+
+            if (isEl(content)) {
+              td.appendChild(content);
+            } else {
+              td.innerHTML = content;
+            }
+          }
+        });
+
+        byId(id).appendChild(table);
+      };
+
+      const createLink = (href, text, target, className) => {
+        const a = el("a");
+        a.setAttribute("href", href);
+        a.setAttribute("target", target || "_blank");
+        className && a.setAttribute("class", className);
+        a.appendChild(tEl(text || "Link"));
+
+        return a;
+      };
+
+      const createTag = (text) => {
+        const t = el("span");
+        t.setAttribute("class", "tag-item");
+        // t.appendChild(tEl(text));
+        t.innerHTML = text;
+        return t;
+      };
+
+      const createTagsList = (data) => {
+        const div = el("div");
+        div.setAttribute("class", "tags-list");
+
+        data.map((text) => {
+          div.appendChild(createTag(text));
+        });
+
+        return div;
+      };
+
+      /* Sort in ascending order by multiple props based on props order given in props list */
+      const sort = (a, b, props) => {
+        for (let i = 0; i < props.length; i++) {
+          const prop = props[i];
+          if (a[prop] < b[prop]) return -1;
+          if (a[prop] > b[prop]) return 1;
+        }
+        return 0;
+      };
+    </script>
+  </head>
+
+  <body>
+    <nav id="mainNav"></nav>
+    <div class="main-content" id="mainContent">
+      <h2 id="langHeading"></h2>
+      <article id="qAndAList"></article>
+    </div>
+    <script type="text/javascript">
+      (() => {
+        let selectedLanguage = {
+          id: "github-copilot",
+          label: "GitHub Copilot",
+        };
+        // Create language filter options
+        const selLang = byId("mainNav").appendChild(
+          el("select", { id: "selLanguage", name: "selLanguage" })
+        );
+        selLang.addEventListener("change", (evt) => {
+          selectedLanguage = CODING_LANGUAGES.find(
+            (l) => l.id === evt.target.value
+          );
+          handleChange();
+        });
+        const CODING_LANGUAGES = [
+          { id: "html", label: "HTML" },
+          { id: "css", label: "CSS" },
+          { id: "javascript", label: "JavaScript" },
+          { id: "typescript", label: "TypeScript" },
+          { id: "python", label: "Python" },
+          { id: "azure", label: "Azure" },
+          { id: "github-copilot", label: "GitHub Copilot" },
+          { id: "reactjs", label: "React.js" },
+          { id: "nodejs", label: "Node.js" },
+          { id: "graphql", label: "GraphQL" },
+          { id: "docker", label: "Docker" },
+          { id: "kubernetes", label: "Kubernetes" },
+          { id: "jenkins", label: "Jenkins" },
+          { id: "mongodb", label: "MongoDB" },
+          { id: "vuejs", label: "Vue.js" },
+          { id: "angular", label: "Angular" },
+        ].sort((a, b) => sort(a, b, "id"));
+
+        CODING_LANGUAGES.forEach((lang) => {
+          const option = selLang.appendChild(el("option", { value: lang.id }));
+          option.appendChild(tEl(lang.label));
+        });
+
+        const Q_and_A = {};
+        Q_and_A["github-copilot"] = [
+          {
+            question: "What is GitHub Copilot?",
+            answers: [
+              "GitHub Copilot is an AI-powered code completion tool developed by GitHub in collaboration with OpenAI. It uses machine learning models to suggest code snippets and entire functions based on the context of the code being written.",
+            ],
+          },
+          {
+            question: "How does GitHub Copilot work?",
+            answers: [
+              "GitHub Copilot works by analyzing the code you are writing and providing real-time suggestions. It leverages a vast dataset of publicly available code from GitHub repositories to generate relevant code completions, helping developers write code faster and more efficiently.",
+            ],
+          },
+          {
+            question: "Is GitHub Copilot free to use?",
+            answers: [
+              "GitHub Copilot offers a free trial period, after which it requires a subscription for continued use. Pricing details can be found on the official GitHub Copilot website.",
+            ],
+          },
+          {
+            question:
+              "Can GitHub Copilot be used with any programming language?",
+            answers: [
+              "GitHub Copilot supports a wide range of programming languages, including but not limited to Python, JavaScript, TypeScript, Ruby, and Go. However, its effectiveness may vary depending on the language and the context of the code being written.",
+            ],
+          },
+          {
+            question: "Is GitHub Copilot secure to use?",
+            answers: [
+              "GitHub Copilot is designed with security in mind, but users should be cautious about the code suggestions it provides. It's important to review and understand the generated code to ensure it meets security and quality standards before integrating it into your projects.",
+            ],
+          },
+          {
+            question:
+              "What kind of insights can the GitHub Copilot usage metrics API provide to help evaluate the effectiveness of GitHub Copilot? (Choose two.)",
+            answers: [
+              "The API can track the number of code suggestions accepted and used in the organization.",
+              "The API can provide Copilot Chat specific suggestions acceptance metrics.",
+            ],
+          },
+          {
+            question:
+              "What method can be used to interact with GitHub Copilot?",
+            answers: ["From a web browser at https:\/\/github.copilot.com"],
+          },
+          {
+            question: "How is GitHub Copilot Individual billed? (Choose two.)",
+            answers: [
+              "Monthly as a subscription",
+              "Annually as a subscription",
+            ],
+          },
+          {
+            question:
+              "How can GitHub Copilot assist developers during the requirements analysis phase of the Software Development Life Cycle (SDLC)?",
+            answers: [
+              "By providing templates and code snippets that help in documenting requirements.",
+            ],
+          },
+          {
+            question:
+              "What is the correct way to exclude specific files from being used by GitHub Copilot Business during code suggestions?",
+            answers: ["Add the specific files to a copilot.ignore file"],
+          },
+          {
+            question:
+              "Which of the following GitHub Copilot Business related activities can be tracked using the organization audit logs?",
+            answers: [
+              "Code suggestions made by GitHub Copilot",
+              "Changes to content exclusion settings",
+            ],
+          },
+          {
+            question:
+              "What are two techniques that can be used to improve prompts to GitHub Copilot? (Choose two.)",
+            answers: [
+              "Provide specific success criteria",
+              "Provide insight on where to get the content from to get a response",
+            ],
+          },
+          {
+            question:
+              "How long does it take content exclusion to add or be updated?",
+            answers: ["Up to 30 minutes"],
+          },
+          {
+            question:
+              "Which REST API endpoint is used to modify details about a GitHub Copilot Business subscription? (Choose two.)",
+            answers: [
+              "Add teams to the Copilot subscription for an organization",
+              "Remove teams from the Copilot subscription for an organization",
+            ],
+          },
+          {
+            question:
+              "What configuration needs to be set to get help from Microsoft and GitHub protecting against IP infringement while using GitHub Copilot?",
+            answers: ["Suggestions matching public code to ‘blocked’"],
+          },
+        ].sort((a, b) => sort(a, b, "question"));
+
+        // Create Navigation links and sections
+        const nav = byId("mainNav").appendChild(el("ul"));
+        // const content = byId("mainContent");
+
+        const renderQandAs = () => {
+          const qAndAList = byId("qAndAList");
+          qAndAList.innerHTML = "";
+          const selectedQandAs = Q_and_A[selectedLanguage.id];
+
+          if (!selectedQandAs) {
+            const p = qAndAList.appendChild(el("p", { class: "no-data" }));
+            p.appendChild(
+              tEl(
+                `Question & Answers are not available for "${selectedLanguage.label}"`
+              )
+            );
+          } else {
+            const ul = qAndAList.appendChild(
+              el("ol", { class: "q-and-a-list" })
+            );
+            selectedQandAs.forEach((qa, index) => {
+              const qnaItem = ul.appendChild(
+                el("li", { class: "q-and-a-item" })
+              );
+              const qHeading = qnaItem.appendChild(
+                el("h3", { class: "question" })
+              );
+              qHeading.appendChild(tEl(`${qa.question}`));
+
+              qa.answers.forEach((ans) => {
+                const elAns = qnaItem.appendChild(el("p", { class: "answer" }));
+                elAns.appendChild(tEl(ans));
+              });
+            });
+          }
+        };
+
+        const handleChange = () => {
+          const langHeading = byId("langHeading");
+          langHeading.innerHTML = "";
+          langHeading.appendChild(tEl(`Selected Language: `));
+          const langSpan = el("span");
+          langSpan.appendChild(tEl(selectedLanguage.label));
+          langHeading.appendChild(langSpan);
+
+          byId("selLanguage").value = selectedLanguage.id;
+          renderQandAs();
+        };
+
+        handleChange();
+      })();
+    </script>
+  </body>
+</html>

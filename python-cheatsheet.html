@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Python Cheat Sheet</title>
+<style>
+@page{size:A4 landscape;margin:10mm}
+body{font-family:Arial,sans-serif;font-size:12px;line-height:1.35;color:#222;background:#fff}
+h1{text-align:center}h2{background:#f3f3f3;padding:4px;border-left:4px solid #555}
+pre{background:#fafafa;border:1px solid #ddd;padding:6px;white-space:pre-wrap}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4px}
+.cols{column-count:3;column-gap:18px}.sec{break-inside:avoid;margin-bottom:12px}
+</style></head><body>
+<h1>Python Cheat Sheet for JavaScript Developers</h1>
+<div class='cols'>
+<div class='sec'><h2>Basics</h2><pre>print()
+x=1
+name='abc'
+True False None
+5//2 5/2 2**3
+b if a else c</pre></div>
+<div class='sec'><h2>Collections</h2><pre>list=[]
+tuple=()
+dict={}
+set=set()
+
+nums.append(1)
+d.get('k')
+a|b a&b a-b
+</pre></div>
+<div class='sec'><h2>Loops</h2><pre>for i in range(5):
+    pass
+
+while x:
+    pass
+
+for i,v in enumerate(a):
+    pass
+
+for a,b in zip(x,y):
+    pass</pre></div>
+<div class='sec'><h2>Comprehensions</h2><pre>[x*x for x in nums]
+{x:x*x for x in nums}
+{x*x for x in nums}
+(x*x for x in nums)</pre></div>
+<div class='sec'><h2>Functions</h2><pre>def f(a,b=1,*args,**kwargs):
+    return a+b
+
+lambda x:x*x</pre></div>
+<div class='sec'><h2>OOP</h2><pre>class User:
+    def __init__(self,n):
+        self.name=n
+
+@dataclass
+class A:
+    id:int</pre></div>
+<div class='sec'><h2>Files</h2><pre>with open('a.txt') as f:
+    data=f.read()</pre></div>
+<div class='sec'><h2>JSON</h2><pre>json.loads()
+json.dumps()</pre></div>
+<div class='sec'><h2>Regex</h2><pre>re.search()
+re.findall()
+re.sub()</pre></div>
+<div class='sec'><h2>Async</h2><pre>async def main():
+    await task()
+
+asyncio.run(main())</pre></div>
+<div class='sec'><h2>Decorators</h2><pre>@decorator
+def fn():
+    pass</pre></div>
+<div class='sec'><h2>Typing</h2><pre>def add(a:int,b:int)->int:
+    return a+b</pre></div>
+<div class='sec'><h2>Libraries</h2><pre>requests
+pandas
+numpy
+fastapi
+pytest
+sqlalchemy</pre></div>
+<div class='sec'><h2>CLI</h2><pre>python -m venv venv
+pip install requests
+pip freeze
+pytest</pre></div>
+<div class='sec'><h2>JS vs Python</h2>
+<table><tr><th>JS</th><th>Py</th></tr>
+<tr><td>Array</td><td>list</td></tr>
+<tr><td>Object</td><td>dict</td></tr>
+<tr><td>null</td><td>None</td></tr>
+<tr><td>map()</td><td>comprehension</td></tr>
+<tr><td>Promise</td><td>coroutine</td></tr>
+</table></div>
+</div></body></html>

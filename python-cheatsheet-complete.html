@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset='utf-8'><title>Python Cheat Sheet</title>
+<style>
+@page{size:A4 landscape;margin:8mm}
+body{font-family:Arial;font-size:11px;color:#222}
+h1{text-align:center}
+.wrap{column-count:3;column-gap:14px}
+.sec{break-inside:avoid;border:1px solid #ddd;margin:0 0 10px;padding:6px}
+h2{margin:0;background:#f2f2f2;padding:4px;font-size:13px}
+pre{font-family:Consolas,monospace;font-size:10px;background:#fafafa;padding:5px;border:1px solid #eee;white-space:pre-wrap}
+table{border-collapse:collapse;width:100%;font-size:10px}
+td,th{border:1px solid #ccc;padding:3px}
+</style></head><body><h1>Python Cheat Sheet for JavaScript Developers</h1><div class='wrap'><div class='sec'><h2>JS → Python Quick Map</h2>
+<table><tr><th>JavaScript</th><th>Python</th></tr>
+<tr><td>let/const</td><td>x=1</td></tr><tr><td>null</td><td>None</td></tr>
+<tr><td>true/false</td><td>True/False</td></tr><tr><td>Array</td><td>list</td></tr>
+<tr><td>Object</td><td>dict</td></tr><tr><td>Set</td><td>set</td></tr>
+<tr><td>Map</td><td>dict</td></tr><tr><td>===</td><td>==</td></tr>
+<tr><td>&& || !</td><td>and or not</td></tr>
+<tr><td>push()</td><td>append()</td></tr>
+<tr><td>map/filter</td><td>comprehension</td></tr>
+<tr><td>Promise</td><td>coroutine</td></tr>
+<tr><td>spread ...a</td><td>*a</td></tr>
+<tr><td>rest ...args</td><td>*args</td></tr></table></div><div class='sec'><h2>Basics</h2><pre>print('Hi')
+x=1
+name='abc'
+5//2
+2**3
+b if a else c</pre></div><div class='sec'><h2>Strings</h2><pre>s='hello'
+s.upper(); s.lower(); len(s)
+s[1:4]
+s[::-1]
+f'{name}'</pre></div><div class='sec'><h2>Collections</h2><pre>list=[] tuple=() dict={} set()
+d.get('k')
+a|b;a&b
+a-b;a^b</pre></div><div class='sec'><h2>Loops</h2><pre>for i in range(5): pass
+for i,v in enumerate(a): pass
+for x,y in zip(a,b): pass
+while ok: pass</pre></div><div class='sec'><h2>Comprehensions</h2><pre>[x*x for x in a]
+{x:x*x for x in a}
+{x*x for x in a}
+(x*x for x in a)</pre></div><div class='sec'><h2>Functions</h2><pre>def f(a,b=1,*args,**kwargs):
+ return a+b
+lambda x:x*x</pre></div><div class='sec'><h2>OOP</h2><pre>class A:
+ def __init__(self,n): self.n=n
+@property
+@staticmethod
+@classmethod</pre></div><div class='sec'><h2>Dataclass</h2><pre>@dataclass
+class User:
+ name:str
+ age:int</pre></div><div class='sec'><h2>Files</h2><pre>with open('a') as f:
+ data=f.read()</pre></div><div class='sec'><h2>Pathlib</h2><pre>Path('logs').mkdir(exist_ok=True)</pre></div><div class='sec'><h2>JSON</h2><pre>json.loads()
+json.dumps()</pre></div><div class='sec'><h2>Regex</h2><pre>re.search()
+re.findall()
+re.sub()</pre></div><div class='sec'><h2>Exceptions</h2><pre>try:...
+except ValueError:...
+finally:...</pre></div><div class='sec'><h2>Async</h2><pre>async def main():
+ await task()
+asyncio.run(main())</pre></div><div class='sec'><h2>Decorators</h2><pre>@cache
+@staticmethod
+@mydecorator</pre></div><div class='sec'><h2>Typing</h2><pre>def add(a:int,b:int)->int:
+ return a+b</pre></div><div class='sec'><h2>Testing</h2><pre>def test_add():
+ assert add(1,2)==3
+pytest</pre></div><div class='sec'><h2>Packages</h2><pre>python -m venv venv
+pip install x
+pip freeze</pre></div><div class='sec'><h2>Stdlib</h2><pre>os sys pathlib json re csv
+collections itertools
+functools datetime sqlite3</pre></div><div class='sec'><h2>Popular libs</h2><pre>requests pandas numpy
+fastapi flask sqlalchemy
+pytest matplotlib</pre></div></div></body></html>

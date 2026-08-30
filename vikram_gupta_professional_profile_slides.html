@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vikram Gupta — Professional Profile</title>
+<style>
+:root{
+  --bg:#07111f;--panel:#0d1b2d;--panel2:#10243a;--text:#edf6ff;--muted:#9bb0c7;
+  --cyan:#54d6ff;--blue:#6f8cff;--violet:#a78bfa;--line:rgba(255,255,255,.10);
+  --shadow:0 24px 80px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box} html,body{height:100%;margin:0}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:
+radial-gradient(circle at 80% 15%,rgba(84,214,255,.14),transparent 28%),
+radial-gradient(circle at 15% 85%,rgba(111,140,255,.12),transparent 30%),var(--bg);
+color:var(--text);overflow:hidden}
+.deck{height:100vh;position:relative}
+.slide{position:absolute;inset:0;padding:7vh 8vw;display:grid;align-content:center;opacity:0;transform:translateX(30px) scale(.985);
+transition:.45s ease;pointer-events:none}.slide.active{opacity:1;transform:none;pointer-events:auto}
+.grid{display:grid;gap:24px}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
+.eyebrow{color:var(--cyan);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+h1{font-size:clamp(3rem,7vw,7.2rem);line-height:.92;margin:16px 0 22px;letter-spacing:-.055em}
+h2{font-size:clamp(2.1rem,4vw,4rem);margin:10px 0 26px;letter-spacing:-.035em}
+h3{margin:0 0 8px;font-size:1.15rem}.lead{font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.6;color:#c6d6e8;max-width:850px}
+.muted{color:var(--muted);line-height:1.65}.accent{color:var(--cyan)}
+.card{background:linear-gradient(145deg,rgba(16,36,58,.92),rgba(9,25,43,.82));border:1px solid var(--line);
+border-radius:22px;padding:26px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.metric{font-size:2.6rem;font-weight:850;letter-spacing:-.04em}.metric small{font-size:.9rem;color:var(--muted);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.tag{padding:9px 13px;border:1px solid rgba(84,214,255,.22);border-radius:999px;color:#d9f6ff;background:rgba(84,214,255,.07);font-size:.88rem}
+.timeline{border-left:2px solid rgba(84,214,255,.28);padding-left:24px;display:grid;gap:22px}.item{position:relative}.item:before{content:"";position:absolute;left:-31px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+.kicker{font-weight:800;color:#dcecff}.bar{height:8px;background:#182b42;border-radius:99px;overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:inherit}
+.quote{font-size:1.35rem;line-height:1.6;color:#dce9f7}.quote:before{content:"“";font-size:4rem;color:var(--cyan);line-height:0;vertical-align:-.55em;margin-right:6px}
+.nav{position:fixed;right:28px;bottom:24px;display:flex;gap:8px;z-index:10}.nav button{border:1px solid var(--line);background:#0d1b2dcc;color:#dcecff;border-radius:12px;width:42px;height:38px;cursor:pointer;font-size:18px}.nav button:hover{border-color:var(--cyan)}
+.progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--violet));width:0;z-index:20;transition:.35s}
+.counter{position:fixed;left:28px;bottom:28px;color:#7890aa;font-size:.78rem;letter-spacing:.1em}
+.cta{display:inline-flex;align-items:center;gap:9px;color:#06101b;background:var(--cyan);font-weight:850;padding:13px 18px;border-radius:13px;text-decoration:none;margin-top:20px}
+.bigword{font-size:clamp(5rem,15vw,13rem);font-weight:900;line-height:.75;color:rgba(84,214,255,.055);position:absolute;right:5vw;bottom:5vh;pointer-events:none}
+@media(max-width:800px){.slide{padding:7vh 7vw}.two,.three{grid-template-columns:1fr}.card{padding:20px}body{overflow:auto}.slide{position:absolute;min-height:100vh}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<div class="progress" id="progress"></div>
+
+<section class="slide active">
+  <div>
+    <div class="eyebrow">Professional Profile · 2026</div>
+    <h1>Vikram<br><span class="accent">Gupta</span></h1>
+    <p class="lead">Full-Stack Tech Lead focused on automation, AI-assisted engineering, cloud-native enterprise applications, and the modern JavaScript ecosystem.</p>
+    <div class="tags"><span class="tag">Technology Leadership</span><span class="tag">Full-Stack Engineering</span><span class="tag">AI-Assisted Engineering</span><span class="tag">Cloud Native</span></div>
+    <a class="cta" href="https://www.linkedin.com/in/vikram1vicky/" target="_blank">View LinkedIn ↗</a>
+  </div>
+  <div class="bigword">TECH</div>
+</section>
+
+<section class="slide">
+  <div class="grid two">
+    <div>
+      <div class="eyebrow">01 · At a glance</div><h2>Engineering depth.<br><span class="accent">Leadership mindset.</span></h2>
+      <p class="lead">A hands-on technology leader who bridges product needs, architecture, engineering execution and platform capabilities.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="metric">15+ <small>years</small></div><div class="muted">Software engineering & technology experience</div></div>
+      <div class="card"><div class="metric">4–6 <small>engineers</small></div><div class="muted">Team leadership & mentoring experience</div></div>
+      <div class="card"><div class="metric">MERN / MEAN</div><div class="muted">Modern JavaScript ecosystem foundation</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">02 · Core technology</div><h2>Modern engineering<br><span class="accent">across the stack.</span></h2>
+  <div class="grid three">
+    <div class="card"><h3>Frontend</h3><p class="muted">React · Angular · Vue · Next.js<br>Design systems · Rich web applications</p></div>
+    <div class="card"><h3>Backend</h3><p class="muted">Node.js · NestJS · GraphQL<br>APIs · Service-oriented applications</p></div>
+    <div class="card"><h3>Cloud & Platform</h3><p class="muted">Azure · AKS · Terraform<br>Containerized workloads · YAML deployments</p></div>
+  </div>
+  <div class="tags"><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">GraphQL</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Azure</span></div>
+</section>
+
+<section class="slide">
+  <div class="grid two">
+    <div><div class="eyebrow">03 · Architecture & delivery</div><h2>From idea to<br><span class="accent">production.</span></h2>
+      <p class="lead">Comfortable moving between application code, architecture decisions and cloud infrastructure—while keeping delivery practical.</p>
+    </div>
+    <div class="card timeline">
+      <div class="item"><div class="kicker">Discover</div><div class="muted">Clarify requirements, constraints and outcomes.</div></div>
+      <div class="item"><div class="kicker">Design</div><div class="muted">Shape APIs, application architecture and platform boundaries.</div></div>
+      <div class="item"><div class="kicker">Build</div><div class="muted">Hands-on engineering with modern JavaScript technologies.</div></div>
+      <div class="item"><div class="kicker">Deploy & evolve</div><div class="muted">Cloud-native delivery, observability and continuous improvement.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">04 · AI-assisted engineering</div><h2>Engineering with<br><span class="accent">AI in the loop.</span></h2>
+  <div class="grid two">
+    <div class="card">
+      <h3>Automation mindset</h3>
+      <p class="muted">Exploring how AI agents and developer tooling can reduce repetitive work, accelerate delivery and improve engineering workflows.</p>
+      <div class="bar"><i style="width:88%"></i></div>
+    </div>
+    <div class="card">
+      <h3>AI + observability</h3>
+      <p class="muted">Building toward AI-assisted observability concepts that turn operational signals into actionable engineering insight.</p>
+      <div class="bar"><i style="width:78%"></i></div>
+    </div>
+  </div>
+  <div class="tags"><span class="tag">ChatGPT</span><span class="tag">Gemini</span><span class="tag">GitHub Copilot</span><span class="tag">Claude</span><span class="tag">Developer Agents</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">05 · Leadership</div><h2>Lead from the front.<br><span class="accent">Enable the team.</span></h2>
+  <div class="grid three">
+    <div class="card"><h3>Technical ownership</h3><p class="muted">Stay close to architecture, implementation and the difficult engineering decisions.</p></div>
+    <div class="card"><h3>Mentoring</h3><p class="muted">Help engineers grow through guidance, reviews, collaboration and meaningful ownership.</p></div>
+    <div class="card"><h3>Delivery focus</h3><p class="muted">Balance engineering quality with business priorities, timelines and practical outcomes.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="grid two">
+    <div><div class="eyebrow">06 · What I bring</div><h2>Three strengths.<br><span class="accent">One mindset.</span></h2></div>
+    <div class="grid">
+      <div class="card"><h3>01 — Breadth</h3><p class="muted">Frontend, backend, APIs, cloud and platform engineering.</p></div>
+      <div class="card"><h3>02 — Depth</h3><p class="muted">Hands-on problem solving rather than architecture in isolation.</p></div>
+      <div class="card"><h3>03 — Adaptability</h3><p class="muted">Constantly learning and experimenting with emerging engineering approaches.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="card" style="max-width:900px">
+    <div class="eyebrow">07 · Next chapter</div>
+    <h2>Growing from<br><span class="accent">Tech Lead → Architect.</span></h2>
+    <p class="lead">The next step is to expand the impact from individual systems and teams toward broader technical direction, reusable architecture patterns, engineering enablement and AI-assisted transformation.</p>
+    <div class="tags"><span class="tag">Solution Architecture</span><span class="tag">Technical Strategy</span><span class="tag">Platform Thinking</span><span class="tag">AI Transformation</span></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div style="max-width:850px">
+    <div class="eyebrow">08 · Connect</div>
+    <h2>Let's build<br><span class="accent">what's next.</span></h2>
+    <p class="lead">Technology leadership is most valuable when it makes complex things simpler—for customers, teams and engineers.</p>
+    <a class="cta" href="https://www.linkedin.com/in/vikram1vicky/" target="_blank">linkedin.com/in/vikram1vicky ↗</a>
+  </div>
+</section>
+</div>
+
+<div class="counter" id="counter">01 / 09</div>
+<div class="nav"><button onclick="prev()">←</button><button onclick="next()">→</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+document.getElementById('counter').textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%'}
+function next(){show(i+1)} function prev(){show(i-1)}
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}});
+let sx=0;document.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)(dx<0?next:prev)()});
+show(0);
+</script>
+</body>
+</html>
