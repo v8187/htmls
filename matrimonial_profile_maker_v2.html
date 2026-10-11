@@ -189,6 +189,9 @@
       .fields-group.location {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
+      .fields-group.marital {
+        grid-template-columns: 198px 160px 160px;
+      }
       .fields-group .field {
         position: relative;
       }
@@ -438,7 +441,8 @@
       @media (max-width: 650px) {
         .fields-group,
         .fields-group.time,
-        .fields-group.place {
+        .fields-group.location,
+        .fields-group.marital {
           grid-template-columns: 1fr;
         }
         .fields-group .field + .field {
@@ -460,7 +464,9 @@
       <div class="head-inner">
         <div class="brandline">
           <div class="logo" aria-hidden="true">✦</div>
-          <div class="eyebrow">Matrimonial Profile Maker — Free & Private</div>
+          <div class="eyebrow" id="brandTitle">
+            Matrimonial Profile Maker — Free & Private
+          </div>
           <div class="field">
             <label for="language" id="labLanguage"
               >Language / भाषा / ਭਾਸ਼ਾ <span class="req">*</span></label
@@ -509,43 +515,50 @@
             </div>
             <div class="grid">
               <div class="field">
-                <label for="name" data-label="name">Full name</label
+                <label for="profileFor" data-label="profileFor"
+                  >Profile created for</label
+                ><select id="profileFor" name="profileFor"></select>
+              </div>
+              <div class="field">
+                <label for="name" data-label="name">Name</label
                 ><input
                   id="name"
                   name="name"
                   autocomplete="name"
-                  placeholder="Enter full name"
+                  data-placeholder="name"
+                  placeholder="Enter Name"
                 />
-              </div>
-              <div class="field">
-                <label for="profileFor" data-label="profileFor"
-                  >Profile created for</label
-                ><select id="profileFor" name="profileFor">
-                  <option value="">Select profile created for</option>
-                </select>
               </div>
               <div class="field">
                 <label for="gender" data-label="gender"
                   >Gender <span class="req">*</span></label
-                ><select id="gender" name="gender" required>
-                  <option value="">Select gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </select>
+                ><select id="gender" name="gender" required></select>
+              </div>
+              <div class="field">
+                <label for="manglik" data-label="manglik">Manglik</label
+                ><select id="manglik" name="manglik" required></select>
               </div>
               <fieldset class="fields-group-wrapper">
-                <legend class="fields-group-wrapper-title" data-label="secLocation">
+                <legend
+                  class="fields-group-wrapper-title"
+                  data-label="secLocation"
+                >
                   Current location
                 </legend>
                 <div class="fields-group location">
                   <div class="field">
-                    <input id="currentCity" name="currentCity" placeholder="City" />
+                    <input
+                      id="currentCity"
+                      name="currentCity"
+                      data-placeholder="currentCity"
+                      placeholder="City"
+                    />
                   </div>
                   <div class="field">
                     <input
                       id="currentState"
                       name="currentState"
+                      data-placeholder="currentState"
                       placeholder="State"
                     />
                   </div>
@@ -553,50 +566,53 @@
                     <input
                       id="currentCountry"
                       name="currentCountry"
+                      data-placeholder="currentCountry"
                       placeholder="Country"
                       value="India"
                     />
                   </div>
                 </div>
               </fieldset>
-              <div class="field">
-                <label for="status" data-label="status"
-                  >Marital status <span class="req">*</span></label
-                ><select id="status" name="status" required>
-                  <option value="">Select marital status</option>
-                  <option value="Unmarried">Unmarried</option>
-                  <option value="Widow/Widower">Widow/Widower</option>
-                  <option value="Divorced">Divorced</option>
-                  <option value="Awaiting Divorce">Awaiting Divorce</option>
-                  <option value="Separated">Separated</option>
-                </select>
-              </div>
-              <div class="field hidden" id="girlsWrap">
-                <label for="girls" data-label="girls"
-                  >No. of girl children <span class="req">*</span></label
-                ><input
-                  id="girls"
-                  name="girls"
-                  type="number"
-                  min="0"
-                  max="30"
-                  step="1"
-                  value="0"
-                />
-              </div>
-              <div class="field hidden" id="boysWrap">
-                <label for="boys" data-label="boys"
-                  >No. of boy children <span class="req">*</span></label
-                ><input
-                  id="boys"
-                  name="boys"
-                  type="number"
-                  min="0"
-                  max="30"
-                  step="1"
-                  value="0"
-                />
-              </div>
+              <fieldset class="fields-group-wrapper">
+                <legend
+                  class="fields-group-wrapper-title"
+                  data-label="maritalAndChildren"
+                >
+                  Marital status and children
+                </legend>
+                <div class="fields-group marital" id="maritalFields">
+                  <div class="field">
+                    <!-- <label for="maritalStatus" data-label="maritalStatus"
+                      >Marital status <span class="req">*</span></label
+                    > -->
+                    <select
+                      id="maritalStatus"
+                      name="maritalStatus"
+                      required
+                    ></select>
+                  </div>
+                  <div class="field" id="girlsWrap">
+                    <!-- <label for="childrenGirls" data-label="childrenGirls"
+                      >Children - Girls<span class="req">*</span></label
+                    > -->
+                    <select
+                      id="childrenGirls"
+                      name="childrenGirls"
+                      required
+                    ></select>
+                  </div>
+                  <div class="field" id="boysWrap">
+                    <!-- <label for="childrenBoys" data-label="childrenBoys"
+                      >Children - Boys<span class="req">*</span></label
+                    > -->
+                    <select
+                      id="childrenBoys"
+                      name="childrenBoys"
+                      required
+                    ></select>
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </section>
           <section class="card">
@@ -610,66 +626,67 @@
               </div>
             </div>
             <fieldset class="fields-group-wrapper">
-              <legend class="fields-group-wrapper-title" data-label="dateOfBirth">
+              <legend
+                class="fields-group-wrapper-title"
+                data-label="dateOfBirth"
+              >
                 Date of birth
               </legend>
               <div class="fields-group">
                 <div class="field">
-                  <select id="birthYear" name="birthYear" required>
-                    <option value="">Select year</option>
-                  </select>
+                  <select id="birthYear" name="birthYear" required></select>
                 </div>
                 <div class="field">
-                  <select id="birthMonth" name="birthMonth">
-                    <option value="">Select month</option>
-                  </select>
+                  <select id="birthMonth" name="birthMonth"></select>
                 </div>
                 <div class="field">
-                  <select id="birthDate" name="birthDate">
-                    <option value="">Select day</option>
-                  </select>
+                  <select id="birthDate" name="birthDate"></select>
                 </div>
               </div>
             </fieldset>
             <fieldset class="fields-group-wrapper">
-              <legend class="fields-group-wrapper-title" data-label="timeOfBirth">
+              <legend
+                class="fields-group-wrapper-title"
+                data-label="timeOfBirth"
+              >
                 Time of birth
               </legend>
               <div class="fields-group time">
                 <div class="field">
-                  <select id="birthHour" name="birthHour">
-                    <option value="">Select hour</option>
-                  </select>
+                  <select id="birthHour" name="birthHour"></select>
                 </div>
                 <div class="field">
-                  <select id="birthMinute" name="birthMinute">
-                    <option value="">Select minutes</option>
-                  </select>
+                  <select id="birthMinute" name="birthMinute"></select>
                 </div>
                 <div class="field">
-                  <select id="birthSecond" name="birthSecond">
-                    <option value="">Select seconds</option>
-                  </select>
+                  <select id="birthSecond" name="birthSecond"></select>
                 </div>
                 <div class="field">
-                  <select id="birthAmPm" name="birthAmPm">
-                    <option value="">Select AM/PM</option>
-                  </select>
+                  <select id="birthAmPm" name="birthAmPm"></select>
                 </div>
               </div>
             </fieldset>
             <fieldset class="fields-group-wrapper">
-              <legend class="fields-group-wrapper-title" data-label="placeOfBirth">
+              <legend
+                class="fields-group-wrapper-title"
+                data-label="placeOfBirth"
+              >
                 Place of birth
               </legend>
               <div class="fields-group location">
                 <div class="field">
-                  <input id="birthCity" name="birthCity" placeholder="City" />
+                  <input
+                    id="birthCity"
+                    name="birthCity"
+                    data-placeholder="birthCity"
+                    placeholder="City"
+                  />
                 </div>
                 <div class="field">
                   <input
                     id="birthState"
                     name="birthState"
+                    data-placeholder="birthState"
                     placeholder="State"
                   />
                 </div>
@@ -677,6 +694,7 @@
                   <input
                     id="birthCountry"
                     name="birthCountry"
+                    data-placeholder="birthCountry"
                     placeholder="Country"
                     value="India"
                   />
@@ -727,14 +745,7 @@
               </div> -->
               <div class="field">
                 <label for="diet" data-label="diet">Dietary habits</label
-                ><select id="diet" name="diet">
-                  <option value="">Select dietary preference</option>
-                  <option>Vegetarian</option>
-                  <option>Vegan</option>
-                  <option>Eggetarian</option>
-                  <option>Non-vegetarian</option>
-                  <option>Other / Prefer not to say</option>
-                </select>
+                ><select id="diet" name="diet"></select>
               </div>
             </div>
           </section>
@@ -754,6 +765,7 @@
                 ><input
                   id="mother"
                   name="mother"
+                  data-placeholder="mother"
                   placeholder="Name, occupation or other details"
                 />
               </div>
@@ -762,6 +774,7 @@
                 ><input
                   id="father"
                   name="father"
+                  data-placeholder="father"
                   placeholder="Name, occupation or other details"
                 />
               </div>
@@ -770,24 +783,21 @@
                 ><input
                   id="siblings"
                   name="siblings"
+                  data-placeholder="siblings"
                   placeholder="e.g. 1 brother, 1 sister"
                 />
               </div>
               <div class="field">
                 <label for="familyType" data-label="familyType"
                   >Family type</label
-                ><select id="familyType" name="familyType">
-                  <option value="">Select family type</option>
-                  <option>Nuclear</option>
-                  <option>Joint</option>
-                  <option>Other</option>
-                </select>
+                ><select id="familyType" name="familyType"></select>
               </div>
               <div class="field">
                 <label for="education" data-label="education">Education</label
                 ><input
                   id="education"
                   name="education"
+                  data-placeholder="education"
                   placeholder="Highest qualification"
                 />
               </div>
@@ -797,27 +807,34 @@
                 ><input
                   id="occupation"
                   name="occupation"
+                  data-placeholder="occupation"
                   placeholder="Profession / role"
                 />
               </div>
               <div class="field">
                 <label for="height" data-label="height">Height</label
-                ><input
-                  id="height"
-                  name="height"
-                  placeholder="e.g. 5 ft 7 in"
-                />
+                ><select id="height" name="height"></select>
+              </div>
+              <div class="field">
+                <label for="weight" data-label="weight">Weight</label
+                ><select id="weight" name="weight"></select>
               </div>
               <div class="field">
                 <label for="religion" data-label="religion"
                   >Religion / community (optional)</label
-                ><input id="religion" name="religion" placeholder="Optional" />
+                ><input
+                  id="religion"
+                  name="religion"
+                  data-placeholder="religion"
+                  placeholder="Optional"
+                />
               </div>
               <div class="field full">
                 <label for="about" data-label="about">About me</label
                 ><textarea
                   id="about"
                   name="about"
+                  data-placeholder="about"
                   placeholder="A short introduction, interests and values"
                 ></textarea>
               </div>
@@ -827,6 +844,7 @@
                 ><textarea
                   id="expectations"
                   name="expectations"
+                  data-placeholder="expectations"
                   placeholder="What you are looking for in a life partner"
                 ></textarea>
               </div>
@@ -835,6 +853,7 @@
                 ><textarea
                   id="other"
                   name="other"
+                  data-placeholder="other"
                   placeholder="Languages, hobbies, lifestyle or any other details"
                 ></textarea>
               </div>
@@ -2479,6 +2498,7 @@
         ];
         const translations = {
           en: {
+            brandTitle: "Matrimonial Profile Maker — Free & Private",
             heroTitle: "Your story, thoughtfully presented.",
             heroSub:
               "Create a clean matrimonial biodata in a few simple steps. Your details stay in this browser session — nothing is uploaded or saved by this page.",
@@ -2493,12 +2513,20 @@
             subLocation: "Your present city and state are required.",
             secFamily: "Family & personal information",
             subFamily: "Share only what you feel comfortable including.",
-            name: "Full name",
+            name: "Name",
             profileFor: "Profile created for",
             gender: "Gender",
-            status: "Marital status",
-            girls: "No. of girl children",
-            boys: "No. of boy children",
+            manglik: "Manglik",
+            maritalStatus: "Marital status",
+            childrenGirls: "Children - Girls",
+            noGirl: "No Girl",
+            girl: "Girl",
+            girls: "Girls",
+            childrenBoys: "Children - Boys",
+            noBoy: "No Boy",
+            boy: "Boy",
+            boys: "Boys",
+            maritalAndChildren: "Marital status and children",
             dateOfBirth: "Date of birth",
             timeOfBirth: "Time of birth",
             placeOfBirth: "Place of birth",
@@ -2523,11 +2551,30 @@
             education: "Education",
             occupation: "Occupation",
             height: "Height",
+            weight: "Weight",
             religion: "Religion / community (optional)",
             about: "About me",
             expectations: "Partner preferences (optional)",
             other: "Additional details",
-            months: [
+            placeholders: {
+              name: "Enter Name",
+              currentCity: "City",
+              currentState: "State",
+              currentCountry: "Country",
+              birthCity: "City",
+              birthState: "State",
+              birthCountry: "Country",
+              mother: "Name, occupation or other details",
+              father: "Name, occupation or other details",
+              siblings: "e.g. 1 brother, 1 sister",
+              education: "Highest qualification",
+              occupation: "Profession / role",
+              religion: "Optional",
+              about: "A short introduction, interests and values",
+              expectations: "What you are looking for in a life partner",
+              other: "Languages, hobbies, lifestyle or any other details",
+            },
+            monthOptions: [
               "January",
               "February",
               "March",
@@ -2557,19 +2604,34 @@
               "Sister",
               "Relative",
               "Friend",
+              "Others",
             ],
             amPm: ["AM", "PM"],
             selectGender: "Select gender",
-            selectStatus: "Select marital status",
+            selectManglik: "Select Manglik",
+            selectMaritalStatus: "Select marital status",
+            selectHeight: "Select height",
+            selectWeight: "Select weight",
             selectDiet: "Select dietary preference",
             selectFamily: "Select family type",
-            genders: ["Male", "Female", "Prefer not to say"],
+            genderOptions: ["Male", "Female", "Others", "Prefer not to say"],
+            manglikOptions: [
+              "Non-Manglik",
+              "Manglik",
+              "Anshik Manglik",
+              "High Manglik",
+              "Don't Know",
+              "Doesn't Matter",
+              "Prefer not to say",
+            ],
             statuses: [
               "Unmarried",
               "Widow/Widower",
               "Divorced",
               "Awaiting Divorce",
               "Separated",
+              "Single Parent",
+              "Annulled",
             ],
             diets: [
               "Vegetarian",
@@ -2603,6 +2665,7 @@
             boyCount: "Boy children",
           },
           hi: {
+            brandTitle: "शादी के लिए बायोडाटा बनाएँ - निःशुल्क और सुरक्षित",
             heroTitle: "आपकी पहचान, सुंदर और सरल रूप में।",
             heroSub:
               "कुछ आसान चरणों में अपना वैवाहिक परिचय-पत्र बनाएँ। आपकी जानकारी इसी ब्राउज़र सत्र में रहती है—यह पेज इसे अपलोड या सेव नहीं करता।",
@@ -2617,12 +2680,22 @@
             subLocation: "वर्तमान शहर और राज्य भरना आवश्यक है।",
             secFamily: "परिवार और व्यक्तिगत जानकारी",
             subFamily: "केवल वही जानकारी दें जिसे साझा करना आप उचित समझें।",
-            name: "पूरा नाम",
-            profileFor: "प्रोफ़ाइल किसके लिए बनाई गई है",
+            // name: "पूरा नाम",
+            name: "नाम",
+            // profileFor: "प्रोफ़ाइल किसके लिए बनाई गई है",
+            profileFor: "प्रोफ़ाइल किसके लिए है",
             gender: "लिंग",
-            status: "वैवाहिक स्थिति",
-            girls: "बेटियों की संख्या",
-            boys: "बेटों की संख्या",
+            manglik: "मांगलिक स्थिति",
+            maritalStatus: "वैवाहिक स्थिति",
+            childrenGirls: "बच्चे - लड़कियाँ",
+            noGirl: "कोई लड़की नहीं",
+            girl: "लड़की",
+            girls: "लड़कियाँ",
+            childrenBoys: "बच्चे - लड़के",
+            noBoy: "कोई लड़का नहीं",
+            boy: "लड़का",
+            boys: "लड़के",
+            maritalAndChildren: "वैवाहिक स्थिति और बच्चे",
             dateOfBirth: "जन्म तिथि",
             timeOfBirth: "जन्म का समय",
             placeOfBirth: "जन्म स्थान",
@@ -2647,11 +2720,30 @@
             education: "शिक्षा",
             occupation: "पेशा",
             height: "कद",
+            weight: "वज़न",
             religion: "धर्म / समुदाय (वैकल्पिक)",
             about: "मेरे बारे में",
             expectations: "जीवनसाथी से अपेक्षाएँ (वैकल्पिक)",
             other: "अतिरिक्त जानकारी",
-            months: [
+            placeholders: {
+              name: "नाम दर्ज करें",
+              currentCity: "शहर",
+              currentState: "राज्य",
+              currentCountry: "देश",
+              birthCity: "शहर",
+              birthState: "राज्य",
+              birthCountry: "देश",
+              mother: "नाम, पेशा या अन्य विवरण",
+              father: "नाम, पेशा या अन्य विवरण",
+              siblings: "जैसे: 1 भाई, 1 बहन",
+              education: "उच्चतम शैक्षणिक योग्यता",
+              occupation: "पेशा / भूमिका",
+              religion: "वैकल्पिक",
+              about: "संक्षिप्त परिचय, रुचियाँ और मूल्य",
+              expectations: "जीवनसाथी में आप क्या खोज रहे हैं",
+              other: "भाषाएँ, शौक, जीवनशैली या अन्य जानकारी",
+            },
+            monthOptions: [
               "जनवरी",
               "फ़रवरी",
               "मार्च",
@@ -2681,19 +2773,35 @@
               "बहन",
               "रिश्तेदार",
               "मित्र",
+              "अन्य",
             ],
             amPm: ["AM", "PM"],
             selectGender: "लिंग चुनें",
-            selectStatus: "वैवाहिक स्थिति चुनें",
+            selectManglik: "मांगलिक स्थिति चुनें",
+            selectMaritalStatus: "वैवाहिक स्थिति चुनें",
+            selectHeight: "कद चुनें",
+            selectWeight: "वज़न चुनें",
             selectDiet: "खान-पान चुनें",
             selectFamily: "परिवार का प्रकार चुनें",
-            genders: ["पुरुष", "महिला", "बताना नहीं चाहते"],
+            genderOptions: ["पुरुष", "महिला", "अन्य", "बताना नहीं चाहते"],
+            manglikOptions: [
+              "मांगलिक नहीं",
+              "मांगलिक",
+              "आंशिक मांगलिक",
+              "पक्का मांगलिक",
+              "पता नहीं",
+              "मांगलिक मायने नहीं रखता",
+              // "कोई फ़र्क नहीं पड़ता",
+              "बताना नहीं चाहते",
+            ],
             statuses: [
               "अविवाहित",
               "विधवा/विधुर",
               "तलाकशुदा",
-              "तलाक की प्रक्रिया जारी",
+              "तलाक की कार्यवाही जारी",
               "अलग रह रहे हैं",
+              "एकल माता/पिता",
+              "विवाह रद्द (अमान्य)",
             ],
             diets: [
               "शाकाहारी",
@@ -2727,6 +2835,7 @@
             boyCount: "बेटे",
           },
           pa: {
+            brandTitle: "ਵਿਆਹ ਲਈ ਪ੍ਰੋਫਾਈਲ ਬਣਾਓ - ਮੁਫ਼ਤ ਅਤੇ ਸੁਰੱਖਿਅਤ",
             heroTitle: "ਤੁਹਾਡੀ ਪਹਿਚਾਣ, ਸੁੰਦਰ ਤੇ ਸਾਦੇ ਢੰਗ ਨਾਲ।",
             heroSub:
               "ਕੁਝ ਸੌਖੇ ਕਦਮਾਂ ਵਿੱਚ ਆਪਣਾ ਵਿਆਹ ਸੰਬੰਧੀ ਬਾਇਓਡਾਟਾ ਬਣਾਓ। ਤੁਹਾਡੀ ਜਾਣਕਾਰੀ ਇਸ ਬ੍ਰਾਊਜ਼ਰ ਸੈਸ਼ਨ ਤੱਕ ਰਹਿੰਦੀ ਹੈ—ਇਹ ਪੇਜ ਇਸਨੂੰ ਅੱਪਲੋਡ ਜਾਂ ਸੇਵ ਨਹੀਂ ਕਰਦਾ।",
@@ -2741,12 +2850,21 @@
             subLocation: "ਮੌਜੂਦਾ ਸ਼ਹਿਰ ਅਤੇ ਰਾਜ ਲਾਜ਼ਮੀ ਹਨ।",
             secFamily: "ਪਰਿਵਾਰ ਅਤੇ ਨਿੱਜੀ ਜਾਣਕਾਰੀ",
             subFamily: "ਸਿਰਫ਼ ਉਹੀ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਕਰੋ ਜਿਸ ਨਾਲ ਤੁਸੀਂ ਸਹਿਜ ਹੋ।",
-            name: "ਪੂਰਾ ਨਾਮ",
-            profileFor: "ਪ੍ਰੋਫ਼ਾਈਲ ਕਿਸ ਲਈ ਬਣਾਈ ਗਈ ਹੈ",
+            // name: "ਪੂਰਾ ਨਾਮ",
+            name: "ਨਾਮ",
+            profileFor: "ਪ੍ਰੋਫ਼ਾਈਲ ਕਿਸ ਲਈ ਹੈ",
             gender: "ਲਿੰਗ",
-            status: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ",
-            girls: "ਧੀਆਂ ਦੀ ਗਿਣਤੀ",
-            boys: "ਪੁੱਤਰਾਂ ਦੀ ਗਿਣਤੀ",
+            manglik: "ਮਾਂਗਲਿਕ ਸਥਿਤੀ",
+            maritalStatus: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ",
+            childrenGirls: "ਬੱਚੇ - ਲੜਕੀਆਂ",
+            noGirl: "ਕੋਈ ਲੜਕੀ ਨਹੀਂ",
+            girl: "ਲੜਕੀ",
+            girls: "ਲੜਕੀਆਂ",
+            childrenBoys: "ਬੱਚੇ - ਲੜਕੇ",
+            noBoy: "ਕੋਈ ਲੜਕਾ ਨਹੀਂ",
+            boy: "ਲੜਕਾ",
+            boys: "ਲੜਕੇ",
+            maritalAndChildren: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਅਤੇ ਬੱਚੇ",
             dateOfBirth: "ਜਨਮ ਮਿਤੀ",
             timeOfBirth: "ਜਨਮ ਦਾ ਸਮਾਂ",
             placeOfBirth: "ਜਨਮ ਸਥਾਨ",
@@ -2771,11 +2889,30 @@
             education: "ਸਿੱਖਿਆ",
             occupation: "ਕਿੱਤਾ",
             height: "ਕੱਦ",
+            weight: "ਭਾਰ",
             religion: "ਧਰਮ / ਭਾਈਚਾਰਾ (ਵਿਕਲਪਿਕ)",
             about: "ਮੇਰੇ ਬਾਰੇ",
             expectations: "ਜੀਵਨ ਸਾਥੀ ਤੋਂ ਉਮੀਦਾਂ (ਵਿਕਲਪਿਕ)",
             other: "ਹੋਰ ਜਾਣਕਾਰੀ",
-            months: [
+            placeholders: {
+              name: "ਨਾਮ ਦਰਜ ਕਰੋ",
+              currentCity: "ਸ਼ਹਿਰ",
+              currentState: "ਰਾਜ",
+              currentCountry: "ਦੇਸ਼",
+              birthCity: "ਸ਼ਹਿਰ",
+              birthState: "ਰਾਜ",
+              birthCountry: "ਦੇਸ਼",
+              mother: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
+              father: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
+              siblings: "ਜਿਵੇਂ: 1 ਭਰਾ, 1 ਭੈਣ",
+              education: "ਸਭ ਤੋਂ ਉੱਚੀ ਵਿੱਦਿਅਕ ਯੋਗਤਾ",
+              occupation: "ਕਿੱਤਾ / ਭੂਮਿਕਾ",
+              religion: "ਵਿਕਲਪਿਕ",
+              about: "ਛੋਟੀ ਜਾਣ-ਪਛਾਣ, ਦਿਲਚਸਪੀਆਂ ਅਤੇ ਕਦਰਾਂ-ਕੀਮਤਾਂ",
+              expectations: "ਤੁਸੀਂ ਜੀਵਨ ਸਾਥੀ ਵਿੱਚ ਕੀ ਲੱਭ ਰਹੇ ਹੋ",
+              other: "ਭਾਸ਼ਾਵਾਂ, ਸ਼ੌਕ, ਜੀਵਨ-ਸ਼ੈਲੀ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
+            },
+            monthOptions: [
               "ਜਨਵਰੀ",
               "ਫ਼ਰਵਰੀ",
               "ਮਾਰਚ",
@@ -2805,19 +2942,35 @@
               "ਭੈਣ",
               "ਰਿਸ਼ਤੇਦਾਰ",
               "ਦੋਸਤ",
+              "ਹੋਰ",
             ],
             amPm: ["AM", "PM"],
             selectGender: "ਲਿੰਗ ਚੁਣੋ",
-            selectStatus: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਚੁਣੋ",
+            selectManglik: "ਮਾਂਗਲਿਕ ਸਥਿਤੀ ਚੁਣੋ",
+            selectMaritalStatus: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਚੁਣੋ",
+            selectHeight: "ਕੱਦ ਚੁਣੋ",
+            selectWeight: "ਭਾਰ ਚੁਣੋ",
             selectDiet: "ਖਾਣ-ਪੀਣ ਦੀ ਪਸੰਦ ਚੁਣੋ",
             selectFamily: "ਪਰਿਵਾਰ ਦੀ ਕਿਸਮ ਚੁਣੋ",
-            genders: ["ਮਰਦ", "ਔਰਤ", "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ"],
+            genderOptions: ["ਮਰਦ", "ਔਰਤ", "ਹੋਰ", "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ"],
+            manglikOptions: [
+              "ਮਾਂਗਲਿਕ ਨਹੀਂ",
+              "ਮਾਂਗਲਿਕ",
+              "ਆਂਸ਼ਿਕ ਮਾਂਗਲਿਕ",
+              "ਪੱਕਾ ਮਾਂਗਲਿਕ",
+              "ਪਤਾ ਨਹੀਂ",
+              "ਮਾਂਗਲਿਕ ਹੋਣਾ ਮਾਇਨੇ ਨਹੀਂ ਰੱਖਦਾ",
+              // "ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਪੈਂਦਾ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
             statuses: [
               "ਅਣਵਿਆਹੇ",
               "ਵਿਧਵਾ/ਵਿਧੁਰ",
               "ਤਲਾਕਸ਼ੁਦਾ",
-              "ਤਲਾਕ ਦੀ ਕਾਰਵਾਈ ਜਾਰੀ",
+              "ਤਲਾਕ ਦੀ ਕਾਰਵਾਈ ਅਧੀਨ",
               "ਵੱਖ ਰਹਿੰਦੇ ਹਨ",
+              "ਇਕੱਲਾ ਮਾਤਾ/ਪਿਤਾ",
+              "ਵਿਆਹ ਰੱਦ (ਅਮਾਨਤ)",
             ],
             diets: [
               "ਸ਼ਾਕਾਹਾਰੀ",
@@ -2855,8 +3008,14 @@
           "name",
           "profileFor",
           "gender",
-          "status",
+          "maritalStatus",
+          "childrenGirls",
+          "noGirls",
+          "girl",
           "girls",
+          "childrenBoys",
+          "noBoy",
+          "boy",
           "boys",
           "birthYear",
           "birthMonth",
@@ -2883,36 +3042,70 @@
           "expectations",
           "other",
         ];
-        const profileForValues = [
-          "Myself",
-          "Son",
-          "Daughter",
-          "Brother",
-          "Sister",
-          "Relative",
-          "Friend",
-        ];
-        function setOptions(id, first, values, keepValue = true) {
-          const el = $(id),
-            old = keepValue ? el.value : "";
+        function setOptions(id, first = null, values, keepValue = true) {
+          const el = $(id);
+          const oldValue = keepValue ? el.value : "";
+          const oldIndex = keepValue ? el.selectedIndex : -1;
+          const oldText = keepValue
+            ? el.selectedOptions[0]?.textContent
+            : "";
+          const hadPlaceholder = el.options[0]?.value === "";
           el.innerHTML = "";
-          const o = document.createElement("option");
-          o.value = "";
-          o.textContent = first;
-          el.appendChild(o);
+
+          if (first !== null) {
+            const o = document.createElement("option");
+            o.value = "";
+            o.textContent = first;
+            el.appendChild(o);
+          }
+
           values.forEach((v, i) => {
             const x = document.createElement("option");
+            let value = v;
+            let label = v;
+
+            if (
+              v !== null &&
+              v !== undefined &&
+              v.value !== null &&
+              v.value !== undefined &&
+              v.label !== null &&
+              v.label !== undefined
+            ) {
+              value = v.value;
+              label = v.label;
+            }
+
+            const optionIndex = i + (first !== null ? 1 : 0);
+            const stringValue = String(value);
             x.value =
               id === "birthMonth"
                 ? String(i + 1)
-                : id === "profileFor"
-                  ? profileForValues[i]
-                  : v;
-            x.textContent = v;
+                : /^[\d-]+$/.test(stringValue)
+                  ? stringValue
+                  : String(optionIndex);
+            x.textContent = label;
             el.appendChild(x);
           });
-          if (old && [...el.options].some((o) => o.value === old))
-            el.value = old;
+          if (!keepValue || oldIndex < 0) return;
+
+          const matchingValue = [...el.options].find(
+            (option) => option.value === oldValue,
+          );
+          const matchingText = [...el.options].find(
+            (option) => option.textContent === oldText,
+          );
+          if (matchingValue) {
+            el.value = oldValue;
+          } else if (matchingText) {
+            el.selectedIndex = matchingText.index;
+          } else {
+            const indexOffset = first !== null && !hadPlaceholder ? 1 : 0;
+            el.selectedIndex = Math.min(
+              oldIndex + indexOffset,
+              el.options.length - 1,
+            );
+          }
         }
         function updateBirthDays(t) {
           const year = Number(val("birthYear")),
@@ -2926,7 +3119,10 @@
         }
         function updateLanguage() {
           const t = translations[$("language").value] || translations.en;
+          $("brandTitle").textContent = t.brandTitle;
+          document.title = t.brandTitle;
           [
+            "brandTitle",
             "heroTitle",
             "heroSub",
             "privacyTitle",
@@ -2957,11 +3153,15 @@
             "birthCity",
             "birthState",
             "birthCountry",
+            "currentCity",
+            "currentState",
+            "currentCountry",
           ].forEach((id) => {
             $(id).setAttribute("aria-label", t[id]);
           });
-          ["birthCity", "birthState", "birthCountry"].forEach((id) => {
-            $(id).placeholder = t[id];
+          document.querySelectorAll("[data-placeholder]").forEach((el) => {
+            const key = el.dataset.placeholder;
+            el.placeholder = t.placeholders[key];
           });
           const currentYear = new Date().getFullYear();
           setOptions(
@@ -2969,7 +3169,7 @@
             t.selectYear,
             Array.from({ length: 58 }, (_, i) => String(currentYear - 18 - i)),
           );
-          setOptions("birthMonth", t.selectMonth, t.months);
+          setOptions("birthMonth", t.selectMonth, t.monthOptions);
           updateBirthDays(t);
           setOptions(
             "birthHour",
@@ -2991,17 +3191,94 @@
           setOptions(
             "gender",
             t.selectGender,
-            t.genders.map(
+            t.genderOptions.map(
               (v, i) =>
                 ({
-                  en: ["Male", "Female", "Prefer not to say"],
-                  hi: ["पुरुष", "महिला", "बताना नहीं चाहते"],
-                  pa: ["ਮਰਦ", "ਔਰਤ", "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ"],
+                  en: translations.en.genderOptions,
+                  hi: translations.hi.genderOptions,
+                  pa: translations.pa.genderOptions,
                 })[$("language").value][i],
             ),
           );
-          setOptions("status", t.selectStatus, t.statuses);
+          setOptions(
+            "manglik",
+            t.selectManglik,
+            t.manglikOptions.map(
+              (v, i) =>
+                ({
+                  en: translations.en.manglikOptions,
+                  hi: translations.hi.manglikOptions,
+                  pa: translations.pa.manglikOptions,
+                })[$("language").value][i],
+            ),
+          );
+
+          setOptions("maritalStatus", t.selectMaritalStatus, t.statuses);
+          const selectedLang = translations[$("language").value];
+          const girlChildCounts = Array.from({ length: 11 }, (_, i) =>
+            i === 0
+              ? { value: i, label: selectedLang.noGirl }
+              : {
+                  value: i,
+                  label: `${i} ${i === 1 ? selectedLang.girl : selectedLang.girls}`,
+                },
+          );
+          setOptions(
+            "childrenGirls",
+            /* t.childrenGirls */ null,
+            girlChildCounts,
+          );
+          const boyChildCounts = Array.from({ length: 11 }, (_, i) =>
+            i === 0
+              ? { value: i, label: selectedLang.noBoy }
+              : {
+                  value: i,
+                  label: `${i} ${i === 1 ? selectedLang.boy : selectedLang.boys}`,
+                },
+          );
+          setOptions("childrenBoys", /* t.childrenBoys */ null, boyChildCounts);
+          const heights = Array.from({ length: 43 }, (_, i) => {
+            const totalInches = 48 + i;
+            const feet = Math.floor(totalInches / 12);
+            const inches = totalInches % 12;
+            const centimeters = Math.round(totalInches * 2.54);
+            return `${feet}' ${inches}" (${centimeters} CM)`;
+          });
+          setOptions("height", t.selectHeight, heights);
+          const weights = (function generateWeightList(minKg, maxKg) {
+            const list = [];
+
+            // Standard conversion factor: 1 kg = 2.20462 lbs
+            const kgToLbs = (kg) => Math.round(kg * 2.20462);
+
+            // Loop through the range in steps of 2
+            for (let start = minKg; start <= maxKg; start += 2) {
+              let end = start + 1;
+
+              // Ensure the end range does not exceed the user-defined maximum
+              if (end > maxKg) {
+                end = maxKg;
+              }
+
+              const startLbs = kgToLbs(start);
+              const endLbs = kgToLbs(end);
+
+              // Format output string based on whether it's a range or a single remaining number
+              if (start === end) {
+                list.push(`${start} KGs (${startLbs} lbs)`);
+              } else {
+                list.push(
+                  `${start} - ${end} KGs (${startLbs} - ${endLbs} lbs)`,
+                );
+              }
+            }
+
+            return list;
+          })(30, 151);
+          setOptions("weight", t.selectWeight, weights);
           setOptions("diet", t.selectDiet, t.diets);
+          $("childrenGirls").setAttribute("aria-label", t.childrenGirls);
+          $("childrenBoys").setAttribute("aria-label", t.childrenBoys);
           setOptions("familyType", t.selectFamily, t.families);
           $("createBtn").textContent = t.create;
           $("resetBtn").textContent = t.reset;
@@ -3013,6 +3290,7 @@
           $("printNote").textContent = t.printNote;
           $("footerText").textContent = t.footer;
           document.documentElement.lang = $("language").value;
+          toggleChildren();
         }
         $("language").addEventListener("change", updateLanguage);
         $("birthYear").addEventListener("change", () =>
@@ -3022,23 +3300,84 @@
           updateBirthDays(translations[$("language").value] || translations.en),
         );
         function toggleChildren() {
-          const hasChildrenStatus =
-            $("status").value !== "" &&
-            $("status").value !== translations.en.statuses[0] &&
-            $("status").value !== translations.hi.statuses[0] &&
-            $("status").value !== translations.pa.statuses[0];
-          // The select's values are translated, so compare by selected index: first status is always Unmarried.
-          const selected = $("status").selectedIndex;
-          const show = selected > 1;
-          $("girlsWrap").classList.toggle("hidden", !show);
-          $("boysWrap").classList.toggle("hidden", !show);
-          $("girls").required = show;
-          $("boys").required = show;
+          const show = $("maritalStatus").selectedIndex > 1;
+          if (!show) {
+            $("childrenGirls").value = 0;
+            $("childrenBoys").value = 0;
+          }
+
+          $("childrenGirls").disabled = !show;
+          $("childrenBoys").disabled = !show;
+          $("childrenGirls").required = show;
+          $("childrenBoys").required = show;
         }
-        $("status").addEventListener("change", toggleChildren);
+        $("maritalStatus").addEventListener("change", toggleChildren);
         function val(id) {
           return $(id).value.trim();
         }
+        function readLocalizedFormFields() {
+          const t = translations[$("language").value] || translations.en;
+          const fields = {};
+
+          for (const [index, control] of [
+            ...$("profileForm").elements,
+          ].entries()) {
+            if (!control.matches("input, select, textarea")) continue;
+            if (["submit", "reset", "image", "hidden"].includes(control.type))
+              continue;
+            if (
+              ["checkbox", "radio"].includes(control.type) &&
+              !control.checked
+            )
+              continue;
+
+            const label = control.labels?.[0];
+            const labelKey = label?.dataset.label || control.dataset.label;
+            const fieldName = control.name || control.id;
+            const fieldLabel =
+              t[labelKey] ||
+              t[control.id] ||
+              control.getAttribute("aria-label") ||
+              label?.textContent.trim() ||
+              control.name ||
+              control.id ||
+              `Field ${index + 1}`;
+            let fieldValue;
+            let fieldDisplayValue;
+
+            if (control instanceof HTMLSelectElement) {
+              const selectedOptions = [...control.selectedOptions];
+
+              fieldDisplayValue = control.multiple
+                ? selectedOptions.map((option) => option.textContent)
+                : control.value
+                  ? selectedOptions[0]?.textContent || ""
+                  : "";
+              fieldValue = control.value;
+            } else {
+              fieldValue = control.value;
+              fieldDisplayValue = control.value;
+            }
+
+            if (Object.prototype.hasOwnProperty.call(fields, fieldLabel)) {
+              fields[fieldName] = {
+                label: fieldLabel,
+                value: Array.isArray(fields[fieldName])
+                  ? [...fields[fieldName], fieldValue]
+                  : [fields[fieldName], fieldValue],
+              };
+            } else {
+              fields[fieldName] = {
+                label: fieldLabel,
+                value: fieldValue,
+                displayValue: fieldDisplayValue,
+              };
+            }
+          }
+
+          return fields;
+        }
+        window.readLocalizedFormFields = readLocalizedFormFields;
         function addItem(container, label, value, t) {
           if (!value) return;
           const item = document.createElement("div");
@@ -3068,12 +3407,17 @@
         }
         function buildProfile() {
           const t = translations[$("language").value] || translations.en;
-          const statusText = $("status").selectedOptions[0]?.textContent || "";
+          const statusText =
+            $("maritalStatus").selectedOptions[0]?.textContent || "";
           const genderText = $("gender").selectedOptions[0]?.textContent || "";
+          const manglikText =
+            $("manglik").selectedOptions[0]?.textContent || "";
           const profileForText =
             $("profileFor").selectedOptions[0]?.textContent || "";
           const monthText =
             $("birthMonth").selectedOptions[0]?.textContent || "";
+          const amPmText =
+            $("birthAmPm").selectedOptions[0]?.textContent || "";
           const birthDate = [
             monthText && val("birthMonth") ? monthText : "",
             val("birthDate"),
@@ -3085,13 +3429,13 @@
             val("birthHour"),
             val("birthMinute"),
             val("birthSecond"),
-            val("birthAmPm"),
+            amPmText,
           ].some(Boolean)
             ? [
                 val("birthHour") || "00",
                 val("birthMinute") || "00",
                 val("birthSecond") || "00",
-              ].join(":") + (val("birthAmPm") ? ` ${val("birthAmPm")}` : "")
+              ].join(":") + (amPmText ? ` ${amPmText}` : "")
             : "";
           const birthPlace = [
             val("birthCity"),
@@ -3106,15 +3450,16 @@
             $("profileContent"),
             t.sections[0],
             [
-              [t.name, val("name")],
               [t.profileFor, profileForText],
+              [t.name, val("name")],
               [t.gender, genderText],
-              [t.status, statusText],
-              ...($("status").selectedIndex > 1
+              [t.manglik, manglikText],
+              [t.maritalStatus, statusText],
+              ...($("maritalStatus").selectedIndex > 1
                 ? [
                     [t.childSummary, ""],
-                    [t.girlCount, val("girls") || "0"],
-                    [t.boyCount, val("boys") || "0"],
+                    [t.girlCount, val("childrenGirls") || "0"],
+                    [t.boyCount, val("childrenBoys") || "0"],
                   ]
                 : []),
             ],
@@ -3161,7 +3506,8 @@
               ],
               [t.education, val("education")],
               [t.occupation, val("occupation")],
-              [t.height, val("height")],
+              [t.height, $("height").selectedOptions[0]?.textContent || ""],
+              [t.weight, $("weight").selectedOptions[0]?.textContent || ""],
               [t.religion, val("religion")],
               [t.about, val("about")],
               [t.expectations, val("expectations")],
@@ -3207,7 +3553,6 @@
           }, 0),
         );
         updateLanguage();
-        toggleChildren();
       })();
     </script>
   </body>
