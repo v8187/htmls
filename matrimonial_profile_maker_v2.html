@@ -125,7 +125,7 @@
       .section-head {
         display: flex;
         gap: 12px;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 20px;
       }
       .step {
@@ -140,7 +140,7 @@
       }
       h2 {
         font-size: 1.15rem;
-        margin: 0 0 3px;
+        margin: 0 0 0 0;
         letter-spacing: -0.015em;
       }
       .section-head p {
@@ -158,6 +158,16 @@
       }
       .grid > .fields-group-wrapper {
         grid-column: 1 / -1;
+        margin: 0;
+      }
+      .multiple-groups-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+        gap: 16px 18px;
+      }
+      .multiple-groups-row > .fields-group-wrapper {
+        margin: 0;
       }
       .fields-group-wrapper {
         min-width: 0;
@@ -183,14 +193,17 @@
         grid-template-columns: 112px 150px 112px;
         gap: 0;
       }
+      .fields-group.date {
+        grid-template-columns: 90px 110px 90px;
+      }
       .fields-group.time {
-        grid-template-columns: 112px 112px 112px 112px;
+        grid-template-columns: 90px 110px 110px 100px;
       }
       .fields-group.location {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .fields-group.marital {
-        grid-template-columns: 198px 160px 160px;
+        grid-template-columns: auto 140px 140px;
       }
       .fields-group .field {
         position: relative;
@@ -371,9 +384,10 @@
         color: var(--muted);
         margin-top: 20px;
       }
-      @media (max-width: 650px) {
+      @media (max-width: 820px) {
         .grid,
         .grid.three,
+        .multiple-groups-row,
         .profile-grid {
           grid-template-columns: 1fr;
         }
@@ -439,21 +453,20 @@
         }
       }
       @media (max-width: 650px) {
-        .fields-group,
-        .fields-group.time,
+        .fields-group:not(.date, .time),
         .fields-group.location,
         .fields-group.marital {
           grid-template-columns: 1fr;
         }
-        .fields-group .field + .field {
+        .fields-group:not(.date, .time) .field + .field {
           margin: -1px 0 0;
         }
-        .fields-group .field:first-child input,
-        .fields-group .field:first-child select {
+        .fields-group:not(.date, .time) .field:first-child input,
+        .fields-group:not(.date, .time) .field:first-child select {
           border-radius: 11px 11px 0 0;
         }
-        .fields-group .field:last-child input,
-        .fields-group .field:last-child select {
+        .fields-group:not(.date, .time) .field:last-child input,
+        .fields-group:not(.date, .time) .field:last-child select {
           border-radius: 0 0 11px 11px;
         }
       }
@@ -535,8 +548,54 @@
                 ><select id="gender" name="gender" required></select>
               </div>
               <div class="field">
-                <label for="manglik" data-label="manglik">Manglik</label
-                ><select id="manglik" name="manglik" required></select>
+                <label for="religion" data-label="religion">Religion</label
+                ><select id="religion" name="religion"></select>
+              </div>
+              <div class="multiple-groups-row">
+                <div class="field">
+                  <label for="manglik" data-label="manglik">Manglik</label
+                  ><select id="manglik" name="manglik" required></select>
+                </div>
+                <fieldset class="fields-group-wrapper">
+                  <legend
+                    class="fields-group-wrapper-title"
+                    data-label="maritalAndChildren"
+                  >
+                    Marital status and children
+                  </legend>
+                  <div class="fields-group marital" id="maritalFields">
+                    <div class="field">
+                      <!-- <label for="maritalStatus" data-label="maritalStatus"
+                        >Marital status <span class="req">*</span></label
+                      > -->
+                      <select
+                        id="maritalStatus"
+                        name="maritalStatus"
+                        required
+                      ></select>
+                    </div>
+                    <div class="field" id="girlsWrap">
+                      <!-- <label for="childrenGirls" data-label="childrenGirls"
+                        >Children - Girls<span class="req">*</span></label
+                      > -->
+                      <select
+                        id="childrenGirls"
+                        name="childrenGirls"
+                        required
+                      ></select>
+                    </div>
+                    <div class="field" id="boysWrap">
+                      <!-- <label for="childrenBoys" data-label="childrenBoys"
+                        >Children - Boys<span class="req">*</span></label
+                      > -->
+                      <select
+                        id="childrenBoys"
+                        name="childrenBoys"
+                        required
+                      ></select>
+                    </div>
+                  </div>
+                </fieldset>
               </div>
               <fieldset class="fields-group-wrapper">
                 <legend
@@ -573,49 +632,9 @@
                   </div>
                 </div>
               </fieldset>
-              <fieldset class="fields-group-wrapper">
-                <legend
-                  class="fields-group-wrapper-title"
-                  data-label="maritalAndChildren"
-                >
-                  Marital status and children
-                </legend>
-                <div class="fields-group marital" id="maritalFields">
-                  <div class="field">
-                    <!-- <label for="maritalStatus" data-label="maritalStatus"
-                      >Marital status <span class="req">*</span></label
-                    > -->
-                    <select
-                      id="maritalStatus"
-                      name="maritalStatus"
-                      required
-                    ></select>
-                  </div>
-                  <div class="field" id="girlsWrap">
-                    <!-- <label for="childrenGirls" data-label="childrenGirls"
-                      >Children - Girls<span class="req">*</span></label
-                    > -->
-                    <select
-                      id="childrenGirls"
-                      name="childrenGirls"
-                      required
-                    ></select>
-                  </div>
-                  <div class="field" id="boysWrap">
-                    <!-- <label for="childrenBoys" data-label="childrenBoys"
-                      >Children - Boys<span class="req">*</span></label
-                    > -->
-                    <select
-                      id="childrenBoys"
-                      name="childrenBoys"
-                      required
-                    ></select>
-                  </div>
-                </div>
-              </fieldset>
             </div>
           </section>
-          <section class="card">
+          <!-- <section class="card">
             <div class="section-head">
               <div class="step">2</div>
               <div>
@@ -625,88 +644,12 @@
                 </p>
               </div>
             </div>
-            <fieldset class="fields-group-wrapper">
-              <legend
-                class="fields-group-wrapper-title"
-                data-label="dateOfBirth"
-              >
-                Date of birth
-              </legend>
-              <div class="fields-group">
-                <div class="field">
-                  <select id="birthYear" name="birthYear" required></select>
-                </div>
-                <div class="field">
-                  <select id="birthMonth" name="birthMonth"></select>
-                </div>
-                <div class="field">
-                  <select id="birthDate" name="birthDate"></select>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="fields-group-wrapper">
-              <legend
-                class="fields-group-wrapper-title"
-                data-label="timeOfBirth"
-              >
-                Time of birth
-              </legend>
-              <div class="fields-group time">
-                <div class="field">
-                  <select id="birthHour" name="birthHour"></select>
-                </div>
-                <div class="field">
-                  <select id="birthMinute" name="birthMinute"></select>
-                </div>
-                <div class="field">
-                  <select id="birthSecond" name="birthSecond"></select>
-                </div>
-                <div class="field">
-                  <select id="birthAmPm" name="birthAmPm"></select>
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="fields-group-wrapper">
-              <legend
-                class="fields-group-wrapper-title"
-                data-label="placeOfBirth"
-              >
-                Place of birth
-              </legend>
-              <div class="fields-group location">
-                <div class="field">
-                  <input
-                    id="birthCity"
-                    name="birthCity"
-                    data-placeholder="birthCity"
-                    placeholder="City"
-                  />
-                </div>
-                <div class="field">
-                  <input
-                    id="birthState"
-                    name="birthState"
-                    data-placeholder="birthState"
-                    placeholder="State"
-                  />
-                </div>
-                <div class="field">
-                  <input
-                    id="birthCountry"
-                    name="birthCountry"
-                    data-placeholder="birthCountry"
-                    placeholder="Country"
-                    value="India"
-                  />
-                </div>
-              </div>
-            </fieldset>
-          </section>
+          </section> -->
           <section class="card">
             <div class="section-head">
               <div class="step">3</div>
               <div>
-                <h2 id="secLocation">Current location</h2>
+                <h2 id="secPerInfo">Current location</h2>
                 <!-- <p id="subLocation">
                   Your present city and state are required.
                 </p> -->
@@ -743,9 +686,144 @@
                   placeholder="Current country"
                 />
               </div> -->
+              <div class="multiple-groups-row">
+                <fieldset class="fields-group-wrapper">
+                  <legend
+                    class="fields-group-wrapper-title"
+                    data-label="dateOfBirth"
+                  >
+                    Date of birth
+                  </legend>
+                  <div class="fields-group date">
+                    <div class="field">
+                      <select id="birthYear" name="birthYear" required></select>
+                    </div>
+                    <div class="field">
+                      <select id="birthMonth" name="birthMonth"></select>
+                    </div>
+                    <div class="field">
+                      <select id="birthDate" name="birthDate"></select>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="fields-group-wrapper">
+                  <legend
+                    class="fields-group-wrapper-title"
+                    data-label="timeOfBirth"
+                  >
+                    Time of birth
+                  </legend>
+                  <div class="fields-group time">
+                    <div class="field">
+                      <select id="birthHour" name="birthHour"></select>
+                    </div>
+                    <div class="field">
+                      <select id="birthMinute" name="birthMinute"></select>
+                    </div>
+                    <div class="field">
+                      <select id="birthSecond" name="birthSecond"></select>
+                    </div>
+                    <div class="field">
+                      <select id="birthAmPm" name="birthAmPm"></select>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <fieldset class="fields-group-wrapper">
+                <legend
+                  class="fields-group-wrapper-title"
+                  data-label="placeOfBirth"
+                >
+                  Place of birth
+                </legend>
+                <div class="fields-group location">
+                  <div class="field">
+                    <input
+                      id="birthCity"
+                      name="birthCity"
+                      data-placeholder="birthCity"
+                      placeholder="City"
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      id="birthState"
+                      name="birthState"
+                      data-placeholder="birthState"
+                      placeholder="State"
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      id="birthCountry"
+                      name="birthCountry"
+                      data-placeholder="birthCountry"
+                      placeholder="Country"
+                      value="India"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="fields-group-wrapper">
+                <legend
+                  class="fields-group-wrapper-title"
+                  data-label="casteGotra"
+                >
+                  Place of birth
+                </legend>
+                <div class="fields-group location">
+                  <div class="field">
+                    <input
+                      id="caste"
+                      name="caste"
+                      data-placeholder="caste"
+                      placeholder="Caste"
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      id="subCaste"
+                      name="subCaste"
+                      data-placeholder="subCaste"
+                      placeholder="Sub Caste"
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      id="gotra"
+                      name="gotra"
+                      data-placeholder="gotra"
+                      placeholder="Gotra"
+                    />
+                  </div>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label for="height" data-label="height">Height</label
+                ><select id="height" name="height"></select>
+              </div>
+              <div class="field">
+                <label for="weight" data-label="weight">Weight</label
+                ><select id="weight" name="weight"></select>
+              </div>
+              <div class="field">
+                <label for="skinTone" data-label="skinTone">skinTone</label
+                ><select id="skinTone" name="skinTone"></select>
+              </div>
+              <div class="field">
+                <label for="bloodGroup" data-label="bloodGroup"
+                  >bloodGroup</label
+                ><select id="bloodGroup" name="bloodGroup"></select>
+              </div>
+
               <div class="field">
                 <label for="diet" data-label="diet">Dietary habits</label
                 ><select id="diet" name="diet"></select>
+              </div>
+              <div class="field">
+                <label for="motherTongue" data-label="motherTongue"
+                  >motherTongue</label
+                ><select id="motherTongue" name="motherTongue"></select>
               </div>
             </div>
           </section>
@@ -754,9 +832,9 @@
               <div class="step">4</div>
               <div>
                 <h2 id="secFamily">Family & personal information</h2>
-                <p id="subFamily">
+                <!-- <p id="subFamily">
                   Share only what you feel comfortable including.
-                </p>
+                </p> -->
               </div>
             </div>
             <div class="grid">
@@ -811,24 +889,7 @@
                   placeholder="Profession / role"
                 />
               </div>
-              <div class="field">
-                <label for="height" data-label="height">Height</label
-                ><select id="height" name="height"></select>
-              </div>
-              <div class="field">
-                <label for="weight" data-label="weight">Weight</label
-                ><select id="weight" name="weight"></select>
-              </div>
-              <div class="field">
-                <label for="religion" data-label="religion"
-                  >Religion / community (optional)</label
-                ><input
-                  id="religion"
-                  name="religion"
-                  data-placeholder="religion"
-                  placeholder="Optional"
-                />
-              </div>
+
               <div class="field full">
                 <label for="about" data-label="about">About me</label
                 ><textarea
@@ -905,1597 +966,6 @@
           alert("Helo");
         });
         const $ = (id) => document.getElementById(id);
-        const castesOptions = [
-          "Ad Dharmi",
-          "Adi Andhra",
-          "Adi Dravida",
-          "Adi Karnataka",
-          "Agamudayar",
-          "Agri",
-          "Ahir",
-          "Ahir - Ahir shimpi",
-          "Ahirwar",
-          "Ahom",
-          "Ambalavasi",
-          "Ambalavasi - Pisharody",
-          "Ambalavasi - Poduval",
-          "Amma Kodava",
-          "Arakh Arakvanshiya",
-          "Arekatica",
-          "Arunthathiyar",
-          "Arya Vysya",
-          "Ayyaraka",
-          "Badaga",
-          "Badhai",
-          "Bagdi",
-          "Baghel Gaderiya",
-          "Bahi",
-          "Baidya",
-          "Bairwa",
-          "Baishnab",
-          "Baishya",
-          "Baishya - Saha",
-          "Baishya Kapali",
-          "Bajantri",
-          "Balai",
-          "Balija",
-          "Balija - Balija Naidu",
-          "Balija - Balija Reddy",
-          "Balija - Ediga /Goud (Balija)",
-          "Balija - Gajula / Kavarai",
-          "Balija - Kapu",
-          "Balija - Kavara",
-          "Balija - Linga Balija",
-          "Balija - Modikarlu",
-          "Balija - Munnuru Kapu",
-          "Balija - Musukama",
-          "Balija - Namdarlu",
-          "Balija - Pagadala",
-          "Balija - Perika",
-          "Balija - Setti Balija",
-          "Balija - Surya Balija",
-          "Balija - Telaga",
-          "Balija - Thota",
-          "Balija - Vada Balija",
-          "Balija - Velama",
-          "Balija - Waada Balija",
-          "Balija Naidu",
-          "Balija Naidu - Balija Naidu",
-          "Balija Naidu - Balija Reddy",
-          "Balija Naidu - Setti Balija",
-          "Balija Naidu - Surya Balija",
-          "Balija Naidu - Vada Balija",
-          "Balija Naidu - Waada Balija",
-          "Banayat Oriya",
-          "Bania",
-          "Bania - Agarwal",
-          "Bania - Agrahari",
-          "Bania - Asathi",
-          "Bania - Ayodhyavasi",
-          "Bania - Baniya Kumuti",
-          "Bania - Barnwals",
-          "Bania - Bisa Agarwal",
-          "Bania - Chaturth",
-          "Bania - Choudharys",
-          "Bania - Dosar / Dusra",
-          "Bania - Gahoi",
-          "Bania - Gandha Vanika",
-          "Bania - Gulahre",
-          "Bania - Jaiswal",
-          "Bania - Kalwar",
-          "Bania - Kandu / Kanu",
-          "Bania - Kanojia Kanu",
-          "Bania - Kanykubj Bania",
-          "Bania - Kasaundhan",
-          "Bania - Keshris / Kesarwani",
-          "Bania - Khandelwal",
-          "Bania - Komti Arya Vaishya",
-          "Bania - Lad",
-          "Bania - Madhesiya / Kawa / Halwai",
-          "Bania - Mahajan",
-          "Bania - Mahawar",
-          "Bania - Maheshwari/Meshri",
-          "Bania - Mahor",
-          "Bania - Mahuri",
-          "Bania - Marwari",
-          "Bania - Modh Ghanchi",
-          "Bania - Modi",
-          "Bania - Nema",
-          "Bania - Oswal",
-          "Bania - Padmavati Porwal",
-          "Bania - Patwa",
-          "Bania - Porwal / Porwar",
-          "Bania - Rastogi",
-          "Bania - Rathi",
-          "Bania - Rauniars",
-          "Bania - Rauniyar",
-          "Bania - Shaw / Sahu / Teli",
-          "Bania - Sinduriya",
-          "Bania - Sudi / Suri / Sundhi / Shaundik",
-          "Bania - Ummar / Umre / Bagaria",
-          "Bania - Vaishnav",
-          "Bania - Vani/Vaishya",
-          "Bania - Varshneys",
-          "Bania - Vijayvargia",
-          "Banik",
-          "Banjara",
-          "Banjara - Lambani",
-          "Barai",
-          "Bari",
-          "Baria",
-          "Beldar",
-          "Besta",
-          "Bhajantri",
-          "Bhatia",
-          "Bhatraju",
-          "Bhavsar",
-          "Bhil",
-          "Bhovi / Bhoi",
-          "Bhoyar",
-          "Bhulia / Meher",
-          "Billava",
-          "Bishnoi / Vishnoi",
-          "Bondili",
-          "Boyer",
-          "Brahmakshatriya",
-          "Brahmbatt",
-          "Brahmin",
-          "Brahmin - 6000 Niyogi",
-          "Brahmin - Anavil",
-          "Brahmin - Andhra",
-          "Brahmin - Audichya",
-          "Brahmin - Audichyasahastra",
-          "Brahmin - Bajkhedwal",
-          "Brahmin - Bardai",
-          "Brahmin - Barendra",
-          "Brahmin - Bengali",
-          "Brahmin - Bhargava",
-          "Brahmin - Bhatt",
-          "Brahmin - Bhumihar",
-          "Brahmin - Brahacharanam",
-          "Brahmin - BrahmBhatt",
-          "Brahmin - Brajastha Maithil",
-          "Brahmin - Chittpavan Kokanastha",
-          "Brahmin - Dadhich",
-          "Brahmin - Daivadnya",
-          "Brahmin - Danua",
-          "Brahmin - Deshastha",
-          "Brahmin - Devrukhe",
-          "Brahmin - Dhiman",
-          "Brahmin - Dravida",
-          "Brahmin - Dunua",
-          "Brahmin - Embrandiri",
-          "Brahmin - Garhwali",
-          "Brahmin - Gaud Saraswat (GSB)",
-          "Brahmin - Gaur",
-          "Brahmin - Gautam",
-          "Brahmin - Goswami",
-          "Brahmin - Gujar Gaur",
-          "Brahmin - Gujrati",
-          "Brahmin - Gurukkal",
-          "Brahmin - Halua",
-          "Brahmin - Havyaka",
-          "Brahmin - Hoysala",
-          "Brahmin - Iyengar",
-          "Brahmin - Iyer",
-          "Brahmin - Jangid",
-          "Brahmin - Jangra",
-          "Brahmin - Jhadua",
-          "Brahmin - Jhijhotiya",
-          "Brahmin - Jogi",
-          "Brahmin - Jyotish",
-          "Brahmin - Kannada",
-          "Brahmin - Kanyakubj",
-          "Brahmin - Karhade",
-          "Brahmin - Karnataka",
-          "Brahmin - Kashmiri Pandit",
-          "Brahmin - Khadayat",
-          "Brahmin - Khandelwal",
-          "Brahmin - Khedaval",
-          "Brahmin - Koknastha",
-          "Brahmin - Kota",
-          "Brahmin - Kulin",
-          "Brahmin - Kumaoni",
-          "Brahmin - Madhwa",
-          "Brahmin - Maharastra",
-          "Brahmin - Maithil",
-          "Brahmin - Malviya",
-          "Brahmin - Marwari",
-          "Brahmin - Mevada",
-          "Brahmin - Modh",
-          "Brahmin - Mohapatra Mahapatra",
-          "Brahmin - Mohyal",
-          "Brahmin - Nagar",
-          "Brahmin - Namboodiri",
-          "Brahmin - Narmadiya",
-          "Brahmin - Nayi / Nai",
-          "Brahmin - Paliwal",
-          "Brahmin - Panda",
-          "Brahmin - Pandit",
-          "Brahmin - Panicker",
-          "Brahmin - Pareek",
-          "Brahmin - Pushkarna",
-          "Brahmin - Rajapuri Saraswat ",
-          "Brahmin - Rajasthani",
-          "Brahmin - Rajgor",
-          "Brahmin - Rarhi",
-          "Brahmin - Rigvedi",
-          "Brahmin - Rudraj",
-          "Brahmin - Sachora",
-          "Brahmin - Sakaldwipi",
-          "Brahmin - Sanadya",
-          "Brahmin - Sanchihar",
-          "Brahmin - Sanketi",
-          "Brahmin - Saraswat",
-          "Brahmin - Sarotri",
-          "Brahmin - Sarua",
-          "Brahmin - Saryuparin",
-          "Brahmin - Shivalli",
-          "Brahmin - Shrimali",
-          "Brahmin - Sikhwal",
-          "Brahmin - Smartha",
-          "Brahmin - Sri Vishnava",
-          "Brahmin - Stanika",
-          "Brahmin - Tapodhan",
-          "Brahmin - Tyagi",
-          "Brahmin - Utkal",
-          "Brahmin - Vaidiki",
-          "Brahmin - Vaikhanasa",
-          "Brahmin - Vaikhawas",
-          "Brahmin - Vaishnav",
-          "Brahmin - Valam",
-          "Brahmin - Velanadu",
-          "Brahmin - Viswa",
-          "Brahmin - Vyas",
-          "Brahmin - Yajurvedi",
-          "Brahmin - Zalora",
-          "Brahmo",
-          "Buddar",
-          "Bunt Shetty",
-          "Chalawadi / Holeya",
-          "Chamar",
-          "Chambhar",
-          "Chandravanshi Kahar",
-          "Charan",
-          "Chasa",
-          "Chattada Sri Vaishnava",
-          "Chaudary",
-          "Chaudary - Ghrit",
-          "Chaurasia",
-          "Chennadasar",
-          "Cheramar",
-          "Chettiar",
-          "Chettiar - 24 Manai Telugu Chettiar",
-          "Chettiar - 24 Manai Telugu Chettiar 16 Veedu",
-          "Chettiar - 24 Manai Telugu Chettiar 8 Veedu",
-          "Chettiar - Achirapakkam Chettiar",
-          "Chettiar - Agaram Vellan Chettiar",
-          "Chettiar - Arya Vysya",
-          "Chettiar - Ayira Vysya",
-          "Chettiar - Beri Chettiar",
-          "Chettiar - Devanga Chettiar",
-          "Chettiar - Elur Chetty",
-          "Chettiar - Gandla / Ganiga",
-          "Chettiar - Kasukara",
-          "Chettiar - Kongu Chettiar",
-          "Chettiar - Kuruhini Chetty",
-          "Chettiar - Manjapudur Chettiar",
-          "Chettiar - Nattukottai Chettiar",
-          "Chettiar - Padma Saliar",
-          "Chettiar - Pannirandam Chettiar",
-          "Chettiar - Parvatha Rajakulam",
-          "Chettiar - Pattinavar",
-          "Chettiar - Pattusali",
-          "Chettiar - Sadhu Chetty",
-          "Chettiar - Saiva Vellan Chettiar",
-          "Chettiar - Senai Thalaivar",
-          "Chettiar - Sozhia Chettiar",
-          "Chettiar - Telugupatti",
-          "Chettiar - Vadambar",
-          "Chettiar - Vaniya Chettiar",
-          "Chettiar - Vellan Chettiar",
-          "Chhetri",
-          "Chippolu Mera",
-          "CKP",
-          "Coorgi",
-          "Coorgi - Kodava",
-          "Dasapalanjika Kannada Saineegar",
-          "Devadigas",
-          "Devang Koshthi",
-          "Devang Koshthi - Devanga",
-          "Devang Koshthi - Devanga Chettiar",
-          "Devanga",
-          "Devendra Kula Vellalar",
-          "Devipujak (Vaghri)",
-          "Dewar / Dhibara",
-          "Dhanak",
-          "Dhangar",
-          "Dhanuk",
-          "Dheevara",
-          "Dhiman",
-          "Dhoba",
-          "Dhobi",
-          "Dhobi - Kanaujia",
-          "Dhor / Dhoar",
-          "Dommala",
-          "Dumal",
-          "Dusadh",
-          "Edigas",
-          "Ezhava",
-          "Ezhava - Ezhava panicker",
-          "Ezhava - Ezhava Thandan",
-          "Ezhava - Kavuthiya",
-          "Ezhava - Thiyya",
-          "Ezhuthachan",
-          "Gabit",
-          "Ganda",
-          "Gangai / Ganesh",
-          "Ganiga",
-          "Ganiga - Shiva Jyothipana ",
-          "Garhwali",
-          "Gatti",
-          "Gavali",
-          "Gavandi",
-          "Gavara",
-          "Ghasi",
-          "Ghisadi",
-          "Ghumar",
-          "Goala",
-          "Goan",
-          "Gond Gondi Raj Gond",
-          "Gondhali",
-          "Gopal",
-          "Goud",
-          "Gounder",
-          "Gounder - Kongu Vellala Gounder",
-          "Gounder - Nattu Gounder",
-          "Gounder - Urali Gounder",
-          "Gounder - Vanniya Kula Kshatriyar",
-          "Gounder - Vettuva Gounder",
-          "Gowda",
-          "Gowda - Arebashe",
-          "Gowda - Bunt",
-          "Gowda - Das",
-          "Gowda - Gangadikar",
-          "Gowda - Gowda-Kuruba Gowda",
-          "Gowda - Hallikar",
-          "Gowda - Hosadevaru",
-          "Gowda - Kunchitaga",
-          "Gowda - Morasu",
-          "Gowda - Musuku",
-          "Gowda - Namadari",
-          "Gowda - Okkaliga",
-          "Gowda - Reddy",
-          "Gowda - Sarpa",
-          "Gowda - Uttamakula",
-          "Gramani",
-          "Gudia",
-          "Gujjar",
-          "Gujjar - Dode",
-          "Gujjar - Leva",
-          "Guptan",
-          "Gurav",
-          "Halba Koshti",
-          "Hegde",
-          "Helava",
-          "Holar",
-          "Jaalari",
-          "Jaiswal",
-          "Jandra",
-          "Jangam",
-          "Jat",
-          "Jat - Agharia",
-          "Jat - Agoh",
-          "Jat - Agra",
-          "Jat - Ahlawat",
-          "Jat - Alwal",
-          "Jat - Antil / Antal",
-          "Jat - Arya",
-          "Jat - Badhwar",
-          "Jat - Bagaria",
-          "Jat - Bagri",
-          "Jat - Bains",
-          "Jat - Balhara",
-          "Jat - Balyan",
-          "Jat - Bana",
-          "Jat - Barach",
-          "Jat - Bargoti",
-          "Jat - Beniwal",
-          "Jat - Bhal",
-          "Jat - Bhambu",
-          "Jat - Bhodu",
-          "Jat - Bomal",
-          "Jat - Budania",
-          "Jat - Bugaliya",
-          "Jat - Burdak",
-          "Jat - Chahal",
-          "Jat - Chaudhry",
-          "Jat - Chauhan",
-          "Jat - Chhikara / Chikara",
-          "Jat - Chillar",
-          "Jat - Dabas",
-          "Jat - Dagar",
-          "Jat - Dagua",
-          "Jat - Dahiya",
-          "Jat - Dalal",
-          "Jat - Dangi",
-          "Jat - Dara",
-          "Jat - Deshwal",
-          "Jat - Dhaka",
-          "Jat - Dhama",
-          "Jat - Dhanchak",
-          "Jat - Dhanda",
-          "Jat - Dhankhar",
-          "Jat - Dhillon",
-          "Jat - Dhomi",
-          "Jat - Dhoot",
-          "Jat - Dhoriwal",
-          "Jat - Dhull",
-          "Jat - Dollya",
-          "Jat - Dudi",
-          "Jat - Duhan",
-          "Jat - Gahlot",
-          "Jat - Garhwal",
-          "Jat - Gehlawat",
-          "Jat - Ghangas",
-          "Jat - Gill",
-          "Jat - Godara",
-          "Jat - Grewal",
-          "Jat - Gulia",
-          "Jat - Heer",
-          "Jat - Hooda",
-          "Jat - Jaglon",
-          "Jat - Jakhar",
-          "Jat - Jam",
-          "Jat - Jaswal",
-          "Jat - Jatasra",
-          "Jat - Jewlia",
-          "Jat - Jutrana",
-          "Jat - Kadian",
-          "Jat - Kahlon",
-          "Jat - Kajala",
-          "Jat - Kakran",
-          "Jat - Kalen",
-          "Jat - Kaliramna",
-          "Jat - Kalkhanse",
-          "Jat - Karwasra",
-          "Jat - Kaswan",
-          "Jat - Kataria",
-          "Jat - Khakar",
-          "Jat - Khallia",
-          "Jat - Kharb",
-          "Jat - Khatkar",
-          "Jat - Khatri",
-          "Jat - Kherwa",
-          "Jat - Khichad",
-          "Jat - Kothari",
-          "Jat - Kuhar",
-          "Jat - Kulhari",
-          "Jat - Kundu",
-          "Jat - Lakhlan",
-          "Jat - Lakra",
-          "Jat - Lamba",
-          "Jat - Lamoria",
-          "Jat - Lather",
-          "Jat - Lathwal",
-          "Jat - Latiyan",
-          "Jat - Laur",
-          "Jat - Lehga",
-          "Jat - Maan",
-          "Jat - Mahan",
-          "Jat - Malhan",
-          "Jat - Malik",
-          "Jat - Mandhan",
-          "Jat - Mangat",
-          "Jat - Mann Rai",
-          "Jat - Meel",
-          "Jat - Mehria",
-          "Jat - Mhla",
-          "Jat - Mohar",
-          "Jat - Moond",
-          "Jat - Mor / More",
-          "Jat - Nain",
-          "Jat - Nairwal",
-          "Jat - Nandal",
-          "Jat - Nara",
-          "Jat - Natt / Nat",
-          "Jat - Nauhr",
-          "Jat - Nehra",
-          "Jat - Nitharwal",
-          "Jat - Ola",
-          "Jat - Pachehra",
-          "Jat - Palsania",
-          "Jat - Panghal",
-          "Jat - Panwar",
-          "Jat - Parihar",
-          "Jat - Pattor",
-          "Jat - Pawar",
-          "Jat - Phalaswal",
-          "Jat - Phogat",
-          "Jat - Pilania",
-          "Jat - Pooni",
-          "Jat - Punia",
-          "Jat - Rahan",
-          "Jat - Rajaura",
-          "Jat - Rana",
-          "Jat - Rangi",
-          "Jat - Ranwa",
-          "Jat - Rao",
-          "Jat - Rathi",
-          "Jat - Rawal",
-          "Jat - Redhu",
-          "Jat - Repswal",
-          "Jat - Saharan",
-          "Jat - Sandhi",
-          "Jat - Sangawan",
-          "Jat - Sansanwal",
-          "Jat - Saran",
-          "Jat - Saroha",
-          "Jat - Sarot",
-          "Jat - Sehrawat",
-          "Jat - Sheoran",
-          "Jat - Shokeen",
-          "Jat - Sidhu",
-          "Jat - Sikarwar",
-          "Jat - Sindhu",
-          "Jat - Singhal",
-          "Jat - Sinsinwar",
-          "Jat - Sirohi",
-          "Jat - Siwach",
-          "Jat - Solanki",
-          "Jat - Suhag",
-          "Jat - Sunda",
-          "Jat - Takhar",
-          "Jat - Tanar",
-          "Jat - Tanwar",
-          "Jat - Tevatia",
-          "Jat - Thakaran",
-          "Jat - Thenua",
-          "Jat - Thori",
-          "Jat - Tokas",
-          "Jat - Tomar",
-          "Jatav",
-          "Jetty Malla",
-          "Jingar",
-          "Julaha",
-          "Kachara",
-          "Kahar",
-          "Kaibarta",
-          "Kaikaala",
-          "Kakkalan",
-          "Kalal",
-          "Kalanji",
-          "Kalar",
-          "Kalinga",
-          "Kalinga Vysya",
-          "Kalita",
-          "Kalwar",
-          "Kamboj",
-          "Kamma",
-          "Kammala",
-          "Kanakaan Padonna",
-          "Kanakkan Padanna",
-          "Kandara",
-          "Kaniyan",
-          "Kansari",
-          "Kansyakaar",
-          "Kapol",
-          "Kapu",
-          "Kapu - Balija/Balija Naidu",
-          "Kapu - Ediga /Goud (Balija)",
-          "Kapu - Gajula / Kavarai",
-          "Kapu - Kapu All",
-          "Kapu - Kapu Munnuru",
-          "Kapu - Kapu Naidu",
-          "Kapu - kurupu / Kapu",
-          "Kapu - Ontari",
-          "Kapu - Perika",
-          "Kapu - Reddy",
-          "Kapu - Setty Balija",
-          "Kapu - Surya Balija",
-          "Kapu - Telaga",
-          "Kapu - Turupu Kapu",
-          "Kapu - Velama",
-          "Kapu Munnuru",
-          "Karakala Bhakthula",
-          "Karana",
-          "Karmakar",
-          "Karuneegar",
-          "Kasar",
-          "Kashyap",
-          "Kashyap - Nishad",
-          "Katiya",
-          "Kayastha",
-          "Kayastha - Ambastha",
-          "Kayastha - Ambastha Kayastha",
-          "Kayastha - Asthana",
-          "Kayastha - Barujibi",
-          "Kayastha - Basu",
-          "Kayastha - Bengali Kayastha",
-          "Kayastha - Bhatnagar",
-          "Kayastha - Bose",
-          "Kayastha - Chanda",
-          "Kayastha - Dass",
-          "Kayastha - Dey",
-          "Kayastha - Dhar",
-          "Kayastha - Dutta",
-          "Kayastha - Ghosh",
-          "Kayastha - Gour",
-          "Kayastha - Guha",
-          "Kayastha - Johri",
-          "Kayastha - Karna",
-          "Kayastha - Kars",
-          "Kayastha - Kulin",
-          "Kayastha - Kulshreshtha",
-          "Kayastha - Mathur",
-          "Kayastha - Mitra",
-          "Kayastha - Nag",
-          "Kayastha - Nandi",
-          "Kayastha - Nigam",
-          "Kayastha - Palit",
-          "Kayastha - Paul",
-          "Kayastha - Rakshit",
-          "Kayastha - Rarhi",
-          "Kayastha - Roy",
-          "Kayastha - Saxena",
-          "Kayastha - Sen",
-          "Kayastha - Sil",
-          "Kayastha - Sinha",
-          "Kayastha - Srivastava",
-          "Khandayat",
-          "Khandayat - Kalinja",
-          "Kharvi",
-          "Kharwar",
-          "Khatik",
-          "Khatri",
-          "Khatri - Anand",
-          "Khatri - Arora",
-          "Khatri - Bagga",
-          "Khatri - Bahl",
-          "Khatri - Batra",
-          "Khatri - Bedi",
-          "Khatri - Behal",
-          "Khatri - Behl",
-          "Khatri - Beri",
-          "Khatri - Bhalla",
-          "Khatri - Bhandari",
-          "Khatri - Bhasin",
-          "Khatri - Bhatti",
-          "Khatri - Chaddha",
-          "Khatri - Chadha",
-          "Khatri - Chandok",
-          "Khatri - Chaudhary",
-          "Khatri - Chhabra",
-          "Khatri - Chopra",
-          "Khatri - Choudhuri",
-          "Khatri - Dang",
-          "Khatri - Dhawan",
-          "Khatri - Dhir",
-          "Khatri - Duggal",
-          "Khatri - Ghai",
-          "Khatri - Handa",
-          "Khatri - Jaggi",
-          "Khatri - Jairath",
-          "Khatri - Jerath",
-          "Khatri - Jham",
-          "Khatri - Kakkar",
-          "Khatri - Kapur / Kapoor",
-          "Khatri - Kehar",
-          "Khatri - Khanna",
-          "Khatri - Khosla",
-          "Khatri - Khukrain",
-          "Khatri - Khullar",
-          "Khatri - Kochar",
-          "Khatri - Kohli",
-          "Khatri - Lamba",
-          "Khatri - Mahendru",
-          "Khatri - Malhotra",
-          "Khatri - Marwah",
-          "Khatri - Mehra",
-          "Khatri - Mehta",
-          "Khatri - Nagrath",
-          "Khatri - Nanda",
-          "Khatri - Nayyar",
-          "Khatri - Oberoi",
-          "Khatri - Ohri",
-          "Khatri - Passi",
-          "Khatri - Puri",
-          "Khatri - Sabharwal",
-          "Khatri - Sahni",
-          "Khatri - Sareen",
-          "Khatri - Sarin",
-          "Khatri - Sawhney",
-          "Khatri - Sehgal",
-          "Khatri - Sekhri",
-          "Khatri - Seth",
-          "Khatri - Sethi",
-          "Khatri - Sobto",
-          "Khatri - Sodhi",
-          "Khatri - Sondhi",
-          "Khatri - Soni",
-          "Khatri - Sood",
-          "Khatri - Suri",
-          "Khatri - Talwar",
-          "Khatri - Tandon",
-          "Khatri - Thapar",
-          "Khatri - Tuli",
-          "Khatri - Uppal",
-          "Khatri - Vadhera",
-          "Khatri - Verma",
-          "Khatri - Vij",
-          "Khatri - Vohra",
-          "Khatri - Wadhawan",
-          "Khatri - Wahi",
-          "Khatri - Walia",
-          "Koeri / Koiri",
-          "Koli",
-          "Koli - Koli Mahadev",
-          "Koli - Koli Patel",
-          "Koli - Mangela",
-          "Koli Mahadev",
-          "Kondara",
-          "Kongu Vellala Gounder",
-          "Kongu Vellala Gounder - Aadai",
-          "Kongu Vellala Gounder - Aadhi",
-          "Kongu Vellala Gounder - Aanthai",
-          "Kongu Vellala Gounder - Aavan",
-          "Kongu Vellala Gounder - Alagan",
-          "Kongu Vellala Gounder - Andai",
-          "Kongu Vellala Gounder - Andhuvan",
-          "Kongu Vellala Gounder - Cheran",
-          "Kongu Vellala Gounder - Devendran",
-          "Kongu Vellala Gounder - Eenjan",
-          "Kongu Vellala Gounder - Ennai",
-          "Kongu Vellala Gounder - Kaadai",
-          "Kongu Vellala Gounder - Kaari",
-          "Kongu Vellala Gounder - Kanakkan",
-          "Kongu Vellala Gounder - Kannan",
-          "Kongu Vellala Gounder - Kannandhai",
-          "Kongu Vellala Gounder - Keeran",
-          "Kongu Vellala Gounder - Koorai",
-          "Kongu Vellala Gounder - Koventhar",
-          "Kongu Vellala Gounder - Kuzhlaayan",
-          "Kongu Vellala Gounder - Maadai",
-          "Kongu Vellala Gounder - Maniyan",
-          "Kongu Vellala Gounder - Medhi",
-          "Kongu Vellala Gounder - Muthan",
-          "Kongu Vellala Gounder - Muzhlukkadhan",
-          "Kongu Vellala Gounder - Nattu Gounder",
-          "Kongu Vellala Gounder - Odhaalar",
-          "Kongu Vellala Gounder - Paandian",
-          "Kongu Vellala Gounder - Padaithalaiyan",
-          "Kongu Vellala Gounder - Panaiyan",
-          "Kongu Vellala Gounder - Panangadai",
-          "Kongu Vellala Gounder - Pannai",
-          "Kongu Vellala Gounder - Pannan",
-          "Kongu Vellala Gounder - Pavalan",
-          "Kongu Vellala Gounder - Payiran",
-          "Kongu Vellala Gounder - Periyan",
-          "Kongu Vellala Gounder - Perizhanthan",
-          "Kongu Vellala Gounder - Perunkudi",
-          "Kongu Vellala Gounder - Pillan",
-          "Kongu Vellala Gounder - Podiyan",
-          "Kongu Vellala Gounder - Ponnan",
-          "Kongu Vellala Gounder - Poochadhai Poodhiyan",
-          "Kongu Vellala Gounder - Poosan",
-          "Kongu Vellala Gounder - Sathandhai",
-          "Kongu Vellala Gounder - Sedan",
-          "Kongu Vellala Gounder - Sellan",
-          "Kongu Vellala Gounder - Sempoothan",
-          "Kongu Vellala Gounder - Sengannan",
-          "Kongu Vellala Gounder - Sengunni",
-          "Kongu Vellala Gounder - Seralan",
-          "Kongu Vellala Gounder - Sevadi",
-          "Kongu Vellala Gounder - Thodai",
-          "Kongu Vellala Gounder - Thooran",
-          "Kongu Vellala Gounder - Vannakkan",
-          "Kongu Vellala Gounder - Veliyan",
-          "Kongu Vellala Gounder - Vellamban",
-          "Kongu Vellala Gounder - Venduvan",
-          "Kongu Vellala Gounder - Viliyan",
-          "Kongu Vellala Gounder - Villi",
-          "Konkani",
-          "Koracha",
-          "Korama",
-          "Kori",
-          "Kori / Koli",
-          "Korvi",
-          "Koshti",
-          "Krishnavaka",
-          "Kshatriya",
-          "Kshatriya - Agnikula Kshatriya",
-          "Kshatriya - Aguri Ugra Kshatriya",
-          "Kshatriya - Amethia",
-          "Kshatriya - Bachhil",
-          "Kshatriya - Bagel",
-          "Kshatriya - Baghela / Veghela",
-          "Kshatriya - Banafar",
-          "Kshatriya - Bhadoria",
-          "Kshatriya - Bhandari",
-          "Kshatriya - Bhardwaj",
-          "Kshatriya - Bhatraju",
-          "Kshatriya - Bhavasar Kshatriya",
-          "Kshatriya - Bundela",
-          "Kshatriya - Chopra",
-          "Kshatriya - Chudasa",
-          "Kshatriya - Dangi",
-          "Kshatriya - Dhawan",
-          "Kshatriya - Dixit",
-          "Kshatriya - Gaherwar",
-          "Kshatriya - Gargvansi",
-          "Kshatriya - Gaur",
-          "Kshatriya - Hada",
-          "Kshatriya - Haihaivanshi",
-          "Kshatriya - Jaiswar",
-          "Kshatriya - Janwar",
-          "Kshatriya - Kandera",
-          "Kshatriya - Kapur",
-          "Kshatriya - Katiyar",
-          "Kshatriya - Khandayat",
-          "Kshatriya - Khanna",
-          "Kshatriya - Khare",
-          "Kshatriya - Kshatriya Raju",
-          "Kshatriya - Kshatriya Raju Chandravamsam",
-          "Kshatriya - Kshatriya Raju Suryavamsam",
-          "Kshatriya - Kumawat",
-          "Kshatriya - Kurmi",
-          "Kshatriya - Mehra",
-          "Kshatriya - Nagvanshi",
-          "Kshatriya - Negi",
-          "Kshatriya - Niari",
-          "Kshatriya - Nikhumbh",
-          "Kshatriya - Paliwal",
-          "Kshatriya - Pawar",
-          "Kshatriya - Perika Puragiri Kshatriya",
-          "Kshatriya - Pundir",
-          "Kshatriya - Raikwar",
-          "Kshatriya - Rajkumar",
-          "Kshatriya - Rajwar",
-          "Kshatriya - Rama Kshatriya",
-          "Kshatriya - Rathor",
-          "Kshatriya - Rawal",
-          "Kshatriya - Rawat",
-          "Kshatriya - Sahni",
-          "Kshatriya - Saithwar- Mall",
-          "Kshatriya - Sami",
-          "Kshatriya - Sengar",
-          "Kshatriya - Seth",
-          "Kshatriya - Shrinet",
-          "Kshatriya - Singh",
-          "Kshatriya - Sisodiya",
-          "Kshatriya - Soma Vamsha Arya Kshatriya",
-          "Kshatriya - Somavanshi Sahasrarjun Kshatriya",
-          "Kshatriya - Somvanshi",
-          "Kshatriya - Tandon",
-          "Kshatriya - Tanwar",
-          "Kshatriya - Thogata Veera Kshatriya",
-          "Kshatriya - Tomar / Tanwar",
-          "Kshatriya - Tong Kshatriya",
-          "Kshatriya - Vahi",
-          "Kshatriya - Vohra",
-          "Kshatriya - Wadhwa",
-          "Kshatriya Agnikula",
-          "Kudumbi",
-          "Kulalar",
-          "Kulita",
-          "Kumaoni",
-          "Kumawat",
-          "Kumbhakar",
-          "Kumhar / Kumbhar",
-          "Kummari",
-          "Kunbi",
-          "Kunbi - Ghatode",
-          "Kunbi - Kunbi- Dhanoje",
-          "Kunbi - Kunbi- Khaire",
-          "Kunbi - Kunbi- Khedule",
-          "Kunbi - Kunbi- Lonari",
-          "Kunbi - Kunbi- Maratha",
-          "Kunbi - Kunbi- Tirale",
-          "Kunbi - Zade",
-          "Kurava",
-          "Kuravan / Kuravar",
-          "Kurmi",
-          "Kurmi - Awadhiya",
-          "Kurmi - Baghel",
-          "Kurmi - Chandel",
-          "Kurmi - Chandra",
-          "Kurmi - Chandrakar",
-          "Kurmi - Chandrawanshi",
-          "Kurmi - Chaudhary",
-          "Kurmi - Chaudhury",
-          "Kurmi - Deshmukh",
-          "Kurmi - Gangwar",
-          "Kurmi - Ghamaila",
-          "Kurmi - Jaiswar",
-          "Kurmi - Kashyap",
-          "Kurmi - Katiyar",
-          "Kurmi - Kochyasa",
-          "Kurmi - Kumar",
-          "Kurmi - Kushwaha (Koiri)",
-          "Kurmi - Mahata",
-          "Kurmi - Mahato",
-          "Kurmi - Mahto",
-          "Kurmi - Parganiha",
-          "Kurmi - Patel",
-          "Kurmi - Patidar",
-          "Kurmi - Prasad",
-          "Kurmi - Rai",
-          "Kurmi - Sachan",
-          "Kurmi - Singh",
-          "Kurmi - Verma",
-          "Kurmi Kshatriya",
-          "Kurmi Kshatriya - Awadhya",
-          "Kurmi Kshatriya - Baghel",
-          "Kurmi Kshatriya - Chandel",
-          "Kurmi Kshatriya - Chandra",
-          "Kurmi Kshatriya - Chandrakar",
-          "Kurmi Kshatriya - Chandrawanshi",
-          "Kurmi Kshatriya - Chaudhury",
-          "Kurmi Kshatriya - Deshmukh",
-          "Kurmi Kshatriya - Gangwar",
-          "Kurmi Kshatriya - Ghamaila",
-          "Kurmi Kshatriya - Jaiswar",
-          "Kurmi Kshatriya - Kashyap",
-          "Kurmi Kshatriya - Katiyar",
-          "Kurmi Kshatriya - Kochaisa",
-          "Kurmi Kshatriya - Kumar",
-          "Kurmi Kshatriya - Kushwaha Koiri",
-          "Kurmi Kshatriya - Mahata",
-          "Kurmi Kshatriya - Mahato",
-          "Kurmi Kshatriya - Mahto",
-          "Kurmi Kshatriya - Parganiha",
-          "Kurmi Kshatriya - Patel",
-          "Kurmi Kshatriya - Prasad",
-          "Kurmi Kshatriya - Rai",
-          "Kurmi Kshatriya - Sachan",
-          "Kurmi Kshatriya - Singh",
-          "Kurmi Kshatriya - Verma",
-          "Kuruba",
-          "Kuruhina Shetty",
-          "Kurumbar",
-          "Kuruva",
-          "Kushwaha",
-          "Kutchi",
-          "Kutchi Gurjar",
-          "Lambadi",
-          "Laxminarayan gola",
-          "Leva Patidar",
-          "Leva Patil",
-          "Lingayat",
-          "Lingayat - Agasa",
-          "Lingayat - Akkasali",
-          "Lingayat - Aradhya",
-          "Lingayat - Balegala",
-          "Lingayat - Banagar",
-          "Lingayat - Banajiga",
-          "Lingayat - Bhandari",
-          "Lingayat - Bilijedaru",
-          "Lingayat - Bilimagga",
-          "Lingayat - Chaturtha",
-          "Lingayat - Dikshwant",
-          "Lingayat - Ganiga",
-          "Lingayat - Gowda",
-          "Lingayat - Gowli",
-          "Lingayat - Gurav",
-          "Lingayat - Hadapada",
-          "Lingayat - Hatgar",
-          "Lingayat - Hoogar / Hugar / Jeer",
-          "Lingayat - Jadaru",
-          "Lingayat - Jangam",
-          "Lingayat - Kudu Vokkaliga",
-          "Lingayat - Kumbar / Kumbara",
-          "Lingayat - Kumbhar",
-          "Lingayat - Kuruhina Setty",
-          "Lingayat - lamba",
-          "Lingayat - Lolagonda",
-          "Lingayat - Madivala",
-          "Lingayat - Malgar",
-          "Lingayat - Mali",
-          "Lingayat - Neelagar",
-          "Lingayat - Neeli / Neelagar",
-          "Lingayat - Neygi",
-          "Lingayat - Nolamba",
-          "Lingayat - Pancham",
-          "Lingayat - Panchamasali",
-          "Lingayat - Pattasali",
-          "Lingayat - Reddy Reddi",
-          "Lingayat - Sadar",
-          "Lingayat - Sajjan / Sajjanaganigar ",
-          "Lingayat - Setty",
-          "Lingayat - Shilwant",
-          "Lingayat - Shiva Simpi",
-          "Lingayat - Vani",
-          "Lingayat - Veerashaiva",
-          "Lohana",
-          "Lohana - Ghoghari",
-          "Lohana - Halai",
-          "Lohana - Kutchi",
-          "Lohana - Vaishnav",
-          "Lohar",
-          "Lubana",
-          "Madiga",
-          "Mahar",
-          "Mahendra",
-          "Maheshwari",
-          "Mahindra",
-          "Mahisya",
-          "Majabi Mazhbi",
-          "Mala",
-          "Mali",
-          "Mallah",
-          "Mallah - Kewat / Keot",
-          "Mallah - Nishad",
-          "Manikpuri",
-          "Manipuri",
-          "Manjhi",
-          "Mannan / Velon / Vannan",
-          "Mapila",
-          "Maratha",
-          "Maratha - 96 Kuli Maratha",
-          "Maratha - 96K Kokanastha",
-          "Maratha - Aramari Gabit",
-          "Maratha - Deshastha Maratha",
-          "Maratha - Deshmukh",
-          "Maratha - Deshtha Maratha",
-          "Maratha - Gomantak Maratha",
-          "Maratha - Jhadav",
-          "Maratha - Kokanastha Maratha",
-          "Maratha - Kunbi Dhanoje",
-          "Maratha - Kunbi Khaire",
-          "Maratha - Kunbi Khedule",
-          "Maratha - Kunbi Lonari",
-          "Maratha - Kunbi Maratha",
-          "Maratha - Kunbi Tirale",
-          "Maratha - Malwani",
-          "Maratha - Maratha Kshatriya",
-          "Maratha - Parit",
-          "Maratha - Patil",
-          "Maratha - Sonar",
-          "Maratha - Suthar",
-          "Maratha - Vani",
-          "Maravar",
-          "Maruthuvar",
-          "Matang",
-          "Maurya",
-          "Maurya - Kachchi",
-          "Maurya - Kushwaha",
-          "Meda",
-          "Meena",
-          "Meenavar",
-          "Meghwal",
-          "Mehra",
-          "Mehtar",
-          "Menon",
-          "Meru",
-          "Meru darji",
-          "Mochi",
-          "Modak",
-          "Mogaveera",
-          "Monchi",
-          "Motati Reddy",
-          "Mudaliar",
-          "Mudaliar - Agamudayar/Arcot/Thuluva Vellala",
-          "Mudaliar - Isai Vellalar",
-          "Mudaliar - Kerala Mudali",
-          "Mudaliar - Kongu Vellala Gounder",
-          "Mudaliar - Mudailiar Arcot",
-          "Mudaliar - Mudaliar All",
-          "Mudaliar - Mudaliar Saiva",
-          "Mudaliar - Mudaliar Sengupta",
-          "Mudaliar - Saiva Pillai Tirunelveli",
-          "Mudaliar - Sengunthar/Kaikolar",
-          "Mudaliar - Sozhiya Vellalar",
-          "Mudaliar - Thondai Mandala Vellala",
-          "Mudaliar - Veerakodi Vellala",
-          "Mudaliar Arcot",
-          "Mudiraj",
-          "Muthuraja",
-          "Naagavamsam",
-          "Nadar",
-          "Nadar - Kongu Nadar",
-          "Nagaralu",
-          "Naicker",
-          "Naicker - Naicker others",
-          "Naicker - Naicker-Vanniya Kula Kshatriyar",
-          "Naicker - Rajaka Chakali Dhobi",
-          "Naidu",
-          "Naidu - Balija Naidu",
-          "Naidu - Ediga /Goud",
-          "Naidu - Gajula Kavarai",
-          "Naidu - Gavara",
-          "Naidu - Kamma",
-          "Naidu - Kapu Naidu",
-          "Naidu - Munnuru Kapu",
-          "Naidu - Mutharaja",
-          "Naidu - Perika",
-          "Naidu - Raja Kambalathu Naicker",
-          "Naidu - Raju",
-          "Naidu - Reddy",
-          "Naidu - Shetty Balija",
-          "Naidu - Surya Balija",
-          "Naidu - Telaga",
-          "Naidu - Turupu Kapu",
-          "Naidu - Vada Balija",
-          "Naidu - Vadugan",
-          "Naidu - Velama",
-          "Naidu - Yadava Naidu",
-          "Naik Nayak Nayaka",
-          "Nair",
-          "Nair - Adiyodi",
-          "Nair - Anthur",
-          "Nair - Chekkala Nair",
-          "Nair - Illam",
-          "Nair - Kaimal",
-          "Nair - Kartha",
-          "Nair - Kiryathil",
-          "Nair - Kurup",
-          "Nair - Maniyani",
-          "Nair - Mannadiar",
-          "Nair - Marar",
-          "Nair - Menon",
-          "Nair - Nair All",
-          "Nair - Nair-Vaniya",
-          "Nair - Nambiar",
-          "Nair - Panicker",
-          "Nair - Pillai",
-          "Nair - Poduval",
-          "Nair - Thampi",
-          "Nair - Tharakan",
-          "Nair - Unnithan",
-          "Nair - Vellala Pillai",
-          "Nair - Veluthedathu",
-          "Nair - Vilakkithala",
-          "Nair Veluthedathu",
-          "Nair Vilakkithala",
-          "Namasudra / Namosudra",
-          "Nambiar",
-          "Nambisan",
-          "Namboodiri",
-          "Namdev Chhipa",
-          "Nandiwale",
-          "Napit",
-          "Nath Jogi",
-          "Nayee (Barber)",
-          "Nepali",
-          "Nessi / Kurni",
-          "Nhavi",
-          "Nonia",
-          "OBC",
-          "Odan",
-          "Oraon",
-          "Oswal",
-          "Otari",
-          "Others",
-          "Padmashali",
-          "Padmashali - Devanga",
-          "Padmashali - Jaandra",
-          "Padmashali - Kaikaala",
-          "Padmashali - Karakala Bhakthula",
-          "Padmashali - Karni Bhakthula",
-          "Padmashali - Kurni",
-          "Padmashali - Neeli Saali",
-          "Padmashali - Nessi",
-          "Padmashali - Pattusali",
-          "Padmashali - Shettigar",
-          "Padmashali - Swakula Saali",
-          "Padmashali - Thogata Veerakshathriya",
-          "Pal",
-          "Panan",
-          "Panchal",
-          "Panchamsali",
-          "Pandaram",
-          "Panicker",
-          "Pano",
-          "Paravan Bhartar",
-          "Parkava Kulam",
-          "Parvatha Rajakulam",
-          "Pasi",
-          "Paswan / Dusadh",
-          "Patel",
-          "Patel - Anjana (Chowdary) Patel",
-          "Patel - Desai",
-          "Patel - Dodia",
-          "Patel - Kadava Patel",
-          "Patel - Leva Patel",
-          "Patel - Matia Patel",
-          "Patel - Patel Desai",
-          "patel Dodia",
-          "patel Kadva",
-          "patel Leva",
-          "patel Leva - 27 Gam",
-          "patel Leva - Baavis Gam",
-          "patel Leva - Chaa Gam",
-          "patel Leva - Chovis Gam",
-          "patel Leva - Mota Sattavi",
-          "patel Leva - Nani Sattavi",
-          "patel Leva - Panch Gam",
-          "Patel Lodhi",
-          "Pathare Prabhu",
-          "Patnaick",
-          "Patra",
-          "Perika",
-          "Pillai",
-          "Pillai - Aaru Nattu Vellala",
-          "Pillai - Agamudayar/Arcot/Thuluva Vellala",
-          "Pillai - Cherakula Vellalar",
-          "Pillai - Desikar",
-          "Pillai - Desikar Thanjavur",
-          "Pillai - Illaththu Pillai",
-          "Pillai - Isai Vellalar",
-          "Pillai - Karkathar",
-          "Pillai - Kodikal Pillai",
-          "Pillai - Nanjil",
-          "Pillai - Nanjil Mudali",
-          "Pillai - Nankudi Vellalar",
-          "Pillai - Othuvaar",
-          "Pillai - Pandiya Vellalar",
-          "Pillai - Saiva Pillai Thanjavur",
-          "Pillai - Saiva Pillai Tirunelvi",
-          "Pillai - Sengunthar/Kaikolar",
-          "Pillai - Sozhiya Vellalar",
-          "Pillai - Thondai Mandala Vellala",
-          "Pillai - Veerakodi Vellala",
-          "Pillai - Vellala Pillai",
-          "Pollon Devandra Kula Vellalan",
-          "Ponan",
-          "Poosala",
-          "Poundra",
-          "Prajapati",
-          "Pulaya Chruman",
-          "Rabari",
-          "Raigar",
-          "Raikwar",
-          "Rajaka",
-          "Rajaka - Rajaka Vannar",
-          "Rajbhar",
-          "Rajbongshi",
-          "Rajpurohit",
-          "Rajput",
-          "Rajput - Aheria Rajput",
-          "Rajput - Baghel",
-          "Rajput - Bais",
-          "Rajput - Bankawat",
-          "Rajput - Bargujar",
-          "Rajput - Bhadauria",
-          "Rajput - Bharbhunja",
-          "Rajput - Bhatti",
-          "Rajput - Bhriguvansha",
-          "Rajput - Bisen",
-          "Rajput - Bisht",
-          "Rajput - Chandel",
-          "Rajput - Chandravanshi",
-          "Rajput - Chandrawat",
-          "Rajput - Chauhan",
-          "Rajput - Chawda / Chavada",
-          "Rajput - Chib",
-          "Rajput - Chundawat",
-          "Rajput - Dhakare",
-          "Rajput - Dixit",
-          "Rajput - Doad",
-          "Rajput - Dogra",
-          "Rajput - Durgavanshi",
-          "Rajput - Gahlot",
-          "Rajput - Garhwal",
-          "Rajput - Gautam",
-          "Rajput - Gogawat",
-          "Rajput - Gohil",
-          "Rajput - Goud / Gaur",
-          "Rajput - Jadeja",
-          "Rajput - Jadon",
-          "Rajput - Jamwal",
-          "Rajput - Janjua",
-          "Rajput - Jasrotia",
-          "Rajput - Jaswal",
-          "Rajput - Jhala",
-          "Rajput - Kachwaha",
-          "Rajput - Kalyat",
-          "Rajput - Katoch",
-          "Rajput - Kaushik",
-          "Rajput - Khadagvanshi Khagi",
-          "Rajput - Khangarot",
-          "Rajput - Khati",
-          "Rajput - Kirar",
-          "Rajput - Kumaoni",
-          "Rajput - Kuruvanshi",
-          "Rajput - Kushwaha",
-          "Rajput - Lodhi Rajput",
-          "Rajput - Loniya Lonia Lunia",
-          "Rajput - Madad",
-          "Rajput - Mahror",
-          "Rajput - Mahthan",
-          "Rajput - Mahyavanshi",
-          "Rajput - Manhas",
-          "Rajput - Nagvanshi",
-          "Rajput - Naruka",
-          "Rajput - Nathawat",
-          "Rajput - Negi",
-          "Rajput - Nikumbh",
-          "Rajput - Oad Rajput",
-          "Rajput - Parihar",
-          "Rajput - Parmar",
-          "Rajput - Pratihar",
-          "Rajput - Pundir",
-          "Rajput - Raghuvanshi",
-          "Rajput - Rajawal",
-          "Rajput - Rajput Swarnkar",
-          "Rajput - Rana",
-          "Rajput - Rao",
-          "Rajput - Rathore",
-          "Rajput - Rawa Rajput",
-          "Rajput - Rawal",
-          "Rajput - Rohilla",
-          "Rajput - Sagar Rajput",
-          "Rajput - Sainthwar Rajput",
-          "Rajput - Sarangdevot",
-          "Rajput - Shakya",
-          "Rajput - Shekhawat",
-          "Rajput - Sikarwar",
-          "Rajput - Singh",
-          "Rajput - Sisodia",
-          "Rajput - Solanki",
-          "Rajput - Somvansha",
-          "Rajput - Surwar",
-          "Rajput - Suryavanshi",
-          "Rajput - Tanwar",
-          "Rajput - Thakur",
-          "Rajput - Tomar",
-          "Rajput - Ujjain",
-          "Rajput - Vaishhya",
-          "Rajput Garhwali",
-          "Rajput Kumaoni",
-          "Rajput Rohella Tank",
-          "Ramdasia",
-          "Ramgarhia",
-          "Ramoshi Berad Bedar",
-          "Ravidasia",
-          "Rawat",
-          "Reddy",
-          "Reddy - Ayodhi",
-          "Reddy - Bhoomanchi Reddy",
-          "Reddy - Chowdary",
-          "Reddy - Desuru",
-          "Reddy - Gandla",
-          "Reddy - Ganjam",
-          "Reddy - Gone Kapu",
-          "Reddy - Gudati",
-          "Reddy - Kapu",
-          "Reddy - Motati",
-          "Reddy - Palle",
-          "Reddy - Palnati",
-          "Reddy - Panta",
-          "Reddy - Pedakanti",
-          "Reddy - Poknati",
-          "Reddy - Reddiar",
-          "Reddy - Sajjana",
-          "Reddy - Vanni",
-          "Reddy - Velanati",
-          "Relli",
-          "Rohit Chamar",
-          "Ror",
-          "Sadgope",
-          "Saha",
-          "Sahu",
-          "Saini",
-          "Saliya",
-          "Samagar",
-          "Sambava",
-          "Santhali",
-          "Sargara",
-          "Sathwara",
-          "Satnami",
-          "Savji",
-          "Sawantwadi",
-          "Scheduled Caste",
-          "Scheduled Tribe",
-          "Senai Thalaivar",
-          "Senguntha Mudaliyar",
-          "Settibalija",
-          "Shah",
-          "Shilpkar",
-          "Shimpi",
-          "Silawat",
-          "Sillekyatha",
-          "Sindhi",
-          "Sindhi - Sindhi Amil",
-          "Sindhi - Sindhi Baibhand",
-          "Sindhi - Sindhi Bhanusali",
-          "Sindhi - Sindhi Bhatia",
-          "Sindhi - Sindhi Chhapru",
-          "Sindhi - Sindhi Daru",
-          "Sindhi - Sindhi Hydrabadi",
-          "Sindhi - Sindhi Larai",
-          "Sindhi - Sindhi Larkan",
-          "Sindhi - Sindhi Larkana",
-          "Sindhi - Sindhi Lohana",
-          "Sindhi - Sindhi Rohiri",
-          "Sindhi - Sindhi Sahiti",
-          "Sindhi - Sindhi Sakkhar",
-          "Sindhi - Sindhi Sehwani",
-          "Sindhi - Sindhi Shikarpuri",
-          "Sindhi - Sindhi Thatai",
-          "Siyal",
-          "SKP",
-          "Somvanshi",
-          "Somvanshi Kayastha Prabhu",
-          "Sonar / Sunar",
-          "Sonkar",
-          "Sourashtra",
-          "Sozhiya Vellalar",
-          "Srisayani",
-          "SSK",
-          "Subarna Banik",
-          "Sudi Suri Sundhi Shaundik",
-          "Sugali (Naika)",
-          "Sutar",
-          "Swakula sali",
-          "Swarnkar",
-          "Tamboli",
-          "Tammali",
-          "Tanti",
-          "Tantuway",
-          "Telaga",
-          "Teli",
-          "Thachar",
-          "Thakkar",
-          "Thandan",
-          "Tharakan",
-          "Thevar Mukkulathor",
-          "Thevar Mukkulathor - Agamudayar",
-          "Thevar Mukkulathor - Ambalakarar",
-          "Thevar Mukkulathor - Appanad Kondayamkottai Maravar",
-          "Thevar Mukkulathor - Easanattu Kallar",
-          "Thevar Mukkulathor - Kallar",
-          "Thevar Mukkulathor - Maniyakarar",
-          "Thevar Mukkulathor - Maravar",
-          "Thevar Mukkulathor - Piramalai Kallar",
-          "Thevar Mukkulathor - Rajakula Agamudayar",
-          "Thevar Mukkulathor - Sembanad Maravar",
-          "Thevar Mukkulathor - Servai",
-          "Thevar Mukkulathor - Thanjavur Kallar",
-          "Thevar Mukkulathor - Vallambar",
-          "Thigala",
-          "Thiyya",
-          "Thiyya - Ezhava",
-          "Thiyya - Kavuthiya",
-          "Thiyya - Thiyya Thandan",
-          "Tili",
-          "Togata",
-          "Tonk Kshatriya",
-          "Tribe",
-          "Turi",
-          "Turupu Kapu",
-          "Uppara",
-          "Vadar",
-          "Vaddera",
-          "Vaduka",
-          "Vaidiki Velanadu",
-          "Vaish",
-          "Vaish - Vaish Dhaneshawat",
-          "Vaishnav",
-          "Vaishnav - Bairagi Swami",
-          "Vaishnav - Vaishnav Bhatia",
-          "Vaishnav - Vaishnav Dishaval",
-          "Vaishnav - Vaishnav Kapol",
-          "Vaishnav - Vaishnav Khadyata",
-          "Vaishnav - Vaishnav Lad",
-          "Vaishnav - Vaishnav Modh",
-          "Vaishnav - Vaishnav Porvad",
-          "Vaishnav - Vaishnav Shrimali",
-          "Vaishnav - Vaishnav Sorathaiya",
-          "Vaishnav - Vaishnav Vania",
-          "Vaishnav Vanik",
-          "Vaishnava",
-          "Vaishnava - Brahmin Sri Vaishnava",
-          "Vaishnava - Chhatada Sri Vaishnava",
-          "Vaishnava - Sri Vaishnava",
-          "Vaishya",
-          "Vaishya - Mahuri",
-          "Vaishya - Mathur Vaishya",
-          "Vaishya Vani",
-          "Vallala",
-          "Valluvar",
-          "Valmiki",
-          "Valuvan",
-          "Vania",
-          "Vaniya",
-          "Vaniya - Nair-Vaniya",
-          "Vaniya - Vaniya Chettiar",
-          "Vanjara",
-          "Vanjari",
-          "Vankar",
-          "Vannar",
-          "Vannia Kula Kshatriyar",
-          "Vannia Kula Kshatriyar - Arasu",
-          "Vannia Kula Kshatriyar - Gounder",
-          "Vannia Kula Kshatriyar - Naicker",
-          "Vannia Kula Kshatriyar - Padayachi",
-          "Vannia Kula Kshatriyar - Palli",
-          "Vannia Kula Kshatriyar - Pandal",
-          "Vannia Kula Kshatriyar - Urs",
-          "Vannia Kula Kshatriyar - Vannia Reddiar",
-          "Vannia Kula Kshatriyar - Vanniyar",
-          "Vanniyar",
-          "Variar",
-          "Varshney",
-          "Veershaiva Veera Saivam",
-          "Velaan",
-          "Velama",
-          "Velama - Adivelama",
-          "Velama - Koppula",
-          "Velama - Padmanayaka",
-          "Velama - Polinati",
-          "Velama - Yellapa",
-          "Velan",
-          "Vellalar",
-          "Vellalar - Aaru Nattu Vellala",
-          "Vellalar - Agamudayar/Arcot/Thuluva Vellala",
-          "Vellalar - Cherakula Vellalar",
-          "Vellalar - Desikar",
-          "Vellalar - Devendra Kula Vellalar",
-          "Vellalar - Illaththu Pillai",
-          "Vellalar - Isai Vellalar",
-          "Vellalar - Karkathar",
-          "Vellalar - Kodikal Pillai",
-          "Vellalar - Kongu Vellala Gounder",
-          "Vellalar - Nanjil Mudali",
-          "Vellalar - Nanjil Nattu Vellalar",
-          "Vellalar - Nanjil Vellalar",
-          "Vellalar - Nankudi Vellalar",
-          "Vellalar - Othuvaar",
-          "Vellalar - Pandiya Vellalar",
-          "Vellalar - Saiva Pillai Thanjavur",
-          "Vellalar - Saiva Pillai Tirunelveli",
-          "Vellalar - Saiva Vellalar",
-          "Vellalar - Sengunthar/Kaikolar",
-          "Vellalar - Sozhiya Vellalar",
-          "Vellalar - Thondai Mandala Vellala",
-          "Vellalar - Veerakodi",
-          "Vellalar - Vellalar All",
-          "Vettuva Gounder",
-          "Vettuvan",
-          "Vishwakarma",
-          "Vishwakarma - Black Smith",
-          "Vishwakarma - Carpentry (Vadrangi, Vadla)",
-          "Vishwakarma - Goldsmiths",
-          "Vishwakarma - Sculptor (Shilpi)",
-          "Vokkaliga",
-          "Vysya",
-          "Wani",
-          "Yadav / Yadava",
-          "Yadav / Yadava - Aheer / Ahir",
-          "Yadav / Yadava - Ala Golla",
-          "Yadav / Yadava - Daddi",
-          "Yadav / Yadava - Das",
-          "Yadav / Yadava - Dhador",
-          "Yadav / Yadava - Erragola",
-          "Yadav / Yadava - Gadri / Gadariya",
-          "Yadav / Yadava - Gauda",
-          "Yadav / Yadava - Gawli",
-          "Yadav / Yadava - Goal / Gola / Golla",
-          "Yadav / Yadava - Gop / Gopal / Gopala",
-          "Yadav / Yadava - Goriya",
-          "Yadav / Yadava - Gwala",
-          "Yadav / Yadava - Gwalvanshi",
-          "Yadav / Yadava - Jadav",
-          "Yadav / Yadava - Kohar",
-          "Yadav / Yadava - Konar",
-          "Yadav / Yadava - Korna",
-          "Yadav / Yadava - Krishnauth",
-          "Yadav / Yadava - Kurudas Gollas",
-          "Yadav / Yadava - Kuruma",
-          "Yadav / Yadava - Mandal",
-          "Yadav / Yadava - Manjrauth",
-          "Yadav / Yadava - Nandvanshi",
-          "Yadav / Yadava - Pakanati",
-          "Yadav / Yadava - Puja",
-          "Yadav / Yadava - Raut",
-          "Yadav / Yadava - Suryavanshi",
-          "Yadav / Yadava - Thethwar",
-          "Yadav / Yadava - Yadav Golla",
-          "Yadav / Yadava - Yaduvanshi",
-          "Yellapu",
-          "Dabgar",
-        ];
         const translations = {
           en: {
             brandTitle: "Matrimonial Profile Maker — Free & Private",
@@ -2509,23 +979,61 @@
             subBasicDetails: "Choose the language for the form first.",
             secBirth: "Birth details",
             subBirth: "Enter date and time in separate fields if known.",
+            secPerInfo: "Personal Information",
             secLocation: "Current location",
             subLocation: "Your present city and state are required.",
             secFamily: "Family & personal information",
             subFamily: "Share only what you feel comfortable including.",
             name: "Name",
+            namePlaceholder: "Enter Name",
             profileFor: "Profile created for",
+            profileForSelect: "Select profile created for",
+            profileForOptions: [
+              "Self",
+              "Son",
+              "Daughter",
+              "Brother",
+              "Sister",
+              "Relative",
+              "Friend",
+              "Others",
+            ],
             gender: "Gender",
+            genderSelect: "Select gender",
+            genderOptions: ["Male", "Female", "Others", "Prefer not to say"],
             manglik: "Manglik",
+            manglikSelect: "Select Manglik",
+            manglikOptions: [
+              "Non-Manglik",
+              "Manglik",
+              "Anshik Manglik",
+              "High Manglik",
+              "Don't Know",
+              "Doesn't Matter",
+              "Prefer not to say",
+            ],
             maritalStatus: "Marital status",
+            maritalStatusSelect: "Select marital status",
+            maritalStatusOptions: [
+              "Unmarried",
+              "Widow/Widower",
+              "Divorced",
+              "Awaiting Divorce",
+              "Separated",
+              "Single Parent",
+              "Annulled",
+            ],
             childrenGirls: "Children - Girls",
             noGirl: "No Girl",
             girl: "Girl",
             girls: "Girls",
+            girlCount: "Girl children",
             childrenBoys: "Children - Boys",
             noBoy: "No Boy",
             boy: "Boy",
             boys: "Boys",
+            boyCount: "Boy children",
+            childSummary: "Children",
             maritalAndChildren: "Marital status and children",
             dateOfBirth: "Date of birth",
             timeOfBirth: "Time of birth",
@@ -2537,43 +1045,111 @@
             birthMinute: "Minutes",
             birthSecond: "Seconds",
             birthAmPm: "AM/PM",
-            birthCity: "City",
-            birthState: "State",
-            birthCountry: "Country",
-            currentCity: "Current city",
-            currentState: "Current state",
-            currentCountry: "Current country",
+            birthCityPlaceholder: "City",
+            birthStatePlaceholder: "State",
+            birthCountryPlaceholder: "Country",
+            currentCityPlaceholder: "City",
+            currentStatePlaceholder: "State",
+            currentCountryPlaceholder: "Country",
+            casteGotra: "Caste / Sub-Caste / Gotra",
+            castePlaceholder: "Caste",
+            subCastePlaceholder: "Sub Caste",
+            gotraPlaceholder: "Gotra",
             diet: "Dietary habits",
+            dietSelect: "Select dietary preference",
+            dietOptions: [
+              "Vegetarian",
+              "Vegan",
+              "Eggetarian",
+              "Non-vegetarian",
+              "Others",
+              "Prefer not to say",
+            ],
+            religion: "Religion",
+            religionSelect: "Select Religion",
+            religionOptions: [
+              "Hinduism",
+              "Sikhism",
+              "Islam",
+              "Christianity",
+              "Jainism",
+              "Buddhism",
+              "Parsi / Zoroastrianism",
+              "No Religion",
+              "Spiritual",
+              "Others",
+              "Prefer not to say",
+            ],
+            skinTone: "Skin Tone",
+            skinToneSelect: "Select Skin Tone",
+            skinToneOptions: [
+              "Fair",
+              "Very Fair",
+              "Wheatish",
+              "Wheatish Brown",
+              "Dark",
+              "Others",
+              "Prefer not to say",
+            ],
+            bloodGroup: "Blood Group",
+            bloodGroupSelect: "Select Blood Group",
+            bloodGroupOptions: [
+              "A+",
+              "A-",
+              "B+",
+              "B-",
+              "O+",
+              "O-",
+              "AB+",
+              "AB-",
+              "Don't Know",
+              "Prefer not to say",
+            ],
+            motherTongue: "Mother Tongue",
+            motherTongueSelect: "Select Mother Tongue",
+            motherTongueOptions: [
+              "Hindi",
+              "Punjabi",
+              "English",
+              "Bengali",
+              "Gujarati",
+              "Marathi",
+              "Telugu",
+              "Tamil",
+              "Kannada",
+              "Malayalam",
+              "Odia",
+              "Urdu",
+              "Assamese",
+              "Sindhi",
+              "Marwari",
+              "Rajasthani",
+              "Others",
+              "Prefer not to say",
+            ],
             mother: "Mother",
+            motherPlaceholder: "Name, occupation or other details",
             father: "Father",
+            fatherPlaceholder: "Name, occupation or other details",
             siblings: "Siblings",
+            siblingsPlaceholder: "e.g. 1 brother, 1 sister",
             familyType: "Family type",
             education: "Education",
+            educationPlaceholder: "Highest qualification",
             occupation: "Occupation",
+            occupationPlaceholder: "Profession / role",
             height: "Height",
+            heightSelect: "Select height",
             weight: "Weight",
-            religion: "Religion / community (optional)",
+            weightSelect: "Select weight",
             about: "About me",
+            aboutPlaceholder: "A short introduction, interests and values",
             expectations: "Partner preferences (optional)",
+            expectationsPlaceholder:
+              "What you are looking for in a life partner",
             other: "Additional details",
-            placeholders: {
-              name: "Enter Name",
-              currentCity: "City",
-              currentState: "State",
-              currentCountry: "Country",
-              birthCity: "City",
-              birthState: "State",
-              birthCountry: "Country",
-              mother: "Name, occupation or other details",
-              father: "Name, occupation or other details",
-              siblings: "e.g. 1 brother, 1 sister",
-              education: "Highest qualification",
-              occupation: "Profession / role",
-              religion: "Optional",
-              about: "A short introduction, interests and values",
-              expectations: "What you are looking for in a life partner",
-              other: "Languages, hobbies, lifestyle or any other details",
-            },
+            otherPlaceholder:
+              "Languages, hobbies, lifestyle or any other details",
             monthOptions: [
               "January",
               "February",
@@ -2588,59 +1164,16 @@
               "November",
               "December",
             ],
-            selectMonth: "Month",
-            selectYear: "Year",
-            selectDate: "Day",
-            selectHour: "Hour",
-            selectMinute: "Minutes",
-            selectSecond: "Seconds",
-            selectAmPm: "AM/PM",
-            selectProfileFor: "Select profile created for",
-            profileForOptions: [
-              "Myself",
-              "Son",
-              "Daughter",
-              "Brother",
-              "Sister",
-              "Relative",
-              "Friend",
-              "Others",
-            ],
+            monthSelect: "Month",
+            yearSelect: "Year",
+            dateSelect: "Day",
+            hourSelect: "Hour",
+            minuteSelect: "Minutes",
+            secondSelect: "Seconds",
+            amPmSelect: "AM/PM",
             amPm: ["AM", "PM"],
-            selectGender: "Select gender",
-            selectManglik: "Select Manglik",
-            selectMaritalStatus: "Select marital status",
-            selectHeight: "Select height",
-            selectWeight: "Select weight",
-            selectDiet: "Select dietary preference",
-            selectFamily: "Select family type",
-            genderOptions: ["Male", "Female", "Others", "Prefer not to say"],
-            manglikOptions: [
-              "Non-Manglik",
-              "Manglik",
-              "Anshik Manglik",
-              "High Manglik",
-              "Don't Know",
-              "Doesn't Matter",
-              "Prefer not to say",
-            ],
-            statuses: [
-              "Unmarried",
-              "Widow/Widower",
-              "Divorced",
-              "Awaiting Divorce",
-              "Separated",
-              "Single Parent",
-              "Annulled",
-            ],
-            diets: [
-              "Vegetarian",
-              "Vegan",
-              "Eggetarian",
-              "Non-vegetarian",
-              "Other / Prefer not to say",
-            ],
-            families: ["Nuclear", "Joint", "Other"],
+            familySelect: "Select family type",
+            families: ["Nuclear", "Joint", "Others"],
             create: "Create printable profile →",
             reset: "Clear form",
             required: "* Required fields",
@@ -2660,9 +1193,6 @@
             ],
             empty: "Not provided",
             profileTitle: "Matrimonial Profile",
-            childSummary: "Children",
-            girlCount: "Girl children",
-            boyCount: "Boy children",
           },
           hi: {
             brandTitle: "शादी के लिए बायोडाटा बनाएँ - निःशुल्क और सुरक्षित",
@@ -2676,25 +1206,64 @@
             subBasicDetails: "सबसे पहले फ़ॉर्म की भाषा चुनें।",
             secBirth: "जन्म विवरण",
             subBirth: "यदि जानकारी उपलब्ध हो, तो तारीख और समय अलग-अलग भरें।",
+            secPerInfo: "व्यक्तिगत विवरण",
             secLocation: "वर्तमान निवास",
             subLocation: "वर्तमान शहर और राज्य भरना आवश्यक है।",
             secFamily: "परिवार और व्यक्तिगत जानकारी",
             subFamily: "केवल वही जानकारी दें जिसे साझा करना आप उचित समझें।",
-            // name: "पूरा नाम",
+            // name:"पूरा नाम",
             name: "नाम",
-            // profileFor: "प्रोफ़ाइल किसके लिए बनाई गई है",
+            namePlaceholder: "नाम दर्ज करें",
+            // profileFor:"प्रोफ़ाइल किसके लिए बनाई गई है",
             profileFor: "प्रोफ़ाइल किसके लिए है",
+            profileForSelect: "प्रोफ़ाइल किसके लिए है",
+            profileForOptions: [
+              "अपने लिए",
+              "बेटा",
+              "बेटी",
+              "भाई",
+              "बहन",
+              "रिश्तेदार",
+              "मित्र",
+              "अन्य",
+            ],
             gender: "लिंग",
+            genderSelect: "लिंग चुनें",
+            genderOptions: ["पुरुष", "महिला", "अन्य", "बताना नहीं चाहते"],
             manglik: "मांगलिक स्थिति",
+            manglikSelect: "मांगलिक स्थिति चुनें",
+            manglikOptions: [
+              "मांगलिक नहीं",
+              "मांगलिक",
+              "आंशिक मांगलिक",
+              "पक्का मांगलिक",
+              "पता नहीं",
+              "मांगलिक मायने नहीं रखता",
+              //"कोई फ़र्क नहीं पड़ता",
+              "बताना नहीं चाहते",
+            ],
             maritalStatus: "वैवाहिक स्थिति",
+            maritalStatusSelect: "वैवाहिक स्थिति चुनें",
+            maritalStatusOptions: [
+              "अविवाहित",
+              "विधवा/विधुर",
+              "तलाकशुदा",
+              "तलाक की कार्यवाही जारी",
+              "अलग रह रहे हैं",
+              "एकल माता/पिता",
+              "विवाह रद्द (अमान्य)",
+            ],
             childrenGirls: "बच्चे - लड़कियाँ",
             noGirl: "कोई लड़की नहीं",
             girl: "लड़की",
             girls: "लड़कियाँ",
+            girlCount: "बेटियाँ",
             childrenBoys: "बच्चे - लड़के",
             noBoy: "कोई लड़का नहीं",
             boy: "लड़का",
             boys: "लड़के",
+            boyCount: "बेटे",
+            childSummary: "बच्चे",
             maritalAndChildren: "वैवाहिक स्थिति और बच्चे",
             dateOfBirth: "जन्म तिथि",
             timeOfBirth: "जन्म का समय",
@@ -2706,43 +1275,109 @@
             birthMinute: "मिनट",
             birthSecond: "सेकंड",
             birthAmPm: "AM/PM",
-            birthCity: "शहर",
-            birthState: "राज्य",
-            birthCountry: "देश",
-            currentCity: "वर्तमान शहर",
-            currentState: "वर्तमान राज्य",
-            currentCountry: "वर्तमान देश",
+            birthCityPlaceholder: "शहर",
+            birthStatePlaceholder: "राज्य",
+            birthCountryPlaceholder: "देश",
+            currentCityPlaceholder: "शहर",
+            currentStatePlaceholder: "राज्य",
+            currentCountryPlaceholder: "देश",
+            casteGotra: "जाति / उप-जाति / गोत्र",
+            castePlaceholder: "जाति",
+            subCastePlaceholder: "उप-जाति",
+            gotraPlaceholder: "गोत्र",
             diet: "खान-पान की आदतें",
+            dietSelect: "खान-पान चुनें",
+            dietOptions: [
+              "शाकाहारी",
+              "वीगन",
+              "अंडा खाते हैं",
+              "मांसाहारी",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
+            religion: "धर्म",
+            religionSelect: "धर्म चुनें",
+            religionOptions: [
+              "हिंदू",
+              "सिख",
+              "मुस्लिम",
+              "ईसाई",
+              "जैन",
+              "बौद्ध",
+              "पारसी",
+              "कोई धर्म नहीं",
+              "आध्यात्मिक",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
+            skinTone: "रंग-रूप",
+            skinToneSelect: "रंग-रूप चुनें",
+            skinToneOptions: [
+              "गोरा",
+              "बहुत गोरा",
+              "गेहूंआ",
+              "सांवला",
+              "गहरा रंग",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
+            bloodGroup: "रक्त समूह",
+            bloodGroupSelect: "रक्त समूह चुनें",
+            bloodGroupOptions: [
+              "A+ (ए पॉजिटिव)",
+              "A- (ए नेगेटिव)",
+              "B+ (बी पॉजिटिव)",
+              "B- (बी नेगेटिव)",
+              "O+ (ओ पॉजिटिव)",
+              "O- (ओ नेगेटिव)",
+              "AB+ (एबी पॉजिटिव)",
+              "AB- (एबी नेगेटिव)",
+              "पता नहीं",
+              "बताना नहीं चाहते",
+            ],
+            motherTongue: "मातृभाषा",
+            motherTongueSelect: "मातृभाषा चुनें",
+            motherTongueOptions: [
+              "हिंदी",
+              "पंजाबी",
+              "अंग्रेजी",
+              "बंगाली",
+              "गुजराती",
+              "मराठी",
+              "तेलुगु",
+              "तमिल",
+              "कन्नड़",
+              "मलयालम",
+              "ओड़िया",
+              "उर्दू",
+              "असमी",
+              "सिंधी",
+              "मारवाड़ी",
+              "राजस्थानी",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
             mother: "माता",
+            motherPlaceholder: "नाम, पेशा या अन्य विवरण",
             father: "पिता",
+            fatherPlaceholder: "नाम, पेशा या अन्य विवरण",
             siblings: "भाई-बहन",
+            siblingsPlaceholder: "जैसे: 1 भाई, 1 बहन",
             familyType: "परिवार का प्रकार",
             education: "शिक्षा",
+            educationPlaceholder: "उच्चतम शैक्षणिक योग्यता",
             occupation: "पेशा",
+            occupationPlaceholder: "पेशा / भूमिका",
             height: "कद",
+            heightSelect: "कद चुनें",
             weight: "वज़न",
-            religion: "धर्म / समुदाय (वैकल्पिक)",
+            weightSelect: "वज़न चुनें",
             about: "मेरे बारे में",
+            aboutPlaceholder: "संक्षिप्त परिचय, रुचियाँ और मूल्य",
             expectations: "जीवनसाथी से अपेक्षाएँ (वैकल्पिक)",
+            expectationsPlaceholder: "जीवनसाथी में आप क्या खोज रहे हैं",
             other: "अतिरिक्त जानकारी",
-            placeholders: {
-              name: "नाम दर्ज करें",
-              currentCity: "शहर",
-              currentState: "राज्य",
-              currentCountry: "देश",
-              birthCity: "शहर",
-              birthState: "राज्य",
-              birthCountry: "देश",
-              mother: "नाम, पेशा या अन्य विवरण",
-              father: "नाम, पेशा या अन्य विवरण",
-              siblings: "जैसे: 1 भाई, 1 बहन",
-              education: "उच्चतम शैक्षणिक योग्यता",
-              occupation: "पेशा / भूमिका",
-              religion: "वैकल्पिक",
-              about: "संक्षिप्त परिचय, रुचियाँ और मूल्य",
-              expectations: "जीवनसाथी में आप क्या खोज रहे हैं",
-              other: "भाषाएँ, शौक, जीवनशैली या अन्य जानकारी",
-            },
+            otherPlaceholder: "भाषाएँ, शौक, जीवनशैली या अन्य जानकारी",
             monthOptions: [
               "जनवरी",
               "फ़रवरी",
@@ -2757,59 +1392,15 @@
               "नवंबर",
               "दिसंबर",
             ],
-            selectMonth: "माह",
-            selectYear: "वर्ष",
-            selectDate: "दिन",
-            selectHour: "घंटा",
-            selectMinute: "मिनट",
-            selectSecond: "सेकंड",
-            selectAmPm: "AM/PM",
-            selectProfileFor: "प्रोफ़ाइल किसके लिए है",
-            profileForOptions: [
-              "स्वयं",
-              "बेटा",
-              "बेटी",
-              "भाई",
-              "बहन",
-              "रिश्तेदार",
-              "मित्र",
-              "अन्य",
-            ],
+            monthSelect: "माह",
+            yearSelect: "वर्ष",
+            dateSelect: "दिन",
+            hourSelect: "घंटा",
+            minuteSelect: "मिनट",
+            secondSelect: "सेकंड",
+            amPmSelect: "AM/PM",
             amPm: ["AM", "PM"],
-            selectGender: "लिंग चुनें",
-            selectManglik: "मांगलिक स्थिति चुनें",
-            selectMaritalStatus: "वैवाहिक स्थिति चुनें",
-            selectHeight: "कद चुनें",
-            selectWeight: "वज़न चुनें",
-            selectDiet: "खान-पान चुनें",
-            selectFamily: "परिवार का प्रकार चुनें",
-            genderOptions: ["पुरुष", "महिला", "अन्य", "बताना नहीं चाहते"],
-            manglikOptions: [
-              "मांगलिक नहीं",
-              "मांगलिक",
-              "आंशिक मांगलिक",
-              "पक्का मांगलिक",
-              "पता नहीं",
-              "मांगलिक मायने नहीं रखता",
-              // "कोई फ़र्क नहीं पड़ता",
-              "बताना नहीं चाहते",
-            ],
-            statuses: [
-              "अविवाहित",
-              "विधवा/विधुर",
-              "तलाकशुदा",
-              "तलाक की कार्यवाही जारी",
-              "अलग रह रहे हैं",
-              "एकल माता/पिता",
-              "विवाह रद्द (अमान्य)",
-            ],
-            diets: [
-              "शाकाहारी",
-              "वीगन",
-              "अंडा खाते हैं",
-              "मांसाहारी",
-              "अन्य / बताना नहीं चाहते",
-            ],
+            familySelect: "परिवार का प्रकार चुनें",
             families: ["एकल परिवार", "संयुक्त परिवार", "अन्य"],
             create: "प्रिंट योग्य प्रोफ़ाइल बनाएँ →",
             reset: "फ़ॉर्म साफ़ करें",
@@ -2830,9 +1421,6 @@
             ],
             empty: "जानकारी नहीं दी गई",
             profileTitle: "वैवाहिक परिचय-पत्र",
-            childSummary: "बच्चे",
-            girlCount: "बेटियाँ",
-            boyCount: "बेटे",
           },
           pa: {
             brandTitle: "ਵਿਆਹ ਲਈ ਪ੍ਰੋਫਾਈਲ ਬਣਾਓ - ਮੁਫ਼ਤ ਅਤੇ ਸੁਰੱਖਿਅਤ",
@@ -2846,24 +1434,63 @@
             subBasicDetails: "ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਫਾਰਮ ਦੀ ਭਾਸ਼ਾ ਚੁਣੋ।",
             secBirth: "ਜਨਮ ਦੇ ਵੇਰਵੇ",
             subBirth: "ਜੇ ਪਤਾ ਹੋਵੇ ਤਾਂ ਤਾਰੀਖ ਅਤੇ ਸਮਾਂ ਵੱਖ-ਵੱਖ ਭਰੋ।",
+            secPerInfo: "ਨਿੱਜੀ ਜਾਣਕਾਰੀ",
             secLocation: "ਮੌਜੂਦਾ ਟਿਕਾਣਾ",
             subLocation: "ਮੌਜੂਦਾ ਸ਼ਹਿਰ ਅਤੇ ਰਾਜ ਲਾਜ਼ਮੀ ਹਨ।",
             secFamily: "ਪਰਿਵਾਰ ਅਤੇ ਨਿੱਜੀ ਜਾਣਕਾਰੀ",
             subFamily: "ਸਿਰਫ਼ ਉਹੀ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਕਰੋ ਜਿਸ ਨਾਲ ਤੁਸੀਂ ਸਹਿਜ ਹੋ।",
-            // name: "ਪੂਰਾ ਨਾਮ",
+            // name:"ਪੂਰਾ ਨਾਮ",
             name: "ਨਾਮ",
+            namePlaceholder: "ਨਾਮ ਦਰਜ ਕਰੋ",
             profileFor: "ਪ੍ਰੋਫ਼ਾਈਲ ਕਿਸ ਲਈ ਹੈ",
+            profileForSelect: "ਪ੍ਰੋਫ਼ਾਈਲ ਕਿਸ ਲਈ ਹੈ",
+            profileForOptions: [
+              "ਆਪਣੇ ਲਈ",
+              "ਪੁੱਤਰ",
+              "ਧੀ",
+              "ਭਰਾ",
+              "ਭੈਣ",
+              "ਰਿਸ਼ਤੇਦਾਰ",
+              "ਦੋਸਤ",
+              "ਹੋਰ",
+            ],
             gender: "ਲਿੰਗ",
+            genderSelect: "ਲਿੰਗ ਚੁਣੋ",
+            genderOptions: ["ਮਰਦ", "ਔਰਤ", "ਹੋਰ", "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ"],
             manglik: "ਮਾਂਗਲਿਕ ਸਥਿਤੀ",
+            manglikSelect: "ਮਾਂਗਲਿਕ ਸਥਿਤੀ ਚੁਣੋ",
+            manglikOptions: [
+              "ਮਾਂਗਲਿਕ ਨਹੀਂ",
+              "ਮਾਂਗਲਿਕ",
+              "ਆਂਸ਼ਿਕ ਮਾਂਗਲਿਕ",
+              "ਪੱਕਾ ਮਾਂਗਲਿਕ",
+              "ਪਤਾ ਨਹੀਂ",
+              "ਮਾਂਗਲਿਕ ਹੋਣਾ ਮਾਇਨੇ ਨਹੀਂ ਰੱਖਦਾ",
+              //"ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਪੈਂਦਾ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
             maritalStatus: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ",
+            maritalStatusSelect: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਚੁਣੋ",
+            maritalStatusOptions: [
+              "ਅਣਵਿਆਹੇ",
+              "ਵਿਧਵਾ/ਵਿਧੁਰ",
+              "ਤਲਾਕਸ਼ੁਦਾ",
+              "ਤਲਾਕ ਦੀ ਕਾਰਵਾਈ ਅਧੀਨ",
+              "ਵੱਖ ਰਹਿੰਦੇ ਹਨ",
+              "ਇਕੱਲਾ ਮਾਤਾ/ਪਿਤਾ",
+              "ਵਿਆਹ ਰੱਦ (ਅਮਾਨਤ)",
+            ],
             childrenGirls: "ਬੱਚੇ - ਲੜਕੀਆਂ",
             noGirl: "ਕੋਈ ਲੜਕੀ ਨਹੀਂ",
             girl: "ਲੜਕੀ",
             girls: "ਲੜਕੀਆਂ",
+            girlCount: "ਧੀਆਂ",
             childrenBoys: "ਬੱਚੇ - ਲੜਕੇ",
             noBoy: "ਕੋਈ ਲੜਕਾ ਨਹੀਂ",
             boy: "ਲੜਕਾ",
             boys: "ਲੜਕੇ",
+            boyCount: "ਪੁੱਤਰ",
+            childSummary: "ਬੱਚੇ",
             maritalAndChildren: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਅਤੇ ਬੱਚੇ",
             dateOfBirth: "ਜਨਮ ਮਿਤੀ",
             timeOfBirth: "ਜਨਮ ਦਾ ਸਮਾਂ",
@@ -2875,43 +1502,109 @@
             birthMinute: "ਮਿੰਟ",
             birthSecond: "ਸਕਿੰਟ",
             birthAmPm: "AM/PM",
-            birthCity: "ਸ਼ਹਿਰ",
-            birthState: "ਰਾਜ",
-            birthCountry: "ਦੇਸ਼",
-            currentCity: "ਮੌਜੂਦਾ ਸ਼ਹਿਰ",
-            currentState: "ਮੌਜੂਦਾ ਰਾਜ",
-            currentCountry: "ਮੌਜੂਦਾ ਦੇਸ਼",
+            birthCityPlaceholder: "ਸ਼ਹਿਰ",
+            birthStatePlaceholder: "ਰਾਜ",
+            birthCountryPlaceholder: "ਦੇਸ਼",
+            currentCityPlaceholder: "ਸ਼ਹਿਰ",
+            currentStatePlaceholder: "ਰਾਜ",
+            currentCountryPlaceholder: "ਦੇਸ਼",
+            casteGotra: "ਜਾਤ / ਉਪ-ਜਾਤ / ਗੋਤ",
+            castePlaceholder: "ਜਾਤ",
+            subCastePlaceholder: "ਉਪ-ਜਾਤ",
+            gotraPlaceholder: "ਗੋਤ",
             diet: "ਖਾਣ-ਪੀਣ ਦੀ ਪਸੰਦ",
+            dietSelect: "ਖਾਣ-ਪੀਣ ਦੀ ਪਸੰਦ ਚੁਣੋ",
+            dietOptions: [
+              "ਸ਼ਾਕਾਹਾਰੀ",
+              "ਵੀਗਨ",
+              "ਅੰਡੇ ਖਾਂਦੇ ਹਨ",
+              "ਮਾਸਾਹਾਰੀ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            religion: "ਧਰਮ",
+            religionSelect: "ਧਰਮ ਚੁਣੋ",
+            religionOptions: [
+              "ਹਿੰਦੂ",
+              "ਸਿੱਖ",
+              "ਮੁਸਲਿਮ",
+              "ਈਸਾਈ",
+              "ਜੈਨ",
+              "ਬੌਧ",
+              "ਪਾਰਸੀ",
+              "ਕੋਈ ਧਰਮ ਨਹੀਂ",
+              "ਅਧਿਆਤਮਿਕ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            skinTone: "ਰੰਗ-ਰੂਪ",
+            skinToneSelect: "ਰੰਗ-ਰੂਪ ਚੁਣੋ",
+            skinToneOptions: [
+              "ਗੋਰਾ",
+              "ਬਹੁਤ ਗੋਰਾ",
+              "ਕਣਕਵੰਨਾ",
+              "ਸਾਂਵਲਾ",
+              "ਗੂੜ੍ਹਾ ਰੰਗ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            bloodGroup: "ਬਲੱਡ ਗਰੁੱਪ",
+            bloodGroupSelect: "ਬਲੱਡ ਗਰੁੱਪ ਚੁਣੋ",
+            bloodGroupOptions: [
+              "A+ (ਏ ਪੋਜ਼ੀਟਿਵ)",
+              "A- (ਏ ਨੇਗੇਟਿਵ)",
+              "B+ (ਬੀ ਪੋਜ਼ੀਟਿਵ)",
+              "B- (ਬੀ ਨੇਗੇਟਿਵ)",
+              "O+ (ओ ਪੋਜ਼ੀਟਿਵ)",
+              "O- (ओ ਨੇਗੇਟਿਵ)",
+              "AB+ (ਏਬੀ ਪੋਜ਼ੀਟਿਵ)",
+              "AB- (ਏਬੀ ਨੇਗੇਟਿਵ)",
+              "ਪਤਾ ਨਹੀਂ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            motherTongue: "ਮਾਂ-ਬੋਲੀ",
+            motherTongueSelect: "ਮਾਂ-ਬੋਲੀ ਚੁਣੋ",
+            motherTongueOptions: [
+              "ਹਿੰਦੀ",
+              "ਪੰਜਾਬੀ",
+              "ਅੰਗਰੇਜ਼ੀ",
+              "ਬੰਗਾਲੀ",
+              "ਗੁਜਰਾਤੀ",
+              "ਮਰਾਠੀ",
+              "ਤੇਲਗੂ",
+              "ਤਮਿਲ",
+              "ਕੰਨੜ",
+              "ਮਲਿਆਲਮ",
+              "ਓਡੀਆ",
+              "ਉਰਦੂ",
+              "ਅਸਾਮੀ",
+              "ਸਿੰਧੀ",
+              "ਮਾਰਵਾੜੀ",
+              "ਰਾਜਸਥਾਨੀ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
             mother: "ਮਾਤਾ",
+            motherPlaceholder: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
             father: "ਪਿਤਾ",
+            fatherPlaceholder: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
             siblings: "ਭੈਣ-ਭਰਾ",
+            siblingsPlaceholder: "ਜਿਵੇਂ: 1 ਭਰਾ, 1 ਭੈਣ",
             familyType: "ਪਰਿਵਾਰ ਦੀ ਕਿਸਮ",
             education: "ਸਿੱਖਿਆ",
+            educationPlaceholder: "ਸਭ ਤੋਂ ਉੱਚੀ ਵਿੱਦਿਅਕ ਯੋਗਤਾ",
             occupation: "ਕਿੱਤਾ",
+            occupationPlaceholder: "ਕਿੱਤਾ / ਭੂਮਿਕਾ",
             height: "ਕੱਦ",
+            heightSelect: "ਕੱਦ ਚੁਣੋ",
             weight: "ਭਾਰ",
-            religion: "ਧਰਮ / ਭਾਈਚਾਰਾ (ਵਿਕਲਪਿਕ)",
+            weightSelect: "ਭਾਰ ਚੁਣੋ",
             about: "ਮੇਰੇ ਬਾਰੇ",
+            aboutPlaceholder: "ਛੋਟੀ ਜਾਣ-ਪਛਾਣ, ਦਿਲਚਸਪੀਆਂ ਅਤੇ ਕਦਰਾਂ-ਕੀਮਤਾਂ",
             expectations: "ਜੀਵਨ ਸਾਥੀ ਤੋਂ ਉਮੀਦਾਂ (ਵਿਕਲਪਿਕ)",
+            expectationsPlaceholder: "ਤੁਸੀਂ ਜੀਵਨ ਸਾਥੀ ਵਿੱਚ ਕੀ ਲੱਭ ਰਹੇ ਹੋ",
             other: "ਹੋਰ ਜਾਣਕਾਰੀ",
-            placeholders: {
-              name: "ਨਾਮ ਦਰਜ ਕਰੋ",
-              currentCity: "ਸ਼ਹਿਰ",
-              currentState: "ਰਾਜ",
-              currentCountry: "ਦੇਸ਼",
-              birthCity: "ਸ਼ਹਿਰ",
-              birthState: "ਰਾਜ",
-              birthCountry: "ਦੇਸ਼",
-              mother: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
-              father: "ਨਾਮ, ਕਿੱਤਾ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
-              siblings: "ਜਿਵੇਂ: 1 ਭਰਾ, 1 ਭੈਣ",
-              education: "ਸਭ ਤੋਂ ਉੱਚੀ ਵਿੱਦਿਅਕ ਯੋਗਤਾ",
-              occupation: "ਕਿੱਤਾ / ਭੂਮਿਕਾ",
-              religion: "ਵਿਕਲਪਿਕ",
-              about: "ਛੋਟੀ ਜਾਣ-ਪਛਾਣ, ਦਿਲਚਸਪੀਆਂ ਅਤੇ ਕਦਰਾਂ-ਕੀਮਤਾਂ",
-              expectations: "ਤੁਸੀਂ ਜੀਵਨ ਸਾਥੀ ਵਿੱਚ ਕੀ ਲੱਭ ਰਹੇ ਹੋ",
-              other: "ਭਾਸ਼ਾਵਾਂ, ਸ਼ੌਕ, ਜੀਵਨ-ਸ਼ੈਲੀ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
-            },
+            otherPlaceholder: "ਭਾਸ਼ਾਵਾਂ, ਸ਼ੌਕ, ਜੀਵਨ-ਸ਼ੈਲੀ ਜਾਂ ਹੋਰ ਜਾਣਕਾਰੀ",
             monthOptions: [
               "ਜਨਵਰੀ",
               "ਫ਼ਰਵਰੀ",
@@ -2926,59 +1619,15 @@
               "ਨਵੰਬਰ",
               "ਦਸੰਬਰ",
             ],
-            selectMonth: "ਮਹੀਨਾ",
-            selectYear: "ਸਾਲ",
-            selectDate: "ਦਿਨ",
-            selectHour: "ਘੰਟਾ",
-            selectMinute: "ਮਿੰਟ",
-            selectSecond: "ਸਕਿੰਟ",
-            selectAmPm: "AM/PM",
-            selectProfileFor: "ਪ੍ਰੋਫ਼ਾਈਲ ਕਿਸ ਲਈ ਹੈ",
-            profileForOptions: [
-              "ਆਪਣੇ ਲਈ",
-              "ਪੁੱਤਰ",
-              "ਧੀ",
-              "ਭਰਾ",
-              "ਭੈਣ",
-              "ਰਿਸ਼ਤੇਦਾਰ",
-              "ਦੋਸਤ",
-              "ਹੋਰ",
-            ],
+            monthSelect: "ਮਹੀਨਾ",
+            yearSelect: "ਸਾਲ",
+            dateSelect: "ਦਿਨ",
+            hourSelect: "ਘੰਟਾ",
+            minuteSelect: "ਮਿੰਟ",
+            secondSelect: "ਸਕਿੰਟ",
+            amPmSelect: "AM/PM",
             amPm: ["AM", "PM"],
-            selectGender: "ਲਿੰਗ ਚੁਣੋ",
-            selectManglik: "ਮਾਂਗਲਿਕ ਸਥਿਤੀ ਚੁਣੋ",
-            selectMaritalStatus: "ਵਿਆਹੁਤਾ ਸਥਿਤੀ ਚੁਣੋ",
-            selectHeight: "ਕੱਦ ਚੁਣੋ",
-            selectWeight: "ਭਾਰ ਚੁਣੋ",
-            selectDiet: "ਖਾਣ-ਪੀਣ ਦੀ ਪਸੰਦ ਚੁਣੋ",
-            selectFamily: "ਪਰਿਵਾਰ ਦੀ ਕਿਸਮ ਚੁਣੋ",
-            genderOptions: ["ਮਰਦ", "ਔਰਤ", "ਹੋਰ", "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ"],
-            manglikOptions: [
-              "ਮਾਂਗਲਿਕ ਨਹੀਂ",
-              "ਮਾਂਗਲਿਕ",
-              "ਆਂਸ਼ਿਕ ਮਾਂਗਲਿਕ",
-              "ਪੱਕਾ ਮਾਂਗਲਿਕ",
-              "ਪਤਾ ਨਹੀਂ",
-              "ਮਾਂਗਲਿਕ ਹੋਣਾ ਮਾਇਨੇ ਨਹੀਂ ਰੱਖਦਾ",
-              // "ਕੋਈ ਫ਼ਰਕ ਨਹੀਂ ਪੈਂਦਾ",
-              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
-            ],
-            statuses: [
-              "ਅਣਵਿਆਹੇ",
-              "ਵਿਧਵਾ/ਵਿਧੁਰ",
-              "ਤਲਾਕਸ਼ੁਦਾ",
-              "ਤਲਾਕ ਦੀ ਕਾਰਵਾਈ ਅਧੀਨ",
-              "ਵੱਖ ਰਹਿੰਦੇ ਹਨ",
-              "ਇਕੱਲਾ ਮਾਤਾ/ਪਿਤਾ",
-              "ਵਿਆਹ ਰੱਦ (ਅਮਾਨਤ)",
-            ],
-            diets: [
-              "ਸ਼ਾਕਾਹਾਰੀ",
-              "ਵੀਗਨ",
-              "ਅੰਡੇ ਖਾਂਦੇ ਹਨ",
-              "ਮਾਸਾਹਾਰੀ",
-              "ਹੋਰ / ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
-            ],
+            familySelect: "ਪਰਿਵਾਰ ਦੀ ਕਿਸਮ ਚੁਣੋ",
             families: ["ਛੋਟਾ ਪਰਿਵਾਰ", "ਸਾਂਝਾ ਪਰਿਵਾਰ", "ਹੋਰ"],
             create: "ਪ੍ਰਿੰਟ ਲਈ ਪ੍ਰੋਫ਼ਾਈਲ ਬਣਾਓ →",
             reset: "ਫਾਰਮ ਸਾਫ਼ ਕਰੋ",
@@ -2999,36 +1648,30 @@
             ],
             empty: "ਜਾਣਕਾਰੀ ਨਹੀਂ ਦਿੱਤੀ",
             profileTitle: "ਵਿਆਹ ਸੰਬੰਧੀ ਬਾਇਓਡਾਟਾ",
-            childSummary: "ਬੱਚੇ",
-            girlCount: "ਧੀਆਂ",
-            boyCount: "ਪੁੱਤਰ",
           },
         };
         const labelIds = [
-          "name",
           "profileFor",
+          "name",
           "gender",
+          "religion",
+          "manglik",
           "maritalStatus",
           "childrenGirls",
-          "noGirls",
-          "girl",
-          "girls",
           "childrenBoys",
-          "noBoy",
-          "boy",
-          "boys",
+          "currentCity",
+          "currentState",
+          "currentCountry",
           "birthYear",
           "birthMonth",
           "birthDate",
           "birthHour",
           "birthMinute",
           "birthSecond",
+          "birthAmPm",
           "birthCity",
           "birthState",
           "birthCountry",
-          "currentCity",
-          "currentState",
-          "currentCountry",
           "diet",
           "mother",
           "father",
@@ -3037,18 +1680,13 @@
           "education",
           "occupation",
           "height",
-          "religion",
-          "about",
-          "expectations",
-          "other",
+          "weight",
         ];
         function setOptions(id, first = null, values, keepValue = true) {
           const el = $(id);
           const oldValue = keepValue ? el.value : "";
           const oldIndex = keepValue ? el.selectedIndex : -1;
-          const oldText = keepValue
-            ? el.selectedOptions[0]?.textContent
-            : "";
+          const oldText = keepValue ? el.selectedOptions[0]?.textContent : "";
           const hadPlaceholder = el.options[0]?.value === "";
           el.innerHTML = "";
 
@@ -3113,7 +1751,7 @@
             days = year && month ? new Date(year, month, 0).getDate() : 31;
           setOptions(
             "birthDate",
-            t.selectDate,
+            t.dateSelect,
             Array.from({ length: days }, (_, i) => String(i + 1)),
           );
         }
@@ -3128,19 +1766,20 @@
             "privacyTitle",
             "privacyText",
             "secBasicDetails",
-            "subBasicDetails",
+            //"subBasicDetails",
             "secBirth",
-            "subBirth",
+            //"subBirth",
+            "secPerInfo",
             "secLocation",
-            "subLocation",
+            //"subLocation",
             "secFamily",
-            "subFamily",
+            //"subFamily",
           ].forEach((id) => $(id) && ($(id).textContent = t[id]));
           document.querySelectorAll("[data-label]").forEach((el) => {
             const k = el.dataset.label;
             const required = el.querySelector(".req");
             el.textContent = t[k] || k;
-            if (required) el.append(" ", required);
+            if (required) el.append("", required);
           });
           [
             "birthYear",
@@ -3161,36 +1800,36 @@
           });
           document.querySelectorAll("[data-placeholder]").forEach((el) => {
             const key = el.dataset.placeholder;
-            el.placeholder = t.placeholders[key];
+            el.placeholder = t[`${key}Placeholder`];
           });
           const currentYear = new Date().getFullYear();
           setOptions(
             "birthYear",
-            t.selectYear,
+            t.yearSelect,
             Array.from({ length: 58 }, (_, i) => String(currentYear - 18 - i)),
           );
-          setOptions("birthMonth", t.selectMonth, t.monthOptions);
+          setOptions("birthMonth", t.monthSelect, t.monthOptions);
           updateBirthDays(t);
           setOptions(
             "birthHour",
-            t.selectHour,
+            t.hourSelect,
             Array.from({ length: 12 }, (_, i) => String(i + 1)),
           );
           setOptions(
             "birthMinute",
-            t.selectMinute,
+            t.minuteSelect,
             Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0")),
           );
           setOptions(
             "birthSecond",
-            t.selectSecond,
+            t.secondSelect,
             Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0")),
           );
-          setOptions("birthAmPm", t.selectAmPm, t.amPm);
-          setOptions("profileFor", t.selectProfileFor, t.profileForOptions);
+          setOptions("birthAmPm", t.amPmSelect, t.amPm);
+          setOptions("profileFor", t.profileForSelect, t.profileForOptions);
           setOptions(
             "gender",
-            t.selectGender,
+            t.genderSelect,
             t.genderOptions.map(
               (v, i) =>
                 ({
@@ -3202,7 +1841,7 @@
           );
           setOptions(
             "manglik",
-            t.selectManglik,
+            t.manglikSelect,
             t.manglikOptions.map(
               (v, i) =>
                 ({
@@ -3213,7 +1852,11 @@
             ),
           );
 
-          setOptions("maritalStatus", t.selectMaritalStatus, t.statuses);
+          setOptions(
+            "maritalStatus",
+            t.maritalStatusSelect,
+            t.maritalStatusOptions,
+          );
           const selectedLang = translations[$("language").value];
           const girlChildCounts = Array.from({ length: 11 }, (_, i) =>
             i === 0
@@ -3244,7 +1887,7 @@
             const centimeters = Math.round(totalInches * 2.54);
             return `${feet}' ${inches}" (${centimeters} CM)`;
           });
-          setOptions("height", t.selectHeight, heights);
+          setOptions("height", t.heightSelect, heights);
           const weights = (function generateWeightList(minKg, maxKg) {
             const list = [];
 
@@ -3252,8 +1895,8 @@
             const kgToLbs = (kg) => Math.round(kg * 2.20462);
 
             // Loop through the range in steps of 2
-            for (let start = minKg; start <= maxKg; start += 2) {
-              let end = start + 1;
+            for (let start = minKg; start <= maxKg; start += 3) {
+              let end = start + 2;
 
               // Ensure the end range does not exceed the user-defined maximum
               if (end > maxKg) {
@@ -3274,12 +1917,20 @@
             }
 
             return list;
-          })(30, 151);
-          setOptions("weight", t.selectWeight, weights);
-          setOptions("diet", t.selectDiet, t.diets);
+          })(30, 200);
+          setOptions("weight", t.weightSelect, weights);
+          setOptions("diet", t.dietSelect, t.dietOptions);
+          setOptions("religion", t.religionSelect, t.religionOptions);
+          setOptions("skinTone", t.skinToneSelect, t.skinToneOptions);
+          setOptions("bloodGroup", t.bloodGroupSelect, t.bloodGroupOptions);
+          setOptions(
+            "motherTongue",
+            t.motherTongueSelect,
+            t.motherTongueOptions,
+          );
           $("childrenGirls").setAttribute("aria-label", t.childrenGirls);
           $("childrenBoys").setAttribute("aria-label", t.childrenBoys);
-          setOptions("familyType", t.selectFamily, t.families);
+          setOptions("familyType", t.familySelect, t.families);
           $("createBtn").textContent = t.create;
           $("resetBtn").textContent = t.reset;
           $("requiredNote").textContent = t.required;
@@ -3416,15 +2067,14 @@
             $("profileFor").selectedOptions[0]?.textContent || "";
           const monthText =
             $("birthMonth").selectedOptions[0]?.textContent || "";
-          const amPmText =
-            $("birthAmPm").selectedOptions[0]?.textContent || "";
+          const amPmText = $("birthAmPm").selectedOptions[0]?.textContent || "";
           const birthDate = [
             monthText && val("birthMonth") ? monthText : "",
             val("birthDate"),
             val("birthYear"),
           ]
             .filter(Boolean)
-            .join(" ");
+            .join("");
           const time = [
             val("birthHour"),
             val("birthMinute"),
@@ -3443,7 +2093,7 @@
             val("birthCountry"),
           ]
             .filter(Boolean)
-            .join(", ");
+            .join(",");
           $("previewName").textContent = val("name") || t.profileTitle;
           $("profileContent").innerHTML = "";
           makeSection(
@@ -3511,7 +2161,7 @@
               [t.religion, val("religion")],
               [t.about, val("about")],
               [t.expectations, val("expectations")],
-              [t.other, val("other")],
+              [t.other, val("Others")],
             ],
             t,
           );
