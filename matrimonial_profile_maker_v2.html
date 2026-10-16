@@ -552,10 +552,6 @@
                 ><select id="religion" name="religion"></select>
               </div>
               <div class="multiple-groups-row">
-                <div class="field">
-                  <label for="manglik" data-label="manglik">Manglik</label
-                  ><select id="manglik" name="manglik" required></select>
-                </div>
                 <fieldset class="fields-group-wrapper">
                   <legend
                     class="fields-group-wrapper-title"
@@ -764,6 +760,10 @@
                   </div>
                 </div>
               </fieldset>
+              <div class="field">
+                <label for="manglik" data-label="manglik">Manglik</label
+                ><select id="manglik" name="manglik" required></select>
+              </div>
               <fieldset class="fields-group-wrapper">
                 <legend
                   class="fields-group-wrapper-title"
@@ -819,6 +819,16 @@
               <div class="field">
                 <label for="diet" data-label="diet">Dietary habits</label
                 ><select id="diet" name="diet"></select>
+              </div>
+              <div class="field">
+                <label for="smoking" data-label="smoking"
+                  >smokingary habits</label
+                ><select id="smoking" name="smoking"></select>
+              </div>
+              <div class="field">
+                <label for="drinking" data-label="drinking"
+                  >drinkingary habits</label
+                ><select id="drinking" name="drinking"></select>
               </div>
               <div class="field">
                 <label for="motherTongue" data-label="motherTongue"
@@ -1055,13 +1065,33 @@
             castePlaceholder: "Caste",
             subCastePlaceholder: "Sub Caste",
             gotraPlaceholder: "Gotra",
-            diet: "Dietary habits",
-            dietSelect: "Select dietary preference",
+            diet: "Diet preference",
+            dietSelect: "Select diet preference",
             dietOptions: [
               "Vegetarian",
               "Vegan",
+              "Saatwik (No Onion/Garlic)",
+              "Jain",
               "Eggetarian",
               "Non-vegetarian",
+              "Others",
+              "Prefer not to say",
+            ],
+            smoking: "Smoking Habits",
+            smokingSelect: "Select Smoking Habits",
+            smokingOptions: [
+              "Non-Smoker",
+              "Smoker",
+              "Occasional Smoker",
+              "Others",
+              "Prefer not to say",
+            ],
+            drinking: "Drinking Habits",
+            drinkingSelect: "Select Drinking Habits",
+            drinkingOptions: [
+              "Non-Drinker",
+              "Drinker",
+              "Occasional Drinker",
               "Others",
               "Prefer not to say",
             ],
@@ -1290,8 +1320,28 @@
             dietOptions: [
               "शाकाहारी",
               "वीगन",
+              "सात्विक (बिना प्याज/लहसुन)",
+              "जैन भोजन",
               "अंडा खाते हैं",
               "मांसाहारी",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
+            smoking: "धूम्रपान की आदतें",
+            smokingSelect: "धूम्रपान की आदत चुनें",
+            smokingOptions: [
+              "धूम्रपान नहीं करते",
+              "धूम्रपान करते हैं",
+              "कभी-कभार करते हैं",
+              "अन्य",
+              "बताना नहीं चाहते",
+            ],
+            drinking: "शराब की आदतें",
+            drinkingSelect: "शराब की आदत चुनें",
+            drinkingOptions: [
+              "शराब नहीं पीते",
+              "शराब पीते हैं",
+              "कभी-कभार पीते हैं",
               "अन्य",
               "बताना नहीं चाहते",
             ],
@@ -1517,8 +1567,28 @@
             dietOptions: [
               "ਸ਼ਾਕਾਹਾਰੀ",
               "ਵੀਗਨ",
+              "ਸਾਤਵਿਕ (ਬਿਨਾਂ ਪਿਆਜ਼/ਲਸਣ)",
+              "ਜੈਨ ਭੋਜਨ",
               "ਅੰਡੇ ਖਾਂਦੇ ਹਨ",
               "ਮਾਸਾਹਾਰੀ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            smoking: "ਧੂਮਰਪਾਨ ਦੀ ਆਦਤਾਂ",
+            smokingSelect: "ਧੂਮਰਪਾਨ ਦੀ ਆਦਤ ਚੁਣੋ",
+            smokingOptions: [
+              "ਧੂਮਰਪਾਨ ਨਹੀਂ ਕਰਦੇ",
+              "ਧੂਮਰਪਾਨ ਕਰਦੇ ਹਨ",
+              "ਕਦੇ-ਕਦਾਈਂ ਕਰਦੇ ਹਨ",
+              "ਹੋਰ",
+              "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
+            ],
+            drinking: "ਸ਼ਰਾਬ ਦੀ ਆਦਤਾਂ",
+            drinkingSelect: "ਸ਼ਰਾਬ ਦੀ ਆਦਤ ਚੁਣੋ",
+            drinkingOptions: [
+              "ਸ਼ਰਾਬ ਨਹੀਂ ਪੀਂਦੇ",
+              "ਸ਼ਰਾਬ ਪੀਂਦੇ ਹਨ",
+              "ਕਦੇ-ਕਦਾਈਂ ਪੀਂਦੇ ਹਨ",
               "ਹੋਰ",
               "ਦੱਸਣਾ ਨਹੀਂ ਚਾਹੁੰਦੇ",
             ],
@@ -1650,6 +1720,52 @@
             profileTitle: "ਵਿਆਹ ਸੰਬੰਧੀ ਬਾਇਓਡਾਟਾ",
           },
         };
+        const emojisMap = {
+          profileFor: "👤",
+          name: "📝",
+          gender: "⚥",
+          religion: "🕉️",
+          manglik: "🪐",
+          maritalAndChildren: "💍",
+          maritalStatus: "💍",
+          childrenGirls: "👧",
+          childrenBoys: "👦",
+          secLocation: "🗺️",
+          currentCity: "🏙️",
+          currentState: "🗺️",
+          currentCountry: "🌍",
+          dateOfBirth: "📆",
+          birthYear: "📅",
+          birthMonth: "🗓️",
+          birthDate: "📆",
+          timeOfBirth: "🕒",
+          birthHour: "🕒",
+          birthMinute: "⏱️",
+          birthSecond: "⏳",
+          birthAmPm: "☀️",
+          placeOfBirth: "📍",
+          birthCity: "📍",
+          birthState: " 🗺️",
+          birthCountry: "🌐",
+          casteGotra: "🤝",
+          caste: "🤝",
+          subCaste: "🌿",
+          gotra: "📜",
+          height: "📏",
+          weight: "⚖️",
+          skinTone: "✨",
+          bloodGroup: "🩸",
+          diet: "🍏",
+          smoking: "🚬",
+          drinking: "🍺",
+          motherTongue: "🗣️",
+          mother: "👩",
+          father: "👨",
+          siblings: "👫",
+          familyType: "🏡",
+          education: "🎓",
+          occupation: "💼",
+        };
         const labelIds = [
           "profileFor",
           "name",
@@ -1672,15 +1788,23 @@
           "birthCity",
           "birthState",
           "birthCountry",
+          "caste",
+          "subCaste",
+          "gotra",
+          "height",
+          "weight",
+          "skinTone",
+          "bloodGroup",
           "diet",
+          "smoking",
+          "drinking",
+          "motherTongue",
           "mother",
           "father",
           "siblings",
           "familyType",
           "education",
           "occupation",
-          "height",
-          "weight",
         ];
         function setOptions(id, first = null, values, keepValue = true) {
           const el = $(id);
@@ -1778,7 +1902,7 @@
           document.querySelectorAll("[data-label]").forEach((el) => {
             const k = el.dataset.label;
             const required = el.querySelector(".req");
-            el.textContent = t[k] || k;
+            el.textContent = emojisMap[k] + " " + (t[k] || k);
             if (required) el.append("", required);
           });
           [
@@ -1827,30 +1951,8 @@
           );
           setOptions("birthAmPm", t.amPmSelect, t.amPm);
           setOptions("profileFor", t.profileForSelect, t.profileForOptions);
-          setOptions(
-            "gender",
-            t.genderSelect,
-            t.genderOptions.map(
-              (v, i) =>
-                ({
-                  en: translations.en.genderOptions,
-                  hi: translations.hi.genderOptions,
-                  pa: translations.pa.genderOptions,
-                })[$("language").value][i],
-            ),
-          );
-          setOptions(
-            "manglik",
-            t.manglikSelect,
-            t.manglikOptions.map(
-              (v, i) =>
-                ({
-                  en: translations.en.manglikOptions,
-                  hi: translations.hi.manglikOptions,
-                  pa: translations.pa.manglikOptions,
-                })[$("language").value][i],
-            ),
-          );
+          setOptions("gender", t.genderSelect, t.genderOptions);
+          setOptions("manglik", t.manglikSelect, t.manglikOptions);
 
           setOptions(
             "maritalStatus",
@@ -1866,11 +1968,7 @@
                   label: `${i} ${i === 1 ? selectedLang.girl : selectedLang.girls}`,
                 },
           );
-          setOptions(
-            "childrenGirls",
-            /* t.childrenGirls */ null,
-            girlChildCounts,
-          );
+          setOptions("childrenGirls", null, girlChildCounts);
           const boyChildCounts = Array.from({ length: 11 }, (_, i) =>
             i === 0
               ? { value: i, label: selectedLang.noBoy }
@@ -1923,6 +2021,8 @@
           setOptions("religion", t.religionSelect, t.religionOptions);
           setOptions("skinTone", t.skinToneSelect, t.skinToneOptions);
           setOptions("bloodGroup", t.bloodGroupSelect, t.bloodGroupOptions);
+          setOptions("smoking", t.smokingSelect, t.smokingOptions);
+          setOptions("drinking", t.drinkingSelect, t.drinkingOptions);
           setOptions(
             "motherTongue",
             t.motherTongueSelect,
